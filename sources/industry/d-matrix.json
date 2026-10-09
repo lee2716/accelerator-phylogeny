@@ -1,0 +1,873 @@
+{
+ "product_line": "d-Matrix Nighthawk / Jayhawk / Corsair / Raptor",
+ "vendor": "d-Matrix",
+ "country": "United States",
+ "status": {
+  "value": "alive",
+  "as_of": "2026-10-06",
+  "detail": "The vendor's news index shows activity up to that date, including its acquisition of Wallaroo.ai (August 2026) and adoption of NVIDIA NVLink Fusion (September 2026). This is the vendor's own page; no independent dated confirmation was opened.",
+  "source_id": "dm-news"
+ },
+ "generations": [
+  {
+   "name": "Nighthawk (proof-of-concept chip)",
+   "year_announced": 2021,
+   "year_shipped": null,
+   "axes": {
+    "A0_workload": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A1_paradigm": {
+     "value": "cim_analog_sram",
+     "basis": "disclosed",
+     "source_id": "dm-ceo-history"
+    },
+    "A1_device": {
+     "value": "sram",
+     "basis": "disclosed",
+     "source_id": "dm-ceo-history"
+    },
+    "A2_data_residency": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A3_numerics": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A4_sparsity_codesign": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A5_programmability": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A6_eval_rung": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A6_baseline_class": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A7_scale": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "design_method": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "lever": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    }
+   },
+   "numbers": [],
+   "bets": [
+    {
+     "text": "Charge-domain analog computing inside SRAM, read out with single-slope converters, would give the efficiency needed for datacentre inference.",
+     "status": "failed",
+     "source_id": "dm-ceo-history",
+     "status_source_id": "dm-ceo-history"
+    }
+   ],
+   "what_changed_from_previous": "First chip; built in 2020 in about a year with a software stack able to run live workloads, demonstrated in 2021.",
+   "next": "Jayhawk I"
+  },
+  {
+   "name": "Jayhawk I (chiplet connectivity demonstrator)",
+   "year_announced": 2023,
+   "year_shipped": null,
+   "axes": {
+    "A0_workload": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A1_paradigm": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A1_device": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A2_data_residency": {
+     "value": "chiplet_multi_die",
+     "basis": "disclosed",
+     "source_id": "dm-jayhawk2-pr"
+    },
+    "A3_numerics": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A4_sparsity_codesign": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A5_programmability": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A6_eval_rung": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A6_baseline_class": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A7_scale": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "design_method": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "lever": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    }
+   },
+   "numbers": [
+    {
+     "metric": "die-to-die link rate",
+     "value": 2,
+     "unit": "Tbps",
+     "rung": "silicon",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "bidirectional, described as demonstrated; link width and reach not stated",
+     "origin_source_id": "dm-jayhawk2-pr"
+    }
+   ],
+   "bets": [
+    {
+     "text": "Inference accelerators will be assembled from chiplets joined by an open die-to-die interface instead of one large die.",
+     "status": "open",
+     "source_id": "dm-jayhawk2-pr",
+     "status_source_id": "dm-corsair-pr"
+    }
+   ],
+   "what_changed_from_previous": "The analog approach of Nighthawk was dropped: fitting a converter on each bitline was too costly for the gain, and transformer workloads called for accuracy, predictability and programmability, so the company moved to digital in-memory compute. No opened source describes what compute, if any, Jayhawk I contained.",
+   "next": "Jayhawk II"
+  },
+  {
+   "name": "Jayhawk II",
+   "year_announced": 2023,
+   "year_shipped": null,
+   "axes": {
+    "A0_workload": {
+     "value": "llm_autoregressive",
+     "basis": "disclosed",
+     "source_id": "dm-jayhawk2-pr"
+    },
+    "A1_paradigm": {
+     "value": "cim_digital",
+     "basis": "disclosed",
+     "source_id": "dm-jayhawk2-pr"
+    },
+    "A1_device": {
+     "value": "sram",
+     "basis": "relayed",
+     "source_id": "dm-register"
+    },
+    "A2_data_residency": {
+     "value": "chiplet_multi_die",
+     "basis": "disclosed",
+     "source_id": "dm-jayhawk2-pr"
+    },
+    "A3_numerics": {
+     "value": "block_microscaling",
+     "basis": "disclosed",
+     "source_id": "dm-jayhawk2-pr"
+    },
+    "A4_sparsity_codesign": {
+     "value": "other",
+     "basis": "disclosed",
+     "source_id": "dm-jayhawk2-pr"
+    },
+    "A5_programmability": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A6_eval_rung": {
+     "value": "silicon",
+     "basis": "disclosed",
+     "source_id": "dm-jayhawk2-pr"
+    },
+    "A6_baseline_class": {
+     "value": "gpu",
+     "basis": "disclosed",
+     "source_id": "dm-jayhawk2-pr"
+    },
+    "A7_scale": {
+     "value": "multi_chip_chiplet",
+     "basis": "disclosed",
+     "source_id": "dm-jayhawk2-pr"
+    },
+    "design_method": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "lever": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    }
+   },
+   "numbers": [
+    {
+     "metric": "process node",
+     "value": 6,
+     "unit": "nm",
+     "rung": "silicon",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "foundry not named",
+     "origin_source_id": "dm-jayhawk2-pr"
+    },
+    {
+     "metric": "in-memory engine efficiency",
+     "value": "30 to 150",
+     "unit": "TOPS/W",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "range; precision, workload and measurement method not stated",
+     "origin_source_id": "dm-jayhawk2-pr"
+    },
+    {
+     "metric": "memory bandwidth advantage",
+     "value": 40,
+     "unit": "x",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": "unnamed GPUs chosen by the vendor",
+     "conditions": "no configuration given",
+     "origin_source_id": "dm-jayhawk2-pr"
+    },
+    {
+     "metric": "generative inferences per second advantage",
+     "value": "10 to 20",
+     "unit": "x",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": "unnamed GPUs chosen by the vendor",
+     "conditions": "language models of 3B to 40B parameters; no test setup",
+     "origin_source_id": "dm-jayhawk2-pr"
+    },
+    {
+     "metric": "total cost of ownership advantage",
+     "value": "10 to 20",
+     "unit": "x",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": "unnamed GPUs chosen by the vendor",
+     "conditions": "method not described",
+     "origin_source_id": "dm-jayhawk2-pr"
+    },
+    {
+     "metric": "compute engines per chiplet",
+     "value": 256,
+     "unit": "engines",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "vendor figure relayed by trade press",
+     "origin_source_id": "dm-register"
+    },
+    {
+     "metric": "shared SRAM per chiplet",
+     "value": 256,
+     "unit": "MB",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "vendor figure relayed by trade press",
+     "origin_source_id": "dm-register"
+    }
+   ],
+   "bets": [
+    {
+     "text": "Merging the cache and the arithmetic, so the SRAM that holds the weights also computes with them, removes the memory-bandwidth limit that dominates language-model inference.",
+     "status": "open",
+     "source_id": "dm-register",
+     "status_source_id": null
+    },
+    {
+     "text": "Matrix products go to the in-memory units while SIMD units next to them handle non-linear steps such as softmax, so a whole transformer layer stays on the chiplet.",
+     "status": "unknown",
+     "source_id": "dm-patent",
+     "status_source_id": null
+    },
+    {
+     "text": "Block floating point at low mantissa widths keeps accuracy while cutting the cost of each multiply-accumulate.",
+     "status": "open",
+     "source_id": "dm-jayhawk2-pr",
+     "status_source_id": "dm-corsair-pr"
+    }
+   ],
+   "what_changed_from_previous": "Adds the digital in-memory compute engine to the die-to-die interconnect shown in Jayhawk I, on 6 nm, and is offered for demos and evaluation. The company history says the product target had moved in 2022 from non-generative transformers to generative language models after customer conversations.",
+   "next": "Corsair"
+  },
+  {
+   "name": "Corsair",
+   "year_announced": 2024,
+   "year_shipped": 2024,
+   "axes": {
+    "A0_workload": {
+     "value": "llm_autoregressive",
+     "basis": "disclosed",
+     "source_id": "dm-corsair-pr"
+    },
+    "A1_paradigm": {
+     "value": "cim_digital",
+     "basis": "disclosed",
+     "source_id": "dm-corsair-pr"
+    },
+    "A1_device": {
+     "value": "sram",
+     "basis": "disclosed",
+     "source_id": "dm-ceo-history"
+    },
+    "A2_data_residency": {
+     "value": "chiplet_multi_die",
+     "basis": "disclosed",
+     "source_id": "dm-corsair-pr"
+    },
+    "A3_numerics": {
+     "value": "block_microscaling",
+     "basis": "disclosed",
+     "source_id": "dm-corsair-pr"
+    },
+    "A4_sparsity_codesign": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A5_programmability": {
+     "value": "host_offload",
+     "basis": "disclosed",
+     "source_id": "dm-corsair-pr"
+    },
+    "A6_eval_rung": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A6_baseline_class": {
+     "value": "gpu",
+     "basis": "disclosed",
+     "source_id": "dm-corsair-pr"
+    },
+    "A7_scale": {
+     "value": "multi_chip_chiplet",
+     "basis": "disclosed",
+     "source_id": "dm-corsair-pr"
+    },
+    "design_method": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "lever": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    }
+   },
+   "numbers": [
+    {
+     "metric": "token rate, Llama3 8B",
+     "value": 60000,
+     "unit": "tokens/s",
+     "rung": "projection",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "one server, 1 ms per token; number of cards, batch and precision not stated; vendor labels it a preliminary estimate",
+     "origin_source_id": "dm-corsair-pr"
+    },
+    {
+     "metric": "token rate, Llama3 70B",
+     "value": 30000,
+     "unit": "tokens/s",
+     "rung": "projection",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "one rack, 2 ms per token; number of cards, batch and precision not stated; vendor labels it a preliminary estimate",
+     "origin_source_id": "dm-corsair-pr"
+    },
+    {
+     "metric": "interactive speed advantage",
+     "value": 10,
+     "unit": "x (upper bound)",
+     "rung": "projection",
+     "tier": "T3",
+     "baseline": "'GPUs and other alternatives', not named",
+     "conditions": "preliminary estimate, no workload given",
+     "origin_source_id": "dm-corsair-pr"
+    },
+    {
+     "metric": "performance per TCO advantage",
+     "value": 3,
+     "unit": "x",
+     "rung": "projection",
+     "tier": "T3",
+     "baseline": "'GPUs and other alternatives', not named",
+     "conditions": "preliminary estimate",
+     "origin_source_id": "dm-corsair-pr"
+    },
+    {
+     "metric": "energy efficiency advantage",
+     "value": 3,
+     "unit": "x",
+     "rung": "projection",
+     "tier": "T3",
+     "baseline": "'GPUs and other alternatives', not named",
+     "conditions": "preliminary estimate",
+     "origin_source_id": "dm-corsair-pr"
+    },
+    {
+     "metric": "peak compute per card (2024 release)",
+     "value": 2400,
+     "unit": "TFLOPs",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "8-bit",
+     "origin_source_id": "dm-corsair-pr"
+    },
+    {
+     "metric": "performance memory per card",
+     "value": 2,
+     "unit": "GB",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "integrated; SRAM according to the company history and trade press",
+     "origin_source_id": "dm-corsair-pr"
+    },
+    {
+     "metric": "capacity memory per card",
+     "value": 256,
+     "unit": "GB (upper bound)",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "off-chip",
+     "origin_source_id": "dm-corsair-pr"
+    },
+    {
+     "metric": "memory bandwidth",
+     "value": 150,
+     "unit": "TB/s",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "which memory tier and how it is counted are not stated",
+     "origin_source_id": "dm-corsair-pr"
+    },
+    {
+     "metric": "peak compute per card (2023 pre-launch)",
+     "value": 2000,
+     "unit": "TFLOPS (approximate)",
+     "rung": "projection",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "FP8; vendor figure relayed before launch; valid only for models that fit in SRAM according to the journalist",
+     "origin_source_id": "dm-register"
+    },
+    {
+     "metric": "peak compute per card, low precision (2023 pre-launch)",
+     "value": 9600,
+     "unit": "TOPS (upper bound)",
+     "rung": "projection",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "INT4 or block floating point; relayed vendor figure",
+     "origin_source_id": "dm-register"
+    },
+    {
+     "metric": "card power (2023 pre-launch)",
+     "value": 350,
+     "unit": "W",
+     "rung": "projection",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "relayed vendor figure",
+     "origin_source_id": "dm-register"
+    },
+    {
+     "metric": "capacity-memory bandwidth (2023 pre-launch)",
+     "value": 400,
+     "unit": "GB/s",
+     "rung": "projection",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "256 GB LPDDR overflow tier; relayed vendor figure",
+     "origin_source_id": "dm-register"
+    },
+    {
+     "metric": "chiplets per card",
+     "value": 8,
+     "unit": "chiplets",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "stated in the company history and in trade press, not in the launch release",
+     "origin_source_id": "dm-ceo-history"
+    }
+   ],
+   "bets": [
+    {
+     "text": "Enterprise language models will mostly be small enough (a few to tens of billions of parameters) to live in a few gigabytes of fast SRAM, with cheaper LPDDR as overflow instead of HBM.",
+     "status": "open",
+     "source_id": "dm-register",
+     "status_source_id": "dm-alchip-pr"
+    },
+    {
+     "text": "A standard PCIe card that drops into existing servers, scaled by bridging cards, is the right unit of sale for datacentre inference.",
+     "status": "open",
+     "source_id": "dm-corsair-pr",
+     "status_source_id": "dm-news"
+    },
+    {
+     "text": "Native block floating point would become a common format; the vendor reports the format family is now an OCP standard, which is its own statement and not independently checked here.",
+     "status": "open",
+     "source_id": "dm-corsair-pr",
+     "status_source_id": null
+    }
+   ],
+   "what_changed_from_previous": "Productises Jayhawk II: eight chiplets joined by a fabric on one PCIe Gen5 card, giving 2 GB of SRAM in total, plus a DRAM capacity tier, a card-to-card bridge and the Aviator software stack. The 2023 pre-launch figures and the 2024 launch figures for peak compute differ (see conflicts).",
+   "next": "Raptor"
+  },
+  {
+   "name": "Raptor (with Pavehawk 3DIMC test chip)",
+   "year_announced": 2025,
+   "year_shipped": null,
+   "axes": {
+    "A0_workload": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A1_paradigm": {
+     "value": "cim_digital",
+     "basis": "disclosed",
+     "source_id": "dm-3dimc-blog"
+    },
+    "A1_device": {
+     "value": "dram",
+     "basis": "disclosed",
+     "source_id": "dm-alchip-pr"
+    },
+    "A2_data_residency": {
+     "value": "stacked_3d",
+     "basis": "disclosed",
+     "source_id": "dm-alchip-pr"
+    },
+    "A3_numerics": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A4_sparsity_codesign": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A5_programmability": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A6_eval_rung": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A6_baseline_class": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A7_scale": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "design_method": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "lever": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    }
+   },
+   "numbers": [
+    {
+     "metric": "memory bandwidth target",
+     "value": 10,
+     "unit": "x",
+     "rung": "projection",
+     "tier": "T3",
+     "baseline": "HBM4, configuration not given",
+     "conditions": "design target for Raptor, inference workloads",
+     "origin_source_id": "dm-3dimc-blog"
+    },
+    {
+     "metric": "energy efficiency target",
+     "value": 10,
+     "unit": "x",
+     "rung": "projection",
+     "tier": "T3",
+     "baseline": "HBM4, configuration not given",
+     "conditions": "design target for Raptor, inference workloads",
+     "origin_source_id": "dm-3dimc-blog"
+    },
+    {
+     "metric": "inference speed claim",
+     "value": 10,
+     "unit": "x (upper bound)",
+     "rung": "projection",
+     "tier": "T3",
+     "baseline": "'HBM4-based solutions', configuration not given",
+     "conditions": "forward-looking; no workload, model or precision",
+     "origin_source_id": "dm-alchip-pr"
+    }
+   ],
+   "bets": [
+    {
+     "text": "Stacking DRAM directly on the compute logic gives inference more bandwidth and capacity than HBM beside a GPU, lifting the model-size ceiling of the SRAM generation.",
+     "status": "open",
+     "source_id": "dm-alchip-pr",
+     "status_source_id": null
+    },
+    {
+     "text": "An in-memory accelerator can be sold as a companion inside a GPU vendor's rack infrastructure instead of only as a stand-alone alternative.",
+     "status": "open",
+     "source_id": "dm-news",
+     "status_source_id": null
+    }
+   ],
+   "what_changed_from_previous": "The weight store moves from on-die SRAM plus LPDDR overflow to DRAM stacked in 3D on the logic (3DIMC), first exercised on the Pavehawk test chip, reported running in the lab in August 2025. The reason given is that memory bandwidth improves more slowly than compute while inference grows. In September 2026 the vendor announced pairing Raptor with NVIDIA NVLink Fusion rack infrastructure.",
+   "next": null
+  }
+ ],
+ "sources": [
+  {
+   "id": "dm-corsair-pr",
+   "class": "vendor_doc",
+   "url": "https://www.d-matrix.ai/announcements/d-matrix-unveils-corsair-the-worlds-most-efficient-ai-computing-platform-for-inference-in-datacenters/",
+   "author": "d-Matrix",
+   "date": "2024-11-19",
+   "language": "en",
+   "accessed": "2026-10-09",
+   "title_original": "d-Matrix Unveils Corsair, the World's Most Efficient AI Computing Platform for Inference in Datacenters",
+   "summary_en": "Vendor press release at SC24. Corsair is a PCIe Gen5 full-height full-length card built on digital in-memory compute, with integrated 'performance memory', off-chip 'capacity memory', native block floating point (the format family standardised at OCP as Micro-scaling), die-to-die links between chiplets in a package (DMX Link) and a bridge card joining two cards (DMX Bridge), and the Aviator software stack. Token-rate figures for Llama3 8B (one server) and Llama3 70B (one rack) and the multiples against GPUs are labelled preliminary estimates; the GPU baseline is not named. Sampling to early-access customers at the release date, broad availability planned for Q2 2025. Does not state process node, power, chiplet count or the roles of earlier chips.",
+   "tier": "T3",
+   "accepted": true,
+   "reject_reason": null,
+   "checks": null,
+   "quotes": []
+  },
+  {
+   "id": "dm-jayhawk2-pr",
+   "class": "vendor_doc",
+   "url": "https://www.d-matrix.ai/announcements/generative-ai-compute-front-runner-d-matrix-reaches-new-milestone-in-efficient-ai-inference/",
+   "author": "d-Matrix",
+   "date": "2023-08-22 (dateline prints August 22 without a year; 2023 taken from the text, which places the first Jayhawk 'earlier in 2023')",
+   "language": "en",
+   "accessed": "2026-10-09",
+   "title_original": "Generative AI Compute Front-Runner d-Matrix Reaches New Milestone in Efficient AI Inference",
+   "summary_en": "Vendor press release for Jayhawk II: 6 nm silicon combining an enhanced digital in-memory compute engine with the OCP Bunch-of-Wires die-to-die PHY, supporting floating point and block floating point at several precisions plus compression and sparsity, available for demos and evaluation. Efficiency range and multiples against GPUs for 3B to 40B parameter language models are given without test setup or named baseline. States that the first Jayhawk, earlier the same year, demonstrated 2 Tbps bidirectional die-to-die connectivity.",
+   "tier": "T3",
+   "accepted": true,
+   "reject_reason": null,
+   "checks": null,
+   "quotes": []
+  },
+  {
+   "id": "dm-ceo-history",
+   "class": "vendor_doc",
+   "url": "https://www.d-matrix.ai/transforming-ai-d-matrixs-pivotal-moments-in-pursuit-of-gen-ai-inference-at-scale/",
+   "author": "Sid Sheth (President and CEO, d-Matrix)",
+   "date": "2024-06-26",
+   "language": "en",
+   "accessed": "2026-10-09",
+   "title_original": "Transforming AI: d-Matrix's Pivotal Moments in Pursuit of Gen AI Inference At Scale",
+   "summary_en": "First-person company history. Founded 2019 by former Inphi staff. Nighthawk, built in 2020 and demonstrated in 2021, was an SRAM-based analog in-memory proof of concept; the charge-domain design with a single-slope ADC made it hard to fit a converter on every bitline and was judged not worth the effort. Work on transformer workloads led to a digital design (SRAM bit cells combined with adders) chosen for accuracy, predictability and programmability. A 2022 pivot moved the first product from non-generative transformers to generative inference, giving Corsair: eight chiplets on one card, 2 GB of dense SRAM, 256 GB of DDR, about 10 PetaOPS, and a software stack on an MLIR compiler. Jayhawk I and II are pictured but not described.",
+   "tier": "T3",
+   "accepted": true,
+   "reject_reason": null,
+   "checks": null,
+   "quotes": []
+  },
+  {
+   "id": "dm-patent",
+   "class": "patent",
+   "url": "https://patents.google.com/patent/US11847072",
+   "author": "Sudeep Bhoja, Siddharth Sheth (assignee d-Matrix Corp)",
+   "date": "2023-12-19 (filed 2021-11-30)",
+   "language": "en",
+   "accessed": "2026-10-09",
+   "title_original": "Ai accelerator apparatus using in-memory compute chiplet devices for transformer workloads",
+   "summary_en": "US patent US11847072B2. Example hierarchy: a chiplet of four tiles, each tile with four slices, a tile CPU and a dispatch unit, under a global CPU. Each slice has four compute paths made of an input buffer, a digital in-memory compute unit, an output buffer and a SIMD unit. The compute unit stores weights in SRAM cells (a dual-bank 6T arrangement with an 8T bank-select multiplexer), multiplies them with activations and sums the products in multiplier-adder trees feeding sign- and precision-aware accumulators; block floating point with a shared exponent and mantissas down to 4 bits is described. A 512-bit network on chip multicasts activations and collects partial results; SIMD units do non-linear steps such as softmax. Chiplets are joined by die-to-die links with PCIe to the host and a DRAM interface per chiplet. The patent does not name a product; only the first 100,000 characters were read.",
+   "tier": "T3",
+   "accepted": true,
+   "reject_reason": null,
+   "checks": null,
+   "quotes": []
+  },
+  {
+   "id": "dm-register",
+   "class": "trade_press",
+   "url": "https://www.theregister.com/2023/09/07/dmatrix_in_memory/",
+   "author": "Tobias Mann (The Register)",
+   "date": "2023-09-07",
+   "language": "en",
+   "accessed": "2026-10-09",
+   "title_original": "d-Matrix bets on in-memory compute to undercut Nvidia in smaller AI models",
+   "summary_en": "Trade-press article on the Series B round with a mechanism description: cache and compute are merged so the compute engines hold the weights; each Jayhawk II chiplet has 256 engines inside 256 MB of shared SRAM; the planned Corsair card joins eight chiplets (2 GB SRAM) and adds 256 GB of LPDDR as an overflow tier that costs performance. Relays vendor figures for a 350 W card. Adds caveats of its own: the figures hold only for models that fit in SRAM, the vendor concedes very large models suit GPUs better, an analyst expects a short window before incumbents respond, and it sets the card beside a named GPU. Founded 2019, Santa Clara. Corsair then expected in 2024.",
+   "tier": "T4",
+   "accepted": true,
+   "reject_reason": null,
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": false,
+    "C5": true,
+    "C6": false
+   },
+   "quotes": []
+  },
+  {
+   "id": "dm-3dimc-blog",
+   "class": "vendor_doc",
+   "url": "https://www.d-matrix.ai/scaling-ai-inference-with-3dimc/",
+   "author": "Sudeep Bhoja (d-Matrix)",
+   "date": "2025-08-25",
+   "language": "en",
+   "accessed": "2026-10-09",
+   "title_original": "Blazing the Trail Toward More Scalable, Affordable AI with 3DIMC",
+   "summary_en": "Vendor blog introducing 3DIMC (3D-stacked digital in-memory compute): memory stacked vertically and integrated tightly with compute chiplets. Pavehawk, the first silicon with it, is said to be running in the lab after more than two years of development; no measurements are given. The next architecture, Raptor, is to use it, with targets expressed as multiples against HBM4. The motivation given is that memory bandwidth grows more slowly than compute and that inference is becoming the dominant workload. No memory type, node or schedule is stated.",
+   "tier": "T3",
+   "accepted": true,
+   "reject_reason": null,
+   "checks": null,
+   "quotes": []
+  },
+  {
+   "id": "dm-alchip-pr",
+   "class": "vendor_doc",
+   "url": "https://www.d-matrix.ai/announcements/d-matrix-and-alchip-announce-collaboration-on-worlds-first-3d-dram-solution-to-supercharge-ai-inference/",
+   "author": "d-Matrix and Alchip Technologies",
+   "date": "2025-11-18",
+   "language": "en",
+   "accessed": "2026-10-09",
+   "title_original": "d-Matrix and Alchip Announce Collaboration on World's First 3D DRAM Solution to Supercharge AI Inference",
+   "summary_en": "Joint press release. 3DIMC is described as a 3D-stacked DRAM solution, validated in the lab on the Pavehawk test chip (no metrics), to debut commercially in Raptor, which is named as the successor to Corsair. Alchip contributes ASIC design. The speed claim against HBM4-based systems is forward-looking and carries no workload or configuration. Says the technology was previewed at Hot Chips 2025. No node, layer count or launch date.",
+   "tier": "T3",
+   "accepted": true,
+   "reject_reason": null,
+   "checks": null,
+   "quotes": []
+  },
+  {
+   "id": "dm-news",
+   "class": "vendor_doc",
+   "url": "https://www.d-matrix.ai/news/",
+   "author": "d-Matrix",
+   "date": "2026-10-06 (latest item on the page)",
+   "language": "en",
+   "accessed": "2026-10-09",
+   "title_original": "Latest News & Updates on AI Computing Solutions",
+   "summary_en": "Vendor news index. Latest items: an industry-list recognition (6 Oct 2026); a blog on rack-scale inference with Raptor accelerators and NVLink Fusion (17 Sep 2026); a hosted demo cloud (15 Sep 2026); adoption of NVIDIA NVLink Fusion rack infrastructure with trade-press coverage (10 Sep 2026); and the acquisition by d-Matrix of Wallaroo.ai, a deployment-software company (3 Aug 2026). Nothing on the page states Corsair shipment volumes or a Raptor ship date.",
+   "tier": "T3",
+   "accepted": true,
+   "reject_reason": null,
+   "checks": null,
+   "quotes": []
+  }
+ ],
+ "conflicts": [
+  {
+   "metric": "Corsair peak compute per card at 8-bit precision",
+   "accounts": [
+    {
+     "metric": "peak compute per card (2024 release)",
+     "value": 2400,
+     "unit": "TFLOPs",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "8-bit",
+     "origin_source_id": "dm-corsair-pr"
+    },
+    {
+     "metric": "peak compute per card (2023 pre-launch)",
+     "value": 2000,
+     "unit": "TFLOPS (approximate)",
+     "rung": "projection",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "FP8, relayed vendor figure",
+     "origin_source_id": "dm-register"
+    },
+    {
+     "metric": "peak compute per card (company history)",
+     "value": 10,
+     "unit": "PetaOPS",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "precision not stated",
+     "origin_source_id": "dm-ceo-history"
+    }
+   ]
+  }
+ ],
+ "not_found": [
+  "No peer-reviewed paper and no Hot Chips slide deck from d-Matrix was found; a 2025 Hot Chips preview of 3DIMC is mentioned by the vendor, and a search-result snippet mentioned a Hot Chips 2026 design, but neither was located.",
+  "No independent measurement (MLPerf or third party) of Jayhawk II or Corsair was found; every performance number recorded is a vendor claim, most without a named baseline.",
+  "Corsair: confirmation that broad availability happened (planned for Q2 2025), shipment volumes, customers, process node, measured power, and the number of ASICs per card. year_shipped 2024 reflects only the vendor's statement that it was sampling to early-access customers in November 2024.",
+  "Nighthawk: process node and any numbers. A search-result snippet (not opened) describes a 'Nighthawk' tile inside Corsair with four digital in-memory cores and a RISC-V CPU, which would differ from the CEO's account of Nighthawk as an analog proof of concept; this could not be resolved within the page limit and is not entered under conflicts because only one side was opened.",
+  "Jayhawk I: announcement text (the launch release on businesswire returned HTTP 403), process node and contents.",
+  "Raptor and Pavehawk: process nodes, layer count, measured results, launch date, and whether Raptor keeps block floating point numerics. A search-result snippet mentioned TSMC N5 logic and about 0.4 pJ/bit; not opened.",
+  "Whether the patent's example hierarchy (four tiles of four slices of four compute paths per chiplet) is the Jayhawk II or Corsair implementation: the patent names no product.",
+  "Opened but not recorded because of the eight-source limit: (a) the arXiv survey 2401.14428 (TU Dresden), whose d-Matrix paragraph relays the vendor website for Jayhawk II (6 nm, up to 150 TOPS/W, models up to 40B parameters) - would be DUPLICATE; (b) the vendor Corsair product page (no numbers; lists stacked DRAM, scalable SRAM, Aviator software, models up to 100B parameters, JetStream I/O); (c) a TechRadar article on 3DIMC whose body did not load - unreadable; (d) the EE News Europe piece by Peter Clarke of 2024-11-19 reposted on the vendor site, which repeats the launch token rates - would be rejected as PRESS_REWRITE.",
+  "Funding figures appeared only in search-result snippets (a Series C in November 2025) and are not recorded; the Series B of USD 110 million in September 2023 is in the accepted trade-press source.",
+  "Programmability detail (instruction set of the tile CPUs, compiler internals), design method and levers: not stated beyond an MLIR-based compiler stack."
+ ]
+}

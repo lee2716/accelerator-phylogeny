@@ -1,0 +1,861 @@
+{
+ "product_line": "HBM-PIM (Aquabolt-XL) and follow-ons: AXDIMM, LPDDR-PIM, CXL-PNM",
+ "vendor": "Samsung Electronics",
+ "country": "South Korea",
+ "status": {
+  "value": "alive",
+  "as_of": "2026-04-30",
+  "detail": "Samsung Electronics staff co-authored a peer-reviewed paper dated 2026-04-30 measured on Aquabolt-XL boards that Samsung lends to a university, so the vendor and its research use of the device are active on that date. No source opened in this session shows any member of the line in volume production or on sale.",
+  "source_id": "s_ame_pim_2026"
+ },
+ "generations": [
+  {
+   "name": "HBM-PIM (Aquabolt-XL, HBM2-based)",
+   "year_announced": 2021,
+   "year_shipped": null,
+   "axes": {
+    "A0_workload": {
+     "value": "generic_dnn",
+     "basis": "disclosed",
+     "source_id": "s_pr_2021_02"
+    },
+    "A1_paradigm": {
+     "value": "pim_dram_near_memory",
+     "basis": "disclosed",
+     "source_id": "s_pr_2021_02"
+    },
+    "A1_device": {
+     "value": "dram",
+     "basis": "disclosed",
+     "source_id": "s_isca_2021"
+    },
+    "A2_data_residency": {
+     "value": "hbm_or_dram_bound",
+     "basis": "disclosed",
+     "source_id": "s_pr_2021_02"
+    },
+    "A3_numerics": {
+     "value": "fp16_bf16",
+     "basis": "disclosed",
+     "source_id": "s_ame_pim_2026"
+    },
+    "A4_sparsity_codesign": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A5_programmability": {
+     "value": "host_offload",
+     "basis": "disclosed",
+     "source_id": "s_ame_pim_2026"
+    },
+    "A6_eval_rung": {
+     "value": "board_or_system",
+     "basis": "disclosed",
+     "source_id": "s_isca_2021"
+    },
+    "A6_baseline_class": {
+     "value": "own_variant_only",
+     "basis": "disclosed",
+     "source_id": "s_pr_2021_02"
+    },
+    "A7_scale": {
+     "value": "multi_chip_chiplet",
+     "basis": "disclosed",
+     "source_id": "s_ame_pim_2026"
+    },
+    "design_method": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "lever": {
+     "value": "memory_hierarchy",
+     "basis": "disclosed",
+     "source_id": "s_isca_2021"
+    }
+   },
+   "numbers": [
+    {
+     "metric": "system performance gain",
+     "value": ">2",
+     "unit": "x",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": "Samsung HBM2 Aquabolt without PIM",
+     "conditions": "workload and test system not stated in the release",
+     "origin_source_id": "s_pr_2021_02"
+    },
+    {
+     "metric": "energy consumption reduction",
+     "value": ">70",
+     "unit": "%",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": "Samsung HBM2 Aquabolt without PIM",
+     "conditions": "workload and test system not stated in the release",
+     "origin_source_id": "s_pr_2021_02"
+    },
+    {
+     "metric": "system performance gain",
+     "value": "almost 2.5",
+     "unit": "x",
+     "rung": "board_or_system",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "Aquabolt-XL in a Xilinx Virtex UltraScale+ (Alveo) accelerator; a later article (s_spectrum_2021) names the workload as a speech-recognition network; baseline system not named",
+     "origin_source_id": "s_pr_2021_08"
+    },
+    {
+     "metric": "energy consumption reduction",
+     "value": ">60",
+     "unit": "%",
+     "rung": "board_or_system",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "same Xilinx Alveo test; s_spectrum_2021 relays the figure as 62%",
+     "origin_source_id": "s_pr_2021_08"
+    },
+    {
+     "metric": "speed-up of memory-bound neural-network kernels",
+     "value": "11.2",
+     "unit": "x",
+     "rung": "board_or_system",
+     "tier": "T1",
+     "baseline": null,
+     "conditions": "20 nm DRAM PIM with an unmodified commercial processor; abstract only, baseline configuration not named there",
+     "origin_source_id": "s_isca_2021"
+    },
+    {
+     "metric": "speed-up of applications",
+     "value": "3.5",
+     "unit": "x",
+     "rung": "board_or_system",
+     "tier": "T1",
+     "baseline": null,
+     "conditions": "same system-level evaluation; applications run without source changes",
+     "origin_source_id": "s_isca_2021"
+    },
+    {
+     "metric": "reduction of energy per bit transferred",
+     "value": "3.5",
+     "unit": "x",
+     "rung": "board_or_system",
+     "tier": "T1",
+     "baseline": null,
+     "conditions": "same system-level evaluation",
+     "origin_source_id": "s_isca_2021"
+    },
+    {
+     "metric": "system energy-efficiency gain running applications",
+     "value": "3.2",
+     "unit": "x",
+     "rung": "board_or_system",
+     "tier": "T1",
+     "baseline": null,
+     "conditions": "same system-level evaluation",
+     "origin_source_id": "s_isca_2021"
+    },
+    {
+     "metric": "matrix-tile multiply-accumulate throughput",
+     "value": "59.4",
+     "unit": "FLOP/cycle",
+     "rung": "board_or_system",
+     "tier": "T1",
+     "baseline": "MPC-Wrapper GEMV, 58.1 FLOP/cycle per pseudo-channel on a 1024x128 matrix",
+     "conditions": "one HBM pseudo-channel, 128x4096 tile, FP16, Aquabolt-XL on an Alveo U280; cycles counted by FPGA counters on the bus side because the device has no internal counters; authors include Samsung staff",
+     "origin_source_id": "s_ame_pim_2026"
+    },
+    {
+     "metric": "matrix-tile multiply-accumulate throughput",
+     "value": "14.9",
+     "unit": "GFLOP/s",
+     "rung": "board_or_system",
+     "tier": "T1",
+     "baseline": null,
+     "conditions": "the 59.4 FLOP/cycle result at a 250 MHz bus clock assumed equal to the PIM-unit clock",
+     "origin_source_id": "s_ame_pim_2026"
+    },
+    {
+     "metric": "peak throughput per pseudo-channel",
+     "value": "128",
+     "unit": "FLOP/cycle",
+     "rung": "analytical",
+     "tier": "T1",
+     "baseline": null,
+     "conditions": "theoretical bound; the authors state about half is sustainable because compute and data-movement instructions alternate roughly one to one",
+     "origin_source_id": "s_ame_pim_2026"
+    },
+    {
+     "metric": "PIM unit clock frequency",
+     "value": "250-300",
+     "unit": "MHz",
+     "rung": "silicon",
+     "tier": "T1",
+     "baseline": null,
+     "conditions": "same as the DRAM core clock",
+     "origin_source_id": "s_ame_pim_2026"
+    },
+    {
+     "metric": "average performance gain of the MI100 HBM-PIM cluster",
+     "value": ">2",
+     "unit": "x",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": "existing GPU accelerators (not named further)",
+     "conditions": "HBM-PIM fitted to AMD Instinct MI100 cards; cluster size and workloads absent from the page; the page says testing confirmed it without describing the test",
+     "origin_source_id": "s_techblog_2022"
+    },
+    {
+     "metric": "energy reduction of the MI100 HBM-PIM cluster",
+     "value": ">50",
+     "unit": "%",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": "existing GPU accelerators (not named further)",
+     "conditions": "same test as the performance figure",
+     "origin_source_id": "s_techblog_2022"
+    },
+    {
+     "metric": "annual energy saved training a large language model",
+     "value": "2100",
+     "unit": "GWh/year",
+     "rung": "projection",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "vendor projection for an 8-accelerator cluster of HBM-PIM GPUs training a Google LLM; method and model size not given; paired with about 960 thousand tons of avoided carbon emissions",
+     "origin_source_id": "s_techblog_2022"
+    },
+    {
+     "metric": "MI100 HBM-PIM cluster size",
+     "value": "12 nodes x 8 accelerators",
+     "unit": "accelerators",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "relayed from the Hot Chips 2023 talk by a journalist who marks it as uncertain; workload shown was T5-MoE",
+     "origin_source_id": "s_sth_2023"
+    }
+   ],
+   "bets": [
+    {
+     "text": "A memory maker can sell PIM only if the host processor and the application source stay untouched, so the device must look like ordinary HBM and hide behind a vendor software stack.",
+     "status": "open",
+     "source_id": "s_isca_2021",
+     "status_source_id": "s_ame_pim_2026"
+    },
+    {
+     "text": "A very small FP16 multiply-accumulate unit placed at the bank I/O boundary, leaving the cell arrays alone, is enough to capture the internal bandwidth that matters for neural-network kernels.",
+     "status": "open",
+     "source_id": "s_ame_pim_2026",
+     "status_source_id": "s_ame_pim_2026"
+    },
+    {
+     "text": "Industry standardisation of the PIM interface (targeted for the first half of 2022) would turn the prototype into a broadly used memory class reaching HBM3, modules and mobile.",
+     "status": "unknown",
+     "source_id": "s_pr_2021_08",
+     "status_source_id": null
+    }
+   ],
+   "what_changed_from_previous": null,
+   "next": "Samsung stated plans for an HBM3-based PIM (s_pr_2021_08, s_spectrum_2021); in 2022 the same HBM-PIM was deployed at cluster scale on AMD Instinct MI100 cards with a SYCL-based software environment (s_techblog_2022). No HBM3 or later PIM device was found in this session."
+  },
+  {
+   "name": "AXDIMM (acceleration DIMM, engine in the buffer chip)",
+   "year_announced": 2021,
+   "year_shipped": null,
+   "axes": {
+    "A0_workload": {
+     "value": "recommendation",
+     "basis": "disclosed",
+     "source_id": "s_pr_2021_08"
+    },
+    "A1_paradigm": {
+     "value": "pim_dram_near_memory",
+     "basis": "disclosed",
+     "source_id": "s_pr_2021_08"
+    },
+    "A1_device": {
+     "value": "dram",
+     "basis": "disclosed",
+     "source_id": "s_pr_2021_08"
+    },
+    "A2_data_residency": {
+     "value": "hbm_or_dram_bound",
+     "basis": "disclosed",
+     "source_id": "s_pr_2021_08"
+    },
+    "A3_numerics": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A4_sparsity_codesign": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A5_programmability": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A6_eval_rung": {
+     "value": "board_or_system",
+     "basis": "disclosed",
+     "source_id": "s_pr_2021_08"
+    },
+    "A6_baseline_class": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A7_scale": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "design_method": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "lever": {
+     "value": "memory_hierarchy",
+     "basis": "disclosed",
+     "source_id": "s_pr_2021_08"
+    }
+   },
+   "numbers": [
+    {
+     "metric": "performance gain in AI-based recommendation applications",
+     "value": "about 2",
+     "unit": "x",
+     "rung": "board_or_system",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "module under test on customer servers; baseline not named",
+     "origin_source_id": "s_pr_2021_08"
+    },
+    {
+     "metric": "system-wide energy reduction",
+     "value": "40",
+     "unit": "%",
+     "rung": "board_or_system",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "same customer-server tests; baseline not named",
+     "origin_source_id": "s_pr_2021_08"
+    }
+   ],
+   "bets": [
+    {
+     "text": "Putting the engine in the DIMM buffer chip rather than in the DRAM dies lets several ranks be processed at once while the module stays a drop-in DIMM that needs no system change.",
+     "status": "unknown",
+     "source_id": "s_pr_2021_08",
+     "status_source_id": null
+    }
+   ],
+   "what_changed_from_previous": "Compared with HBM-PIM the processing moves from inside the DRAM die to the module's buffer chip and the target moves from accelerator-attached HBM to server DIMM slots (s_pr_2021_08); the release gives no reason beyond widening the range of applications.",
+   "next": null
+  },
+  {
+   "name": "LPDDR-PIM (announced as LPDDR5-PIM)",
+   "year_announced": 2021,
+   "year_shipped": null,
+   "axes": {
+    "A0_workload": {
+     "value": "generic_dnn",
+     "basis": "disclosed",
+     "source_id": "s_pr_2021_08"
+    },
+    "A1_paradigm": {
+     "value": "pim_dram_near_memory",
+     "basis": "disclosed",
+     "source_id": "s_pr_2021_08"
+    },
+    "A1_device": {
+     "value": "dram",
+     "basis": "disclosed",
+     "source_id": "s_pr_2021_08"
+    },
+    "A2_data_residency": {
+     "value": "hbm_or_dram_bound",
+     "basis": "disclosed",
+     "source_id": "s_pr_2021_08"
+    },
+    "A3_numerics": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A4_sparsity_codesign": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A5_programmability": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A6_eval_rung": {
+     "value": "simulator",
+     "basis": "disclosed",
+     "source_id": "s_pr_2021_08"
+    },
+    "A6_baseline_class": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A7_scale": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "design_method": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "lever": {
+     "value": "memory_hierarchy",
+     "basis": "disclosed",
+     "source_id": "s_pr_2021_08"
+    }
+   },
+   "numbers": [
+    {
+     "metric": "performance gain",
+     "value": ">2",
+     "unit": "x",
+     "rung": "simulator",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "vendor simulation for voice recognition, translation and chatbot applications; baseline not named",
+     "origin_source_id": "s_pr_2021_08"
+    },
+    {
+     "metric": "energy reduction",
+     "value": ">60",
+     "unit": "%",
+     "rung": "simulator",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "same vendor simulation",
+     "origin_source_id": "s_pr_2021_08"
+    },
+    {
+     "metric": "internal bandwidth",
+     "value": "102.4",
+     "unit": "GB/s",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "Samsung figure from the Hot Chips 2023 talk as relayed by a journalist, who describes the device as closer to a concept than HBM-PIM",
+     "origin_source_id": "s_sth_2023"
+    },
+    {
+     "metric": "performance gain",
+     "value": "4.5",
+     "unit": "x",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": "described only as 'in-DRAM processing'",
+     "conditions": "Samsung figure relayed second-hand from the Hot Chips 2023 coverage; the baseline wording is the article's and its meaning could not be checked against the slides",
+     "origin_source_id": "s_techradar_2023"
+    }
+   ],
+   "bets": [
+    {
+     "text": "On-device AI in phones can run inside mobile DRAM without a data-centre connection if the PIM idea proven in HBM is carried to LPDDR.",
+     "status": "open",
+     "source_id": "s_pr_2021_08",
+     "status_source_id": "s_sth_2023"
+    }
+   ],
+   "what_changed_from_previous": "Same in-DRAM idea as HBM-PIM moved to mobile memory for on-device AI; evidence drops from a tested device to simulation in 2021 (s_pr_2021_08) and was still presented as a concept in 2023 (s_sth_2023).",
+   "next": null
+  },
+  {
+   "name": "CXL-PNM",
+   "year_announced": 2022,
+   "year_shipped": null,
+   "axes": {
+    "A0_workload": {
+     "value": "recommendation",
+     "basis": "disclosed",
+     "source_id": "s_techblog_2022"
+    },
+    "A1_paradigm": {
+     "value": "pim_dram_near_memory",
+     "basis": "disclosed",
+     "source_id": "s_techblog_2022"
+    },
+    "A1_device": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A2_data_residency": {
+     "value": "hbm_or_dram_bound",
+     "basis": "disclosed",
+     "source_id": "s_techblog_2022"
+    },
+    "A3_numerics": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A4_sparsity_codesign": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A5_programmability": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A6_eval_rung": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A6_baseline_class": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A7_scale": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "design_method": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "lever": {
+     "value": "memory_hierarchy",
+     "basis": "disclosed",
+     "source_id": "s_techblog_2022"
+    }
+   },
+   "numbers": [
+    {
+     "metric": "performance gain in recommendation systems and in-memory databases",
+     "value": ">2",
+     "unit": "x",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "the post says 'in testing' without describing the test or naming a baseline",
+     "origin_source_id": "s_techblog_2022"
+    },
+    {
+     "metric": "card memory capacity",
+     "value": "512",
+     "unit": "GB",
+     "rung": "projection",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "concept card shown at Hot Chips 2023, relayed by a journalist",
+     "origin_source_id": "s_sth_2023"
+    },
+    {
+     "metric": "card memory bandwidth",
+     "value": "up to 1.1",
+     "unit": "TB/s",
+     "rung": "projection",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "same concept card, relayed by a journalist",
+     "origin_source_id": "s_sth_2023"
+    },
+    {
+     "metric": "energy-efficiency gain, one card",
+     "value": "2.9",
+     "unit": "x",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": "one unnamed 'A-GPU'",
+     "conditions": "Samsung test relayed second-hand; LLM workload per the Hot Chips 2023 coverage, configuration not given",
+     "origin_source_id": "s_techradar_2023"
+    },
+    {
+     "metric": "energy-efficiency gain, eight cards",
+     "value": "4.4",
+     "unit": "x",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": "eight unnamed 'A-GPUs'",
+     "conditions": "Samsung test relayed second-hand; configuration not given",
+     "origin_source_id": "s_techradar_2023"
+    }
+   ],
+   "bets": [
+    {
+     "text": "Sparse, capacity-bound workloads (recommendation, in-memory databases, later large language models) are better served by logic packaged next to a large CXL-attached memory pool than by logic inside the DRAM die.",
+     "status": "open",
+     "source_id": "s_techblog_2022",
+     "status_source_id": "s_sth_2023"
+    },
+    {
+     "text": "One open-standard software environment (SYCL-based) can cover both in-memory and near-memory devices.",
+     "status": "unknown",
+     "source_id": "s_techblog_2022",
+     "status_source_id": null
+    }
+   ],
+   "what_changed_from_previous": "Processing moves out of the DRAM die into a logic chip packaged with memory behind a CXL interface, giving capacity expansion; Samsung's stated reason is a split of roles, PIM for dense data and PNM for sparse data (s_techblog_2022). By Hot Chips 2023 the showcased workload had become large language models (s_sth_2023).",
+   "next": null
+  }
+ ],
+ "sources": [
+  {
+   "id": "s_pr_2021_02",
+   "class": "vendor_doc",
+   "url": "https://news.samsung.com/global/samsung-develops-industrys-first-high-bandwidth-memory-with-ai-processing-power",
+   "author": "Samsung Electronics (Samsung Newsroom)",
+   "date": "2021-02-17",
+   "language": "en",
+   "accessed": "2026-10-09",
+   "title_original": "Samsung Develops Industry’s First High Bandwidth Memory with AI Processing Power",
+   "summary_en": "Launch announcement of HBM-PIM. Samsung says it put a DRAM-optimised AI engine in the memory banks of its HBM2 Aquabolt product so that work runs in parallel next to the data, positions it as programmable and aimed at HPC, training and inference, claims more than double system performance and over 70% lower energy against plain Aquabolt without stating workload or test system, says no hardware or software change is needed, and reports that partner validation inside AI accelerators was expected to finish in the first half of 2021. Mentions the ISSCC 2021 paper.",
+   "tier": "T3",
+   "accepted": true,
+   "reject_reason": null,
+   "checks": null,
+   "quotes": []
+  },
+  {
+   "id": "s_pr_2021_08",
+   "class": "vendor_doc",
+   "url": "https://news.samsung.com/global/samsung-brings-in-memory-processing-power-to-wider-range-of-applications",
+   "author": "Samsung Electronics (Samsung Newsroom)",
+   "date": "2021-08-24",
+   "language": "en",
+   "accessed": "2026-10-09",
+   "title_original": "Samsung Brings In-Memory Processing Power to Wider Range of Applications",
+   "summary_en": "Hot Chips 33 announcement. Names the February device Aquabolt-XL, reports its test in a Xilinx Virtex UltraScale+ (Alveo) accelerator, and widens the line: AXDIMM puts an AI engine in the DIMM buffer chip so several ranks are processed in parallel while the module keeps the DIMM form factor (under test on customer servers, recommendation workloads); LPDDR5-PIM targets on-device AI and its figures come from simulation. States the intent to extend to HBM3 and to complete standardisation of the PIM platform in the first half of 2022.",
+   "tier": "T3",
+   "accepted": true,
+   "reject_reason": null,
+   "checks": null,
+   "quotes": []
+  },
+  {
+   "id": "s_isca_2021",
+   "class": "paper",
+   "url": "https://api.semanticscholar.org/graph/v1/paper/DOI:10.1109/ISCA52012.2021.00013",
+   "author": "Sukhan Lee, Shin-haeng Kang, Jaehoon Lee, Hyeonsu Kim, Eojin Lee, Seung-young Seo, Hosang Yoon, Seungwon Lee, Kyounghwan Lim, Hyunsung Shin, Jinhyun Kim, O. Seongil, Anand Iyer, David Wang, Kyomin Sohn, et al. (author list as returned by the Semantic Scholar record; only the first fifteen names were read)",
+   "date": "2021-06-01",
+   "language": "en",
+   "accessed": "2026-10-09",
+   "title_original": "Hardware Architecture and Software Stack for PIM Based on Commercial DRAM Technology : Industrial Product",
+   "summary_en": "ISCA 2021 industrial-track paper; only the abstract was read (full text is closed; the IEEE Xplore page returned no content, so the abstract was taken from the Semantic Scholar record of the same DOI). It argues that earlier PIM proposals stalled because they needed host-processor or application changes outside a memory maker's control, and presents a PIM built in a 20 nm DRAM process, paired with an unmodified commercial processor and a software stack that runs existing applications without source changes, evaluated at system level.",
+   "tier": "T1",
+   "accepted": true,
+   "reject_reason": null,
+   "checks": null,
+   "quotes": []
+  },
+  {
+   "id": "s_ame_pim_2026",
+   "class": "paper",
+   "url": "https://arxiv.org/abs/2604.27808",
+   "author": "Emanuele Venieri, Simone Manoni, Alberto Florian, Andrea Bartolini (University of Bologna); Jaehyun Park, Kyomin Sohn (Samsung Electronics)",
+   "date": "2026-04-30",
+   "language": "en",
+   "accessed": "2026-10-09",
+   "title_original": "AME-PIM: Can Memory be Your Next Tensor Accelerator?",
+   "summary_en": "ACM Computing Frontiers 2026 paper co-authored with Samsung, measured on real Aquabolt-XL devices mounted on Xilinx Alveo U280 boards lent by Samsung. Gives the most detailed architecture description opened in this session: an HBM2 stack of four plain and four PIM-enabled DRAM dies; one PIM unit at the I/O boundary shared by an even/odd bank pair (eight per pseudo-channel), cell arrays untouched; a 16-lane FP16 SIMD datapath with a five-stage pipeline and three register files; nine 32-bit instructions; 250-300 MHz; execution stepped by repurposed DRAM column commands in an all-bank PIM mode. Maps RISC-V AME matrix instructions onto it and lists the limits met: no cross-lane reduction, subtraction or compare, FP16 only, non-nested loops capped at 255 iterations, and a vendor management block built around a fixed matrix-vector access pattern.",
+   "tier": "T1",
+   "accepted": true,
+   "reject_reason": null,
+   "checks": null,
+   "quotes": [
+    "expose limited instruction sets"
+   ]
+  },
+  {
+   "id": "s_techblog_2022",
+   "class": "vendor_doc",
+   "url": "https://semiconductor.samsung.com/newsroom/tech-blog/samsung-electronics-semiconductor-unveils-cutting-edge-memory-technology-to-accelerate-next-generation-ai",
+   "author": "Samsung Electronics (Samsung Semiconductor tech blog)",
+   "date": "2022 (the page carries no publication date; it refers to Memory Tech Day on 5 October and to SC22)",
+   "language": "en",
+   "accessed": "2026-10-09",
+   "title_original": "Samsung Electronics Semiconductor Unveils Cutting-edge Memory Technology to Accelerate Next-generation AI",
+   "summary_en": "Vendor post on the second step of the line. Samsung fitted HBM-PIM to AMD Instinct MI100 accelerators and built a cluster from them (size and workloads not given on the page), reports average gains against existing GPU accelerators, and adds an energy projection for LLM training. Introduces CXL-based PNM, described as memory and logic chips in one advanced package on a CXL interface, aimed at recommendation and in-memory databases, and a SYCL-based software environment prepared with Codeplay to cover both HBM-PIM and CXL-PNM. States the division of labour Samsung intends: PIM for dense data, PNM for sparse data.",
+   "tier": "T3",
+   "accepted": true,
+   "reject_reason": null,
+   "checks": null,
+   "quotes": []
+  },
+  {
+   "id": "s_spectrum_2021",
+   "class": "trade_press",
+   "url": "https://spectrum.ieee.org/processing-in-dram-accelerates-ai",
+   "author": "Samuel K. Moore (senior editor, IEEE Spectrum)",
+   "date": "2021-12-22",
+   "language": "en",
+   "accessed": "2026-10-09",
+   "title_original": "Memory Chips That Compute Will Accelerate AI",
+   "summary_en": "Feature placing Aquabolt-XL among competing efforts. Explains that the in-memory units do little beyond multiply-accumulate and sit on the DRAM dies to exploit internal bandwidth, relays the Xilinx-system result with its workload (speech recognition), and reports that Samsung was sampling HBM2-based PIM, developing HBM3 and mobile variants and expecting a JEDEC mobile standard in the first half of 2022. Adds outside context: SK hynix chose not to commercialise its HBM-PIM design Newton and to pursue PIM in standard DRAM; integration reluctance among accelerator makers; an analyst's view that commercial success was unproven.",
+   "tier": "T4",
+   "accepted": true,
+   "reject_reason": null,
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": false,
+    "C4": true,
+    "C5": true,
+    "C6": false
+   },
+   "quotes": [
+    "remains to be seen"
+   ]
+  },
+  {
+   "id": "s_sth_2023",
+   "class": "trade_press",
+   "url": "https://www.servethehome.com/samsung-processing-in-memory-technology-at-hot-chips-2023/",
+   "author": "Patrick Kennedy (ServeTheHome)",
+   "date": "2023-08-28",
+   "language": "en",
+   "accessed": "2026-10-09",
+   "title_original": "Samsung Processing in Memory Technology at Hot Chips 2023",
+   "summary_en": "Live notes from Samsung's Hot Chips 2023 talk. Relays three items: the HBM-PIM cluster of AMD MI100 cards running a T5-MoE model (the author hedges the size as what sounded like 12 nodes of 8 accelerators), an LPDDR-PIM concept with a stated internal bandwidth, and a concept 512 GB CXL-PNM card built either as a compute element beside standard memory or as PIM memory behind a standard CXL controller. Most figures are only in slide images. The author's own additions: CXL shares PCIe wiring so transfers are costly, LPDDR-PIM is less mature than HBM-PIM, and software remains the open work. Rejected as independent evidence: it links no primary document and passes only C1, C2 and C5; its relayed Samsung figures are kept as T3.",
+   "tier": "T4",
+   "accepted": false,
+   "reject_reason": "NO_PRIMARY_LINKS",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": false,
+    "C4": false,
+    "C5": true,
+    "C6": false
+   },
+   "quotes": []
+  },
+  {
+   "id": "s_techradar_2023",
+   "class": "trade_press",
+   "url": "https://tech.yahoo.com/computing/articles/samsung-crazy-idea-ai-might-090814797.html",
+   "author": "Keumars Afifi-Sabet (TechRadar, syndicated on Yahoo Tech)",
+   "date": "2023-09-11",
+   "language": "en",
+   "accessed": "2026-10-09",
+   "title_original": "Samsung has a crazy idea for AI that might just work: add a processor inside RAM",
+   "summary_en": "Short news item derived from the ServeTheHome notes on Hot Chips 2023. Repeats Samsung's CXL-PNM energy-efficiency ratios against an unnamed GPU, an LPDDR-PIM speed-up and bandwidth figure, and gives HBM-PIM gains with AMD in percent where Samsung's own post gives a multiple. Adds no mechanism beyond saying computation on the module avoids moving data to the CPU, no test conditions and one secondary link. Rejected; its relayed figures are kept as T3 claims and one of them is listed under conflicts.",
+   "tier": "T4",
+   "accepted": false,
+   "reject_reason": "NO_PRIMARY_LINKS",
+   "checks": {
+    "C1": true,
+    "C2": false,
+    "C3": false,
+    "C4": false,
+    "C5": false,
+    "C6": false
+   },
+   "quotes": []
+  }
+ ],
+ "conflicts": [
+  {
+   "metric": "HBM-PIM on AMD accelerators, performance gain over existing GPU accelerators",
+   "accounts": [
+    {
+     "metric": "average performance gain",
+     "value": ">2",
+     "unit": "x",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": "existing GPU accelerators",
+     "conditions": "Samsung's own post",
+     "origin_source_id": "s_techblog_2022"
+    },
+    {
+     "metric": "performance gain",
+     "value": "2.6",
+     "unit": "%",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": "existing GPU accelerators",
+     "conditions": "trade-press item, originator of the figure not named; an energy-efficiency gain of 2.7% is given beside it",
+     "origin_source_id": "s_techradar_2023"
+    }
+   ]
+  },
+  {
+   "metric": "PIM units per DRAM bank in Aquabolt-XL",
+   "accounts": [
+    {
+     "metric": "PIM units per bank",
+     "value": "1",
+     "unit": "unit/bank",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "launch release describes an engine inside each memory bank",
+     "origin_source_id": "s_pr_2021_02"
+    },
+    {
+     "metric": "PIM units per bank",
+     "value": "0.5",
+     "unit": "unit/bank",
+     "rung": "silicon",
+     "tier": "T1",
+     "baseline": null,
+     "conditions": "one unit shared by an even/odd bank pair, eight per 16-bank pseudo-channel",
+     "origin_source_id": "s_ame_pim_2026"
+    }
+   ]
+  },
+  {
+   "metric": "software change needed to use HBM-PIM (1 = needed, 0 = not needed)",
+   "accounts": [
+    {
+     "metric": "software change needed",
+     "value": "0",
+     "unit": "boolean",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "launch release says no hardware or software change is required",
+     "origin_source_id": "s_pr_2021_02"
+    },
+    {
+     "metric": "software change needed",
+     "value": "1",
+     "unit": "boolean",
+     "rung": "board_or_system",
+     "tier": "T1",
+     "baseline": null,
+     "conditions": "2026 paper says commercial HBM-PIM needs specialised software stacks and that the vendor management block restricts which programs can run",
+     "origin_source_id": "s_ame_pim_2026"
+    }
+   ]
+  }
+ ],
+ "not_found": [
+  "Limits reached for this line: 7 of 8 searches and 12 of 12 pages used. A ninth candidate was opened but not recorded because of the 8-source cap: arXiv 2511.00321 (2025-10-31), a CXL-PNM KV-cache paper whose abstract page shows neither affiliations nor the platform's vendor, so it could not be tied to Samsung.",
+  "The ISSCC 2021 paper itself was not opened (IEEE Xplore returned an empty page); die capacity, the number of PIM units per stack as originally published and any TFLOPS figure are therefore not recorded.",
+  "Full text of the ISCA 2021 paper: only the abstract was read, so its baseline configuration and workloads are not recorded.",
+  "The HPCA 2024 CXL-PNM paper (title seen only in search results) could not be opened; the memory device of CXL-PNM, its numerics and its programming model are left unknown.",
+  "Whether Aquabolt-XL, AXDIMM, LPDDR-PIM or CXL-PNM ever shipped in volume or to a paying customer: no source. All year_shipped fields are null.",
+  "Whether the PIM standardisation planned for the first half of 2022 (JEDEC) was completed: no source.",
+  "Any HBM3- or later-generation HBM-PIM device: only stated intent from 2021 was found.",
+  "Samsung's original Hot Chips 2023 slides: only two journalists' relays were opened, so the conditions of the LPDDR-PIM and CXL-PNM figures are unverified.",
+  "Publication date of the Samsung tech-blog post on the MI100 cluster and CXL-PNM: the page shows none; 2022 is taken from its references to Memory Tech Day and SC22.",
+  "Numerics, programmability and scale of AXDIMM, LPDDR-PIM and CXL-PNM; sparsity co-design and design method for every generation."
+ ]
+}

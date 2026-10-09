@@ -1,0 +1,78 @@
+{
+ "slice": "cim",
+ "n_double_labelled": 170,
+ "n_both_in_scope": 106,
+ "gate": {
+  "kappa": 0.8132780082987552,
+  "raw_agreement": 0.8941176470588236
+ },
+ "axes": {
+  "A0_workload": {
+   "kappa": 0.8986373416208463,
+   "raw_agreement": 0.9245283018867925,
+   "n": 106
+  },
+  "A1_paradigm": {
+   "kappa": 0.9017868960953009,
+   "raw_agreement": 0.9339622641509434,
+   "n": 106
+  },
+  "A1_device": {
+   "kappa": 0.787101093505914,
+   "raw_agreement": 0.8301886792452831,
+   "n": 106
+  },
+  "A2_data_residency": {
+   "kappa": 0.8603629976580794,
+   "raw_agreement": 0.9150943396226415,
+   "n": 106
+  },
+  "A3_numerics": {
+   "kappa": 0.9153861504689683,
+   "raw_agreement": 0.9622641509433962,
+   "n": 106
+  },
+  "A4_sparsity_codesign": {
+   "kappa": 0.8147824567534511,
+   "raw_agreement": 0.9056603773584906,
+   "n": 106
+  },
+  "A5_programmability": {
+   "kappa": 0.32268370607028807,
+   "raw_agreement": 0.9433962264150944,
+   "n": 106
+  },
+  "A6_eval_rung": {
+   "kappa": 1.0,
+   "raw_agreement": 1.0,
+   "n": 106
+  },
+  "A6_baseline_class": {
+   "kappa": 0.9010138740661686,
+   "raw_agreement": 0.9339622641509434,
+   "n": 106
+  },
+  "A7_scale": {
+   "kappa": 0.6743286299499317,
+   "raw_agreement": 0.7452830188679245,
+   "n": 106
+  },
+  "design_method": {
+   "kappa": 1.0,
+   "raw_agreement": 1.0,
+   "n": 106
+  },
+  "lever": {
+   "mean_jaccard": 0.8537735849056604,
+   "n": 106
+  }
+ },
+ "thresholds": {
+  "gate_kappa_min": 0.8,
+  "axis_kappa_min": 0.7
+ },
+ "model": "claude-opus-5-5",
+ "run_id": "20261009T213845",
+ "code_hash": "d1a15accb813",
+ "k1": "PASS"
+}

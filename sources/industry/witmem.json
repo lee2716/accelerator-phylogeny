@@ -1,0 +1,651 @@
+{
+ "product_line": "Witmem WTM flash computing-in-memory chips (WTM1001, WTM2101, WTM-8)",
+ "vendor": "知存科技 (Witmem / Witinmem)",
+ "country": "CN",
+ "status": {
+  "value": "alive",
+  "as_of": "2026-04-03",
+  "detail": "The vendor site posted a 2026 university challenge call on 2026-04-03 and lists the WTM-2 and WTM-8 series; a September 2025 post reports an MIT Technology Review listing. WTM-8 was still shown as coming soon when accessed.",
+  "source_id": "witmem-news-2026-challenge"
+ },
+ "generations": [
+  {
+   "name": "WTM1001",
+   "year_announced": null,
+   "year_shipped": 2020,
+   "axes": {
+    "A0_workload": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A1_paradigm": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A1_device": {
+     "value": "flash",
+     "basis": "relayed",
+     "source_id": "witmem-eenews-2022",
+     "note": "SST SuperFlash memBrain, per the Microchip/SST statement relayed by trade press"
+    },
+    "A2_data_residency": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A3_numerics": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A4_sparsity_codesign": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A5_programmability": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A6_eval_rung": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A6_baseline_class": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A7_scale": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "design_method": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "lever": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    }
+   },
+   "numbers": [],
+   "bets": [
+    {
+     "text": "A licensed floating-gate flash cell (SST memBrain) holding weights in the array can serve as an analog neural-network accelerator.",
+     "status": "paid_off",
+     "source_id": "witmem-eenews-2022",
+     "status_source_id": "witmem-gacs2023-talk"
+    }
+   ],
+   "what_changed_from_previous": null,
+   "next": "WTM2101 adds a processor core and peripherals, turning the accelerator into a single-chip SoC."
+  },
+  {
+   "name": "WTM2101 (WTM-2 series)",
+   "year_announced": 2022,
+   "year_shipped": 2022,
+   "axes": {
+    "A0_workload": {
+     "value": "generic_dnn",
+     "basis": "disclosed",
+     "source_id": "witmem-wtm2101-product",
+     "note": "speech recognition, keyword spotting, noise reduction; page says mainstream deep-learning operators"
+    },
+    "A1_paradigm": {
+     "value": "cim_analog_nvm",
+     "basis": "disclosed",
+     "source_id": "witmem-gacs2023-talk"
+    },
+    "A1_device": {
+     "value": "flash",
+     "basis": "disclosed",
+     "source_id": "witmem-gacs2023-talk",
+     "note": "floating-gate cells, subthreshold operation"
+    },
+    "A2_data_residency": {
+     "value": "in_array_weights",
+     "basis": "disclosed",
+     "source_id": "witmem-tech-page"
+    },
+    "A3_numerics": {
+     "value": "int8",
+     "basis": "disclosed",
+     "source_id": "witmem-wtm2101-product",
+     "note": "8-bit compute and programming precision; analog evaluation in the array"
+    },
+    "A4_sparsity_codesign": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A5_programmability": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A6_eval_rung": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A6_baseline_class": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A7_scale": {
+     "value": "soc_chip",
+     "basis": "disclosed",
+     "source_id": "witmem-gacs2023-talk",
+     "note": "40 nm SoC with an in-house MPU core"
+    },
+    "design_method": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "lever": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    }
+   },
+   "numbers": [
+    {
+     "metric": "peak_compute",
+     "value": 50,
+     "unit": "Gops",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "lower bound ('above 50'); definition of an op not given; the 2023 talk says the figure was estimated from algorithm complexity",
+     "origin_source_id": "witmem-wtm2101-product"
+    },
+    {
+     "metric": "operating_current",
+     "value": "0.005-3",
+     "unit": "mA",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "range across use cases; supply voltage not stated",
+     "origin_source_id": "witmem-wtm2101-product"
+    },
+    {
+     "metric": "noise_reduction_current",
+     "value": 1.5,
+     "unit": "mA",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "AI noise-reduction use case at about 1 Gops",
+     "origin_source_id": "witmem-wtm2101-product"
+    },
+    {
+     "metric": "parameter_capacity",
+     "value": 1.8,
+     "unit": "M parameters",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "maximum; largest single matrix 896 x 1024",
+     "origin_source_id": "witmem-wtm2101-product"
+    },
+    {
+     "metric": "chip_outline",
+     "value": "2.6x3.2",
+     "unit": "mm",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "package type not stated",
+     "origin_source_id": "witmem-wtm2101-product"
+    },
+    {
+     "metric": "process_node",
+     "value": 40,
+     "unit": "nm",
+     "rung": "silicon",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "volume-production chip, foundry not stated",
+     "origin_source_id": "witmem-gacs2023-talk"
+    },
+    {
+     "metric": "compute_gain",
+     "value": "tens of",
+     "unit": "x",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": "mainstream digital NPUs and DSPs (unnamed)",
+     "conditions": "vendor claim relayed without conditions",
+     "origin_source_id": "witmem-xinhua-2022"
+    },
+    {
+     "metric": "power_reduction",
+     "value": "10-20",
+     "unit": "x",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": "unspecified 'alternative approaches'",
+     "conditions": "Microchip/SST statement about memBrain-based designs",
+     "origin_source_id": "witmem-eenews-2022"
+    }
+   ],
+   "bets": [
+    {
+     "text": "Analog matrix multiplication in a floating-gate flash array on a mature 40 nm node can beat digital NPUs and DSPs for always-on audio at sub-milliamp current.",
+     "status": "paid_off",
+     "source_id": "witmem-gacs2023-talk",
+     "status_source_id": "witmem-wtm2101-product"
+    },
+    {
+     "text": "Non-volatile in-array weights let the macros power down when idle and remove external DRAM and NOR flash from the bill of materials.",
+     "status": "unknown",
+     "source_id": "witmem-eenews-2022",
+     "status_source_id": null
+    },
+    {
+     "text": "Reliability, uniformity and yield of analog flash can be controlled well enough for volume production.",
+     "status": "paid_off",
+     "source_id": "witmem-gacs2023-talk",
+     "status_source_id": "witmem-wtm2101-product"
+    }
+   ],
+   "what_changed_from_previous": "From an accelerator (WTM1001, small batches in 2020) to a single-chip SoC with a processor core, produced in volume from March 2022. The talk attributes the delay between sample and volume to solving reliability, uniformity and yield. 'paid_off' above rests only on the vendor's own statement of million-unit shipments and named end products.",
+   "next": "WTM-8 series for video and imaging at tens of TOPS."
+  },
+  {
+   "name": "WTM-8 series",
+   "year_announced": null,
+   "year_shipped": null,
+   "axes": {
+    "A0_workload": {
+     "value": "other",
+     "basis": "disclosed",
+     "source_id": "witmem-wtm8-product",
+     "note": "video super-resolution, frame interpolation, HDR, detection, AR imaging"
+    },
+    "A1_paradigm": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A1_device": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A2_data_residency": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A3_numerics": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A4_sparsity_codesign": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A5_programmability": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A6_eval_rung": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A6_baseline_class": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A7_scale": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "design_method": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "lever": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    }
+   },
+   "numbers": [
+    {
+     "metric": "peak_compute",
+     "value": 24,
+     "unit": "TOPS",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "lower bound ('above 24'); four cores; product not yet released as accessed",
+     "origin_source_id": "witmem-wtm8-product"
+    },
+    {
+     "metric": "power",
+     "value": 3,
+     "unit": "W",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "upper bound, whole chip; workload not stated",
+     "origin_source_id": "witmem-wtm8-product"
+    },
+    {
+     "metric": "imaging_power",
+     "value": 200,
+     "unit": "mW",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "'as low as', high-performance imaging use case",
+     "origin_source_id": "witmem-wtm8-product"
+    },
+    {
+     "metric": "core_capacity",
+     "value": 64,
+     "unit": "M",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "per core; unit (parameters or bits) not stated",
+     "origin_source_id": "witmem-wtm8-product"
+    },
+    {
+     "metric": "single_core_compute_gain",
+     "value": 80,
+     "unit": "x",
+     "rung": "projection",
+     "tier": "T3",
+     "baseline": "not stated (previous generation implied)",
+     "conditions": "stated in a 2023 talk before tape-out",
+     "origin_source_id": "witmem-gacs2023-talk"
+    },
+    {
+     "metric": "efficiency_gain",
+     "value": 10,
+     "unit": "x",
+     "rung": "projection",
+     "tier": "T3",
+     "baseline": "not stated (previous generation implied)",
+     "conditions": "stated in a 2023 talk before tape-out",
+     "origin_source_id": "witmem-gacs2023-talk"
+    }
+   ],
+   "bets": [
+    {
+     "text": "In-memory computing scales from sub-milliamp audio to multi-TOPS real-time video by using several high-precision cores and a '3D' in-memory architecture on mature nodes.",
+     "status": "open",
+     "source_id": "witmem-wtm8-product",
+     "status_source_id": "witmem-wtm8-product"
+    }
+   ],
+   "what_changed_from_previous": "Workload moved from audio and wearables to 4K video and imaging; compute target rose from above 50 Gops to above 24 TOPS and power from milliamps to watts; one array became four cores with far larger capacity. Reason given in the talk: demand for higher compute at the edge. A 2023 talk planned tape-out and release that year; the vendor page still says coming soon when accessed on 2026-10-09.",
+   "next": null
+  }
+ ],
+ "sources": [
+  {
+   "id": "witmem-wtm2101-product",
+   "class": "datasheet",
+   "url": "https://www.witmem.com/WTM2101.php",
+   "author": "Witmem (知存科技)",
+   "date": null,
+   "language": "zh",
+   "accessed": "2026-10-09",
+   "title_original": "WTM-2系列 (WTM2101)",
+   "summary_en": "Vendor product page for the WTM2101 edge AI chip. States compute above 50 Gops, an operating current range of 5 uA to 3 mA, room for up to 1.8M parameters, a largest single matrix operation of 896 x 1024, 8-bit compute and programming precision and a 2.6 x 3.2 mm outline. Gives per-application loads (speech recognition 200 Mops-1 Gops, AI noise reduction 1 Gops at 1.5 mA, keyword wake-up 10-20 Mops) and says shipments are at the million-unit ('KK') level. Process node, flash type, CPU core and any named baseline are absent; comparison charts are images without values. The page carries no date.",
+   "tier": "T3",
+   "accepted": true,
+   "reject_reason": null,
+   "checks": null,
+   "quotes": []
+  },
+  {
+   "id": "witmem-wtm8-product",
+   "class": "datasheet",
+   "url": "https://www.witmem.com/WTM-8.php",
+   "author": "Witmem (知存科技)",
+   "date": null,
+   "language": "zh",
+   "accessed": "2026-10-09",
+   "title_original": "WTM-8系列",
+   "summary_en": "Vendor product page for the WTM-8 series, still labelled as coming soon when accessed. Describes four high-precision computing-in-memory cores with 64M capacity per core and a '3D computing-in-memory architecture' for larger models, above 24 TOPS, 8-bit compute precision, under 3 W overall and as low as 200 mW for imaging, Linux support, and says it can be built on mature domestic processes. Functions: video super-resolution, frame interpolation, HDR, detection, up to 4K at 120 fps, AR see-through at 10 ms latency. No node, memory type, package, baseline or date.",
+   "tier": "T3",
+   "accepted": true,
+   "reject_reason": null,
+   "checks": null,
+   "quotes": []
+  },
+  {
+   "id": "witmem-tech-page",
+   "class": "vendor_doc",
+   "url": "https://www.witmem.com/cnjs.php",
+   "author": "Witmem (知存科技)",
+   "date": null,
+   "language": "zh",
+   "accessed": "2026-10-09",
+   "title_original": "存算一体技术",
+   "summary_en": "Vendor technology page. Explains that the cells holding the weights operate directly on the input matrix so weights are never read out, and claims against a von Neumann design of equal effective compute: up to 70% lower cost, 80-90% lower compute power, 4-10x performance in customer tests (with algorithms not tuned for the architecture), and parity with a conventional processor on a process about seven years newer. Does not name the memory device, the circuit (current/voltage, ADC), cell precision, drift or calibration handling, or any test conditions.",
+   "tier": "T3",
+   "accepted": true,
+   "reject_reason": null,
+   "checks": null,
+   "quotes": []
+  },
+  {
+   "id": "witmem-news-2026-challenge",
+   "class": "vendor_doc",
+   "url": "https://www.witmem.com/newsshow.php?id=1019",
+   "author": "Witmem (知存科技)",
+   "date": "2026-04-03",
+   "language": "zh",
+   "accessed": "2026-10-09",
+   "title_original": "2026存算一体高校挑战赛报名开启，知存科技邀您共探存算未来！",
+   "summary_en": "Vendor news post opening registration (deadline 30 June) for the 2026 InnoCIM university computing-in-memory challenge. Carries no chip specifications; used here only as dated evidence that the company was operating and running a developer programme in April 2026.",
+   "tier": "T3",
+   "accepted": true,
+   "reject_reason": null,
+   "checks": null,
+   "quotes": []
+  },
+  {
+   "id": "witmem-news-tr50",
+   "class": "vendor_doc",
+   "url": "https://www.witmem.com/newsshow.php?id=1018",
+   "author": "Witmem (知存科技)",
+   "date": "2025-09-12",
+   "language": "zh",
+   "accessed": "2026-10-09",
+   "title_original": "《麻省理工科技评论》“50家聪明公司”正式发布！知存科技入选",
+   "summary_en": "Vendor news post reporting the company's inclusion in the MIT Technology Review 2025 '50 smart companies' list announced at EmTech China in Shanghai on 12 September 2025. Describes the company as a computing-in-memory supplier spanning devices, architecture and software for mobile AI and visual processing; gives no product, shipment or funding facts.",
+   "tier": "T3",
+   "accepted": true,
+   "reject_reason": null,
+   "checks": null,
+   "quotes": []
+  },
+  {
+   "id": "witmem-gacs2023-talk",
+   "class": "conference_talk",
+   "url": "https://zhidx.com/p/396552.html",
+   "author": "詹慕航 (Witmem business development VP); transcript by 芯东西",
+   "date": "2023-10-16",
+   "language": "zh",
+   "accessed": "2026-10-09",
+   "title_original": "知存科技詹慕航：AI算力提升数百倍、功耗降低数十倍！加速存内计算芯片端到边应用丨GACS 2023",
+   "summary_en": "Transcript of a vendor talk at the Global AI Chip Summit (Shenzhen, 14-15 September 2023). History: research since 2013, company founded 2017, first test tape-out 2018, WTM1001 accelerator in small-batch production in 2020, WTM2101 in volume in 2022 on 40 nm. Mechanism: floating-gate flash cells are programmed to a conductance and operated in subthreshold; an array of about 1000 x 1000 cells computes in parallel in one read by Ohm's law before the ADC; standard NOR flash had to be reworked at the cell level. WTM2101: under 1 TOPS / 50 Gops, 1.8M parameters, 5 uA-3 mA, INT8, in-house MPU core; said to match 6-10x of a 12 nm digital design and to beat unnamed market solutions by tens to hundreds of times in compute. Named designs: a children's watch, INMO Air2 glasses, Meizu earbuds. WTM-8: 12-bit precision, tape-out and release planned for 2023, single-core compute up 80x and efficiency up 10x (reference not stated), 4K-8K video functions. Named difficulties: reliability, uniformity, yield and analog precision control.",
+   "tier": "T3",
+   "accepted": true,
+   "reject_reason": null,
+   "checks": null,
+   "quotes": []
+  },
+  {
+   "id": "witmem-xinhua-2022",
+   "class": "trade_press",
+   "url": "http://www.news.cn/tech/20220429/4efd530d8ea74f8686c83f7edbc05207/c.html",
+   "author": "新华网 (editor 郑伟)",
+   "date": "2022-04-29",
+   "language": "zh",
+   "accessed": "2026-10-09",
+   "title_original": "实现存算一体AI芯片量产 知存科技再官宣新计划",
+   "summary_en": "News item on the company's April 2022 rebranding. Says the WTM2101 SoC entered volume production in March 2022, runs deep-learning loads from tens of Mops to several Gops at sub-milliamp current, and is claimed to offer tens of times the compute of mainstream digital NPUs and DSPs (no products named). Also reports a first demonstration of in-memory computing for ultra-high-definition video, without a chip name or schedule. No named speaker, no independent data.",
+   "tier": "T3",
+   "accepted": false,
+   "reject_reason": "PRESS_REWRITE",
+   "checks": {
+    "C1": false,
+    "C2": false,
+    "C3": false,
+    "C4": false,
+    "C5": false,
+    "C6": false
+   },
+   "quotes": []
+  },
+  {
+   "id": "witmem-eenews-2022",
+   "class": "trade_press",
+   "url": "https://www.eenewseurope.com/en/china-startup-witinmem-uses-analog-flash-for-compute-in-memory/",
+   "author": "Peter Clarke (eeNews Europe)",
+   "date": "2022-02-28",
+   "language": "en",
+   "accessed": "2026-10-09",
+   "title_original": "China startup Witinmem uses analog flash for compute-in-memory",
+   "summary_en": "Trade-press item following a Microchip/SST statement. The WTM1001 accelerator and WTM2101 SoC use SST's SuperFlash memBrain, a floating-gate technology tuned for vector-matrix multiplication; weights stay in the array, so the macros can be powered down when idle and no external DRAM or NOR flash is needed. Relays a 10-20x power reduction against unspecified alternatives and recognition of hundreds of command words at sub-milliamp current. Company founded 2017 in Beijing with about 300 million yuan raised over five rounds. Foundry, node and licence terms are absent; no analysis added.",
+   "tier": "T3",
+   "accepted": false,
+   "reject_reason": "PRESS_REWRITE",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": false,
+    "C4": false,
+    "C5": false,
+    "C6": false
+   },
+   "quotes": [
+    "The Witinmem SoC showcases the value of using memBrain technology to create a single-chip solution."
+   ]
+  }
+ ],
+ "conflicts": [
+  {
+   "metric": "WTM-8 compute precision (bits)",
+   "accounts": [
+    {
+     "metric": "precision",
+     "value": 12,
+     "unit": "bit",
+     "rung": "projection",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "vendor talk, September 2023, before tape-out",
+     "origin_source_id": "witmem-gacs2023-talk"
+    },
+    {
+     "metric": "precision",
+     "value": 8,
+     "unit": "bit",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "vendor product page as accessed 2026-10-09",
+     "origin_source_id": "witmem-wtm8-product"
+    }
+   ]
+  },
+  {
+   "metric": "power advantage of flash computing-in-memory over conventional designs",
+   "accounts": [
+    {
+     "metric": "power_reduction",
+     "value": "10-20",
+     "unit": "x",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": "unspecified alternatives",
+     "conditions": "Microchip/SST statement, 2022",
+     "origin_source_id": "witmem-eenews-2022"
+    },
+    {
+     "metric": "power_reduction",
+     "value": "80-90",
+     "unit": "% lower (5-10x)",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": "von Neumann design of equal effective compute",
+     "conditions": "vendor technology page, undated",
+     "origin_source_id": "witmem-tech-page"
+    },
+    {
+     "metric": "power_reduction",
+     "value": "tens of",
+     "unit": "x",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": "unnamed market solutions",
+     "conditions": "talk title and text, 2023",
+     "origin_source_id": "witmem-gacs2023-talk"
+    }
+   ]
+  },
+  {
+   "metric": "WTM2101 compute as described by the vendor",
+   "accounts": [
+    {
+     "metric": "peak_compute",
+     "value": 50,
+     "unit": "Gops",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "'above 50', product page",
+     "origin_source_id": "witmem-wtm2101-product"
+    },
+    {
+     "metric": "workload_range",
+     "value": "0.01-several",
+     "unit": "Gops",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "range of algorithm loads it runs, 2022 news item",
+     "origin_source_id": "witmem-xinhua-2022"
+    }
+   ]
+  }
+ ],
+ "not_found": [
+  "Any peer-reviewed paper or independent measurement of a Witmem chip; one search aimed at this returned only vendor, press and blog material. Every number is a vendor or licensor claim (T3).",
+  "Foundry, flash cell type details (bits or levels per cell), ADC/DAC design, temperature and retention handling for WTM2101.",
+  "The WTM2101 CPU core: a search hit attributed a RISC-V core to Nuclei, but the page (verimake.io) did not resolve; the vendor talk only calls it an in-house MPU core. Left unrecorded on the axes.",
+  "WTM1001 announcement year and specifications; only 'small-batch production in 2020' is stated.",
+  "WTM-8: process node, memory device, whether the computation is analog, tape-out or shipment date, and what '3D computing-in-memory' means physically. Paradigm, device and numerics are left unknown; announcement year left null because the only dated mention (a 2023 talk) describes it as upcoming.",
+  "Exact shipment volume: sources say only million-unit ('KK') level.",
+  "Candidates not readable: https://www.witintech.com/ (expired certificate), https://www.eet-china.com/news/202211115175.html (timed out, a 2022 talk by the CEO about a third-generation chip in 2023), verimake.io (DNS failure).",
+  "Funding after the roughly 300 million yuan reported in February 2022.",
+  "Limits used: 2 of 8 searches, 12 of 12 pages, 8 of 8 sources."
+ ]
+}

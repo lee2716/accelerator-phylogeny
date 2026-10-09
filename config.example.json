@@ -1,0 +1,4 @@
+{
+ "data_dir": "/absolute/path/to/private/material",
+ "corpus_index": "/absolute/path/to/eda-corpus-index.json"
+}

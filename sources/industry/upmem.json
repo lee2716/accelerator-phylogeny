@@ -1,0 +1,710 @@
+{
+ "product_line": "UPMEM PIM DRAM modules with in-memory DRAM Processing Units (DPUs)",
+ "vendor": "UPMEM",
+ "country": "France",
+ "status": {
+  "value": "acquired",
+  "as_of": "2025-10-03",
+  "detail": "A paper dated 2025-10-03 states that UPMEM was recently acquired by Qualcomm; a company database (rejected as evidence, kept as the only dated account) gives 2025-06-11. No announcement by Qualcomm or UPMEM was found, and the company website did not resolve from this session on 2026-10-09. What Qualcomm did with the product line is not known.",
+  "source_id": "u_unleashed_2025"
+ },
+ "generations": [
+  {
+   "name": "First-generation PIM DDR4 module (DPU chips; systems measured at 267 and 350 MHz)",
+   "year_announced": 2017,
+   "year_shipped": 2019,
+   "notes": "year_announced is the chip announcement (u_pr_2017); the module was presented at Hot Chips 31 in 2019 according to u_nextplatform_2020. year_shipped is the year samples reached early adopters per the same article; mass production was only stated as expected for mid-2020 and no source confirms it.",
+   "axes": {
+    "A0_workload": {
+     "value": "non_nn",
+     "basis": "disclosed",
+     "source_id": "u_pr_2017"
+    },
+    "A1_paradigm": {
+     "value": "pim_dram_near_memory",
+     "basis": "disclosed",
+     "source_id": "u_pr_2017"
+    },
+    "A1_device": {
+     "value": "dram",
+     "basis": "disclosed",
+     "source_id": "u_pr_2017"
+    },
+    "A2_data_residency": {
+     "value": "hbm_or_dram_bound",
+     "basis": "inferred",
+     "source_id": "u_prim_2021"
+    },
+    "A3_numerics": {
+     "value": "other",
+     "basis": "inferred",
+     "source_id": "u_prim_2021"
+    },
+    "A4_sparsity_codesign": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A5_programmability": {
+     "value": "host_offload",
+     "basis": "disclosed",
+     "source_id": "u_pr_2017"
+    },
+    "A6_eval_rung": {
+     "value": "board_or_system",
+     "basis": "inferred",
+     "source_id": "u_prim_2021"
+    },
+    "A6_baseline_class": {
+     "value": "cpu",
+     "basis": "inferred",
+     "source_id": "u_prim_2021"
+    },
+    "A7_scale": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "design_method": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "lever": {
+     "value": "memory_hierarchy",
+     "basis": "disclosed",
+     "source_id": "u_pr_2017"
+    }
+   },
+   "numbers": [
+    {
+     "metric": "speed-up of data-intensive applications",
+     "value": "20",
+     "unit": "x",
+     "rung": "projection",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "2017 claim before any module existed; baseline system not stated",
+     "origin_source_id": "u_pr_2017"
+    },
+    {
+     "metric": "processing units per 8 GB module",
+     "value": "128",
+     "unit": "DPUs",
+     "rung": "board_or_system",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "DDR4 module of 16 chips, 64 MB DRAM per unit; vendor description relayed by trade press and matched by the independent study (20 modules, 2,560 units)",
+     "origin_source_id": "u_nextplatform_2020"
+    },
+    {
+     "metric": "planned DPU clock",
+     "value": "500",
+     "unit": "MHz",
+     "rung": "projection",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "figure from the vendor's 2019 presentation as relayed; measured systems ran slower (see conflicts)",
+     "origin_source_id": "u_nextplatform_2020"
+    },
+    {
+     "metric": "module price premium",
+     "value": "about 10",
+     "unit": "x",
+     "rung": "not_stated",
+     "tier": "T4",
+     "baseline": "a standard 8 GB DDR4 DIMM",
+     "conditions": "early-2020 sample pricing as reported by the journalist; the CEO's 2019 estimate for volume production was a premium of about 50%",
+     "origin_source_id": "u_nextplatform_2020"
+    },
+    {
+     "metric": "search query latency",
+     "value": "385 to 12",
+     "unit": "ms",
+     "rung": "board_or_system",
+     "tier": "T3",
+     "baseline": "the same two-socket Xeon server without PIM offload",
+     "conditions": "undisclosed customer's search engine, index sharded over 2,048 units in 128 GB of PIM; shared by the vendor; query load not given; stated as about 35x, with about 11x throughput",
+     "origin_source_id": "u_nextplatform_2020"
+    },
+    {
+     "metric": "genomics pipeline run time",
+     "value": "32",
+     "unit": "minutes",
+     "rung": "board_or_system",
+     "tier": "T3",
+     "baseline": "1,820 minutes for stock GATK and 320 minutes for a tuned CPU-only stack on the same two-socket Xeon server",
+     "conditions": "vendor with an unnamed customer; offload method not explained; energy given as about one sixth",
+     "origin_source_id": "u_nextplatform_2020"
+    },
+    {
+     "metric": "average speed-up over a CPU",
+     "value": "93",
+     "unit": "x",
+     "rung": "board_or_system",
+     "tier": "T2",
+     "baseline": "a modern CPU (as described in the paper)",
+     "conditions": "2,556-unit system at 350 MHz, 13 of 16 PrIM workloads (those without heavy inter-unit synchronisation or floating point)",
+     "origin_source_id": "u_prim_2021"
+    },
+    {
+     "metric": "average speed-up over a CPU",
+     "value": "28",
+     "unit": "x",
+     "rung": "board_or_system",
+     "tier": "T2",
+     "baseline": "a modern CPU (as described in the paper)",
+     "conditions": "640-unit system at 267 MHz, same 13 workloads",
+     "origin_source_id": "u_prim_2021"
+    },
+    {
+     "metric": "average speed-up over a GPU",
+     "value": "2.5",
+     "unit": "x",
+     "rung": "board_or_system",
+     "tier": "T2",
+     "baseline": "a modern GPU (as described in the paper)",
+     "conditions": "2,556-unit system, 10 workloads with streaming access and simple arithmetic; the 640-unit system was generally slower than the GPU",
+     "origin_source_id": "u_prim_2021"
+    },
+    {
+     "metric": "streaming bandwidth between a unit and its DRAM bank",
+     "value": "620-630",
+     "unit": "MB/s",
+     "rung": "board_or_system",
+     "tier": "T2",
+     "baseline": null,
+     "conditions": "per unit; about 1.6 TB/s summed over 2,556 units and about 301 GB/s over 640",
+     "origin_source_id": "u_prim_2021"
+    }
+   ],
+   "bets": [
+    {
+     "text": "Put general-purpose, C-programmable cores rather than fixed arithmetic units into a standard DRAM process and sell them on ordinary DDR4 modules, so servers, protocols and tools stay unchanged.",
+     "status": "open",
+     "source_id": "u_pr_2017",
+     "status_source_id": "u_prim_2021"
+    },
+    {
+     "text": "Cores without hardware floating point or wide multiply and divide are enough for the data-intensive workloads that matter.",
+     "status": "open",
+     "source_id": "u_prim_2021",
+     "status_source_id": "u_dramatic_2026"
+    },
+    {
+     "text": "The units need no direct interconnect; the host can carry all communication between them.",
+     "status": "open",
+     "source_id": "u_prim_2021",
+     "status_source_id": "u_prim_2021"
+    },
+    {
+     "text": "Volume production would bring the module premium over plain DRAM down from about tenfold to about one half.",
+     "status": "unknown",
+     "source_id": "u_nextplatform_2020",
+     "status_source_id": null
+    }
+   ],
+   "what_changed_from_previous": null,
+   "next": "A v1B variant at 400 MHz (u_unleashed_2025)."
+  },
+  {
+   "name": "UPMEM-v1B modules (400 MHz, up to 16 tasklets)",
+   "year_announced": null,
+   "year_shipped": null,
+   "axes": {
+    "A0_workload": {
+     "value": "other",
+     "basis": "disclosed",
+     "source_id": "u_cordis_2024"
+    },
+    "A1_paradigm": {
+     "value": "pim_dram_near_memory",
+     "basis": "inferred",
+     "source_id": "u_unleashed_2025"
+    },
+    "A1_device": {
+     "value": "dram",
+     "basis": "inferred",
+     "source_id": "u_unleashed_2025"
+    },
+    "A2_data_residency": {
+     "value": "hbm_or_dram_bound",
+     "basis": "inferred",
+     "source_id": "u_unleashed_2025"
+    },
+    "A3_numerics": {
+     "value": "other",
+     "basis": "inferred",
+     "source_id": "u_unleashed_2025"
+    },
+    "A4_sparsity_codesign": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A5_programmability": {
+     "value": "host_offload",
+     "basis": "inferred",
+     "source_id": "u_unleashed_2025"
+    },
+    "A6_eval_rung": {
+     "value": "board_or_system",
+     "basis": "inferred",
+     "source_id": "u_unleashed_2025"
+    },
+    "A6_baseline_class": {
+     "value": "cpu",
+     "basis": "inferred",
+     "source_id": "u_unleashed_2025"
+    },
+    "A7_scale": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "design_method": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "lever": {
+     "value": "memory_hierarchy",
+     "basis": "disclosed",
+     "source_id": "u_cordis_2024"
+    }
+   },
+   "numbers": [
+    {
+     "metric": "INT8 matrix-vector throughput, matrix resident in PIM",
+     "value": "about 650",
+     "unit": "GOPS",
+     "rung": "board_or_system",
+     "tier": "T2",
+     "baseline": "dual-socket Huawei Kunpeng 920 server at about 200 GOPS (Arm Compute Library)",
+     "conditions": "2,551 units at 400 MHz, hand-optimised kernel; more than 3x the server and 3.5x the authors' own baseline kernel",
+     "origin_source_id": "u_unleashed_2025"
+    },
+    {
+     "metric": "INT4 matrix-vector throughput, matrix resident in PIM",
+     "value": "about 1000",
+     "unit": "GOPS",
+     "rung": "board_or_system",
+     "tier": "T2",
+     "baseline": "the same Kunpeng 920 server running llama.cpp Arm-NEON INT4 code (about 10x slower)",
+     "conditions": "bit-serial kernel; matrix encoding time excluded",
+     "origin_source_id": "u_unleashed_2025"
+    },
+    {
+     "metric": "matrix-vector throughput when the matrix must be transferred",
+     "value": "about 0.25",
+     "unit": "x",
+     "rung": "board_or_system",
+     "tier": "T2",
+     "baseline": "the same Kunpeng 920 server (about 4x faster than the PIM system)",
+     "conditions": "optimised PIM kernel including host-to-PIM transfer",
+     "origin_source_id": "u_unleashed_2025"
+    },
+    {
+     "metric": "host-to-PIM transfer throughput gain from NUMA-aware allocation",
+     "value": "up to 2.9",
+     "unit": "x",
+     "rung": "board_or_system",
+     "tier": "T2",
+     "baseline": "the stock SDK allocation",
+     "conditions": "average 2.4x for host-to-PIM",
+     "origin_source_id": "u_unleashed_2025"
+    },
+    {
+     "metric": "integer multiplication speed-up from hand-edited assembly",
+     "value": "1.4-5.9",
+     "unit": "x",
+     "rung": "board_or_system",
+     "tier": "T2",
+     "baseline": "code generated by the vendor compiler",
+     "conditions": "single unit, depends on data type; addition gains 1.6-2x",
+     "origin_source_id": "u_unleashed_2025"
+    },
+    {
+     "metric": "speed-up of homomorphic-encryption primitives",
+     "value": "334",
+     "unit": "x",
+     "rung": "board_or_system",
+     "tier": "T2",
+     "baseline": "previous HE implementations on UPMEM PIM",
+     "conditions": "abstract only; hardware version not stated there",
+     "origin_source_id": "u_dramatic_2026"
+    },
+    {
+     "metric": "claimed server speed-up with PIM",
+     "value": "up to 20",
+     "unit": "x",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": "servers with conventional memory",
+     "conditions": "vendor statement in an EU project report, with 12x efficiency and 10x lower cost; no benchmark detail",
+     "origin_source_id": "u_cordis_2024"
+    }
+   ],
+   "bets": [
+    {
+     "text": "Software alone (SDK, compiler, libraries) can make general-purpose in-memory cores competitive for quantised AI inference.",
+     "status": "open",
+     "source_id": "u_unleashed_2025",
+     "status_source_id": "u_unleashed_2025"
+    }
+   ],
+   "what_changed_from_previous": "Clock raised to 400 MHz and the tasklet limit is reported as 16 instead of the 24 hardware threads described for the earlier systems; no source opened explains the change or dates the variant (u_unleashed_2025 against u_prim_2021).",
+   "next": "A redesigned chip and architecture, design completed under the EIC project by early 2024 (u_cordis_2024)."
+  },
+  {
+   "name": "Next-generation PIM chip and architecture (EIC ENERGIA/PIM design, not shown in silicon)",
+   "year_announced": null,
+   "year_shipped": null,
+   "axes": {
+    "A0_workload": {
+     "value": "other",
+     "basis": "disclosed",
+     "source_id": "u_cordis_2024"
+    },
+    "A1_paradigm": {
+     "value": "pim_dram_near_memory",
+     "basis": "disclosed",
+     "source_id": "u_cordis_2024"
+    },
+    "A1_device": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A2_data_residency": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A3_numerics": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A4_sparsity_codesign": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A5_programmability": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A6_eval_rung": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A6_baseline_class": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A7_scale": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "design_method": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "lever": {
+     "value": "memory_hierarchy",
+     "basis": "disclosed",
+     "source_id": "u_cordis_2024"
+    }
+   },
+   "numbers": [],
+   "bets": [
+    {
+     "text": "A second chip with a new interface, a lower-power pipeline, boot-as-plain-memory and enclave-style security would make PIM modules acceptable to mainstream server makers.",
+     "status": "unknown",
+     "source_id": "u_cordis_2024",
+     "status_source_id": null
+    }
+   ],
+   "what_changed_from_previous": "New chip interface, lower-power processor pipeline, repair and protection functions, the ability to boot as standard memory, and a scheme that makes the in-memory processors secure enclaves; the report says the specification was informed by use cases developed with commercial and research labs (u_cordis_2024).",
+   "next": "No tape-out or product was found; the company is reported acquired by Qualcomm in 2025 (u_unleashed_2025, u_cbinsights)."
+  }
+ ],
+ "sources": [
+  {
+   "id": "u_pr_2017",
+   "class": "vendor_doc",
+   "url": "https://www.newswire.com/news/upmem-announces-the-first-processing-in-memory-chip-accelerating-big-19923183",
+   "author": "UPMEM (press release via Newswire)",
+   "date": "2017-09-07",
+   "language": "en",
+   "accessed": "2026-10-09",
+   "title_original": "UPMEM Announces the First Processing In-Memory Chip Accelerating Big Data Applications",
+   "summary_en": "Founding announcement. A fabless Grenoble start-up describes a DRAM chip that carries its own small RISC processors (DRAM Processing Units) next to the memory array; the server CPU orchestrates many of them as co-processors and a software kit lets programmers dispatch tasks in high-level languages without changing hardware, protocols or tool flow. Targets data-intensive datacentre work, with genomics as the example. Gives an unconditioned speed-up claim and announces a Series A of about 3 million euros led by C4 Ventures with Partech, Supernova Invest, Western Digital Capital and Credit Agricole. No process, module format or dates.",
+   "tier": "T3",
+   "accepted": true,
+   "reject_reason": null,
+   "checks": null,
+   "quotes": []
+  },
+  {
+   "id": "u_nextplatform_2020",
+   "class": "trade_press",
+   "url": "https://www.nextplatform.com/2020/02/04/putting-in-memory-processing-through-the-paces",
+   "author": "Timothy Prickett Morgan (The Next Platform)",
+   "date": "2020-02-04",
+   "language": "en",
+   "accessed": "2026-10-09",
+   "title_original": "Putting In-Memory Processing Through The Paces",
+   "summary_en": "Article on the first application results UPMEM shared after Hot Chips 31. Describes the 8 GB DDR4 module (16 chips, 128 processing units, 64 MB of DRAM each), the core (14-stage pipeline, 24 hardware threads, no caches, small SRAM instruction and working memories, DMA between DRAM and core), and two customer workloads on a two-socket Xeon server with 128 GB of PIM: a search index sharded over 2,048 units and a genomics pipeline. Reports sampling in 2019 and mass production expected for mid-2020. The author adds what the vendor leaves out: a roughly tenfold module price premium, an unexplained offload method, a presumed accuracy trade in the tuned CPU baseline and untested server-level economics. Links only its own earlier article.",
+   "tier": "T4",
+   "accepted": true,
+   "reject_reason": null,
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": false,
+    "C5": true,
+    "C6": false
+   },
+   "quotes": []
+  },
+  {
+   "id": "u_prim_2021",
+   "class": "paper",
+   "url": "https://arxiv.org/abs/2105.03814",
+   "author": "Juan Gómez-Luna, Izzat El Hajj, Ivan Fernandez, Christina Giannoula, Geraldo F. Oliveira, Onur Mutlu",
+   "date": "2021-05-09 (v7 revised 2022-05-04)",
+   "language": "en",
+   "accessed": "2026-10-09",
+   "title_original": "Benchmarking a New Paradigm: An Experimental Analysis of a Real Processing-in-Memory Architecture",
+   "summary_en": "Independent characterisation of two real UPMEM servers (2,556 usable units at 350 MHz and 640 units at 267 MHz) with microbenchmarks and a 16-workload suite (PrIM); the abstract and the first 100,000 characters of the ar5iv HTML were read. Describes eight processing units per chip, each an in-order 32-bit RISC core with 24 hardware threads, a 64 MB DRAM bank, 24 KB instruction memory and 64 KB scratchpad, no caches, no hardware floating point or 32/64-bit multiply and divide, and no direct link between units (everything goes through the host over the memory bus). Concludes the design is compute-bound for anything heavier than integer addition, suits streaming, independently partitioned integer workloads, and scales poorly when units must communicate.",
+   "tier": "T2",
+   "accepted": true,
+   "reject_reason": null,
+   "checks": null,
+   "quotes": [
+    "fundamentally compute-bound"
+   ]
+  },
+  {
+   "id": "u_cut_2021",
+   "class": "paper",
+   "url": "https://arxiv.org/abs/2110.01709",
+   "author": "Juan Gómez-Luna, Izzat El Hajj, Ivan Fernandez, Christina Giannoula, Geraldo F. Oliveira, Onur Mutlu",
+   "date": "2021-10-04 (v2 revised 2023-04-03)",
+   "language": "en",
+   "accessed": "2026-10-09",
+   "title_original": "Benchmarking Memory-Centric Computing Systems: Analysis of Real Processing-in-Memory Hardware",
+   "summary_en": "Invited workshop summary (CUT 2021) of the same study as u_prim_2021; only the abstract page was read and it carries no figures of its own. arXiv itself flags substantial text overlap with the longer paper, so it is listed as a duplicate and not counted as separate evidence.",
+   "tier": "T2",
+   "accepted": false,
+   "reject_reason": "DUPLICATE",
+   "checks": null,
+   "quotes": []
+  },
+  {
+   "id": "u_cordis_2024",
+   "class": "vendor_doc",
+   "url": "https://cordis.europa.eu/project/id/190141232/reporting/fr",
+   "author": "SAS UPMEM (periodic report summary published by the European Commission, CORDIS)",
+   "date": "reporting period 2022-12-01 to 2024-02-29 (the page shows a last-update date of 2023-03-03, which precedes the end of the period it reports on)",
+   "language": "en",
+   "accessed": "2026-10-09",
+   "title_original": "ENERGIA/PIM: Accelerating Datacentre performance through Memory Chips to efficiently manage the Big Data Age - Periodic Reporting for period 2",
+   "summary_en": "Summary of the EIC-funded project (2022-03-01 to 2024-02-29, EU contribution about 2.5 million euros; page chrome in French, report text in English). UPMEM states that it finished the design of a new PIM chip and architecture: a new chip interface, a lower-power processor pipeline, repair and protection functions, the ability to boot as ordinary memory and a security scheme that turns the in-memory processors into enclaves, with control software and an updated module. Server integration was prepared with Intel, QCT and Supermicro; targets are big data and AI. Repeats vendor-level speed, efficiency and cost multiples without benchmark detail. No process node, tape-out or measured result.",
+   "tier": "T3",
+   "accepted": true,
+   "reject_reason": null,
+   "checks": null,
+   "quotes": []
+  },
+  {
+   "id": "u_unleashed_2025",
+   "class": "paper",
+   "url": "https://arxiv.org/abs/2510.15927",
+   "author": "Krystian Chmielewski, Jarosław Ławnicki, Uladzislau Lukyanau, Tadeusz Kobus, Maciej Maciejewski (Huawei Technologies, Heterogeneous Memory Software Lab, Warsaw)",
+   "date": "2025-10-03",
+   "language": "en",
+   "accessed": "2026-10-09",
+   "title_original": "UPMEM Unleashed: Software Secrets for Speed",
+   "summary_en": "arXiv preprint (not peer reviewed) by a Huawei lab measuring a 2,560-unit UPMEM-v1B server (2,551 working units, 400 MHz, up to 16 tasklets, SDK 2025.1.0). Shows that the vendor compiler leaves performance unused (hand-edited assembly speeds up integer add and multiply), that bit-serial INT4 arithmetic and NUMA-aware allocation help, and that quantised matrix-vector products beat a two-socket Arm server only when the matrix is already resident in PIM memory; with the transfer included the server wins. Confirms the absence of hardware 32-bit multiply/divide and floating point. States that UPMEM was recently acquired by Qualcomm.",
+   "tier": "T2",
+   "accepted": true,
+   "reject_reason": null,
+   "checks": null,
+   "quotes": [
+    "recently acquired by Qualcomm"
+   ]
+  },
+  {
+   "id": "u_dramatic_2026",
+   "class": "paper",
+   "url": "https://arxiv.org/abs/2602.12433",
+   "author": "Niklas Klinger, Jonas Sander, Peterson Yuhala, Pascal Felber, Thomas Eisenbarth",
+   "date": "2026-02-12 (v2 2026-04-30)",
+   "language": "en",
+   "accessed": "2026-10-09",
+   "title_original": "DRAMatic Speedup: Accelerating HE Operations on a Processing-in-Memory System",
+   "summary_en": "arXiv preprint (abstract only read) implementing the building blocks of homomorphic encryption on UPMEM hardware with residue-number and number-theoretic-transform techniques. Reports a large gain over earlier implementations on the same hardware and a comparison with Microsoft SEAL without figures. Names two hardware limits that still bind in 2026, host transfer overhead and slow multiplication, and discusses hardware extensions. Shows the hardware remained in research use after the acquisition.",
+   "tier": "T2",
+   "accepted": true,
+   "reject_reason": null,
+   "checks": null,
+   "quotes": []
+  },
+  {
+   "id": "u_cbinsights",
+   "class": "analyst",
+   "url": "https://www.cbinsights.com/company/upmem/financials",
+   "author": "CB Insights",
+   "date": "undated (page footer copyright 2026)",
+   "language": "en",
+   "accessed": "2026-10-09",
+   "title_original": "Upmem - Total Raised",
+   "summary_en": "Company-database page listing Qualcomm as acquirer of UPMEM with the date 2025-06-11 and a history of funding rounds since 2017; amounts and investors are masked behind a subscription. No mechanism, no author and no primary link, so it is rejected as evidence and kept only as the single dated account of the acquisition.",
+   "tier": "T4",
+   "accepted": false,
+   "reject_reason": "NO_MECHANISM",
+   "checks": {
+    "C1": false,
+    "C2": false,
+    "C3": false,
+    "C4": false,
+    "C5": false,
+    "C6": false
+   },
+   "quotes": []
+  }
+ ],
+ "conflicts": [
+  {
+   "metric": "DPU clock frequency",
+   "accounts": [
+    {
+     "metric": "DPU clock",
+     "value": "500",
+     "unit": "MHz",
+     "rung": "projection",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "vendor's 2019 figure as relayed",
+     "origin_source_id": "u_nextplatform_2020"
+    },
+    {
+     "metric": "DPU clock",
+     "value": "350",
+     "unit": "MHz",
+     "rung": "board_or_system",
+     "tier": "T2",
+     "baseline": null,
+     "conditions": "2,556-unit system (267 MHz on the 640-unit system)",
+     "origin_source_id": "u_prim_2021"
+    },
+    {
+     "metric": "DPU clock",
+     "value": "400",
+     "unit": "MHz",
+     "rung": "board_or_system",
+     "tier": "T2",
+     "baseline": null,
+     "conditions": "v1B system",
+     "origin_source_id": "u_unleashed_2025"
+    }
+   ]
+  },
+  {
+   "metric": "hardware threads (tasklets) per DPU",
+   "accounts": [
+    {
+     "metric": "threads per DPU",
+     "value": "24",
+     "unit": "threads",
+     "rung": "board_or_system",
+     "tier": "T2",
+     "baseline": null,
+     "conditions": "also given by u_nextplatform_2020",
+     "origin_source_id": "u_prim_2021"
+    },
+    {
+     "metric": "threads per DPU",
+     "value": "16",
+     "unit": "threads",
+     "rung": "board_or_system",
+     "tier": "T2",
+     "baseline": null,
+     "conditions": "v1B system",
+     "origin_source_id": "u_unleashed_2025"
+    }
+   ]
+  },
+  {
+   "metric": "DPUs per chip",
+   "accounts": [
+    {
+     "metric": "DPUs per chip",
+     "value": "8",
+     "unit": "DPUs",
+     "rung": "board_or_system",
+     "tier": "T2",
+     "baseline": null,
+     "conditions": "128 per 16-chip module",
+     "origin_source_id": "u_prim_2021"
+    },
+    {
+     "metric": "DPUs per chip",
+     "value": "64",
+     "unit": "DPUs",
+     "rung": "not_stated",
+     "tier": "T4",
+     "baseline": null,
+     "conditions": "one sentence of the article, inconsistent with its own 128-per-module figure",
+     "origin_source_id": "u_nextplatform_2020"
+    }
+   ]
+  },
+  {
+   "metric": "DRAM-to-DPU bandwidth",
+   "accounts": [
+    {
+     "metric": "bandwidth",
+     "value": "about 1",
+     "unit": "GB/s",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "vendor figure as relayed, stated per chip",
+     "origin_source_id": "u_nextplatform_2020"
+    },
+    {
+     "metric": "bandwidth",
+     "value": "620-630",
+     "unit": "MB/s",
+     "rung": "board_or_system",
+     "tier": "T2",
+     "baseline": null,
+     "conditions": "measured streaming bandwidth per DPU",
+     "origin_source_id": "u_prim_2021"
+    }
+   ]
+  }
+ ],
+ "not_found": [
+  "Limits for this line: 4 of 8 searches, 12 of 12 pages. Two opened candidates are not recorded because of the 8-source cap: the EIC Fund portfolio page for SAS UPMEM (undated, one-line description only) and arXiv 2105.03736, opened by mistake (a different paper, PIM-DRAM, unrelated to UPMEM).",
+  "UPMEM's Hot Chips 31 material and the AnandTech analysis of it could not be opened (connection refused; web archive not reachable), so process node and the original architecture slides are not recorded from a primary source.",
+  "A primary announcement of the Qualcomm acquisition (terms, date, fate of the product line): only a statement in a third-party paper and a database entry were found. The company website did not resolve.",
+  "Whether mass production expected for mid-2020 happened, shipment volumes, and customers by name.",
+  "Announcement and shipping years of the v1B variant, and any vendor document describing v1A versus v1B.",
+  "Process node, tape-out, silicon or measured results for the next-generation chip designed under the EIC project.",
+  "Module power, and any energy figure from the independent study beyond the qualitative statement read.",
+  "Only the first 100,000 characters of the PrIM paper's HTML were read; the baseline CPU and GPU models and per-workload results are not recorded.",
+  "Scale, sparsity co-design and design method for every generation; all axes of the next-generation chip beyond paradigm and target.",
+  "The CORDIS page shows a last-update date (2023-03-03) earlier than the end of the period it reports on; the true publication date of the period-2 summary is not known."
+ ]
+}

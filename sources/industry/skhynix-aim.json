@@ -1,0 +1,774 @@
+{
+ "product_line": "AiM (GDDR6-AiM) and the AiMX accelerator card",
+ "vendor": "SK hynix",
+ "country": "South Korea",
+ "status": {
+  "value": "alive",
+  "as_of": "2025-10-31",
+  "detail": "SK hynix was demonstrating AiMX live (four cards with two GPUs) at the OCP Global Summit reported on 2025-10-31. No source opened in this session states that GDDR6-AiM or AiMX is sold or in volume production.",
+  "source_id": "k_ocp_2025"
+ },
+ "generations": [
+  {
+   "name": "GDDR6-AiM (PIM chip)",
+   "year_announced": 2022,
+   "year_shipped": null,
+   "axes": {
+    "A0_workload": {
+     "value": "generic_dnn",
+     "basis": "disclosed",
+     "source_id": "k_pr_2022_02"
+    },
+    "A1_paradigm": {
+     "value": "pim_dram_near_memory",
+     "basis": "disclosed",
+     "source_id": "k_pr_2022_02"
+    },
+    "A1_device": {
+     "value": "dram",
+     "basis": "disclosed",
+     "source_id": "k_pr_2022_02"
+    },
+    "A2_data_residency": {
+     "value": "hbm_or_dram_bound",
+     "basis": "disclosed",
+     "source_id": "k_ianus_2024"
+    },
+    "A3_numerics": {
+     "value": "fp16_bf16",
+     "basis": "disclosed",
+     "source_id": "k_ianus_2024"
+    },
+    "A4_sparsity_codesign": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A5_programmability": {
+     "value": "host_offload",
+     "basis": "disclosed",
+     "source_id": "k_ianus_2024"
+    },
+    "A6_eval_rung": {
+     "value": "board_or_system",
+     "basis": "disclosed",
+     "source_id": "k_ianus_2024"
+    },
+    "A6_baseline_class": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A7_scale": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "design_method": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "lever": {
+     "value": "memory_hierarchy",
+     "basis": "disclosed",
+     "source_id": "k_pr_2022_02"
+    }
+   },
+   "numbers": [
+    {
+     "metric": "speed-up of 'a certain computation'",
+     "value": "16",
+     "unit": "x",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": "typical DRAM paired with the same CPU or GPU",
+     "conditions": "computation not named in the release",
+     "origin_source_id": "k_pr_2022_02"
+    },
+    {
+     "metric": "power consumption reduction",
+     "value": "80",
+     "unit": "%",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "attributed to less data movement to CPU/GPU; baseline and workload not given",
+     "origin_source_id": "k_pr_2022_02"
+    },
+    {
+     "metric": "supply voltage",
+     "value": "1.25",
+     "unit": "V",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": "1.35 V for the existing GDDR6 product",
+     "conditions": "sample device",
+     "origin_source_id": "k_pr_2022_02"
+    },
+    {
+     "metric": "interface data rate",
+     "value": "16",
+     "unit": "Gbps",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "GDDR6 rate stated in the release",
+     "origin_source_id": "k_pr_2022_02"
+    },
+    {
+     "metric": "processing units per chip",
+     "value": "32",
+     "unit": "units",
+     "rung": "not_stated",
+     "tier": "T1",
+     "baseline": null,
+     "conditions": "one unit per bank, two channels of 16 banks per chip; device parameters as listed in the paper",
+     "origin_source_id": "k_ianus_2024"
+    },
+    {
+     "metric": "peak throughput per chip",
+     "value": "1",
+     "unit": "TFLOPS",
+     "rung": "not_stated",
+     "tier": "T1",
+     "baseline": null,
+     "conditions": "32 units at 1 GHz and 32 GFLOPS each; device parameter used by the paper's simulator",
+     "origin_source_id": "k_ianus_2024"
+    },
+    {
+     "metric": "internal bandwidth per chip",
+     "value": "1024",
+     "unit": "GB/s",
+     "rung": "not_stated",
+     "tier": "T1",
+     "baseline": "256 GB/s external GDDR6 bandwidth of the 8 GB, 8-channel device",
+     "conditions": "device parameter; the paper gives 4096 GB/s for the whole 8 GB device and about 2.4 TB/s effective",
+     "origin_source_id": "k_ianus_2024"
+    },
+    {
+     "metric": "NPU+AiM speed-up on GPT-2",
+     "value": "6.2",
+     "unit": "x",
+     "rung": "simulator",
+     "tier": "T1",
+     "baseline": "NVIDIA A100 GPU",
+     "conditions": "IANUS system (AiM as unified memory of an NPU), average over GPT-2 workloads, batch size 1",
+     "origin_source_id": "k_ianus_2024"
+    },
+    {
+     "metric": "NPU+AiM speed-up on GPT-2 XL",
+     "value": "3.2",
+     "unit": "x",
+     "rung": "simulator",
+     "tier": "T1",
+     "baseline": "DFX (four-FPGA accelerator)",
+     "conditions": "average; batch size 1",
+     "origin_source_id": "k_ianus_2024"
+    },
+    {
+     "metric": "NPU+AiM speed-up over the same NPU with plain GDDR6",
+     "value": "4.0",
+     "unit": "x",
+     "rung": "simulator",
+     "tier": "T1",
+     "baseline": "NPU-MEM: same NPU with standard GDDR6",
+     "conditions": "GPT-2 XL end to end; 3.6x for GPT-2 L",
+     "origin_source_id": "k_ianus_2024"
+    },
+    {
+     "metric": "energy-efficiency gain over the same NPU with plain GDDR6",
+     "value": "3.6-4.4",
+     "unit": "x",
+     "rung": "simulator",
+     "tier": "T1",
+     "baseline": "NPU-MEM: same NPU with standard GDDR6",
+     "conditions": "GPT-2 M/L/XL and a 2.5B model; dynamic energy only",
+     "origin_source_id": "k_ianus_2024"
+    },
+    {
+     "metric": "GPT-2 XL perplexity on the AiM prototype",
+     "value": "17.48",
+     "unit": "perplexity",
+     "rung": "board_or_system",
+     "tier": "T1",
+     "baseline": null,
+     "conditions": "WikiText-2, real AiM chips on an FMC card with a Xilinx VCU118, BF16; the only quantity measured on hardware",
+     "origin_source_id": "k_ianus_2024"
+    },
+    {
+     "metric": "PIM efficiency for the query-key product",
+     "value": "6.25",
+     "unit": "%",
+     "rung": "analytical",
+     "tier": "T1",
+     "baseline": null,
+     "conditions": "matrix-matrix product with head dimension 64; stated as a limitation",
+     "origin_source_id": "k_ianus_2024"
+    }
+   ],
+   "bets": [
+    {
+     "text": "A matrix-vector multiply-accumulate unit in every bank of a commodity graphics DRAM, plus an activation lookup, is the right amount of logic to put in memory for neural networks.",
+     "status": "open",
+     "source_id": "k_ianus_2024",
+     "status_source_id": "k_pimphony_2025"
+    },
+    {
+     "text": "The PIM chip is best used as the main memory of a separate AI processor (the SAPEON pairing) rather than alone.",
+     "status": "unknown",
+     "source_id": "k_pr_2022_02",
+     "status_source_id": "k_ianus_2024"
+    }
+   ],
+   "what_changed_from_previous": null,
+   "next": "Grouped onto an accelerator card with a control hub (AiMX, 2023; k_aimx_2023)."
+  },
+  {
+   "name": "AiMX prototype card (2023, first showing)",
+   "year_announced": 2023,
+   "year_shipped": null,
+   "axes": {
+    "A0_workload": {
+     "value": "llm_autoregressive",
+     "basis": "disclosed",
+     "source_id": "k_aimx_2023"
+    },
+    "A1_paradigm": {
+     "value": "pim_dram_near_memory",
+     "basis": "disclosed",
+     "source_id": "k_aimx_2023"
+    },
+    "A1_device": {
+     "value": "dram",
+     "basis": "disclosed",
+     "source_id": "k_aimx_2023"
+    },
+    "A2_data_residency": {
+     "value": "hbm_or_dram_bound",
+     "basis": "disclosed",
+     "source_id": "k_aimx_2023"
+    },
+    "A3_numerics": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A4_sparsity_codesign": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A5_programmability": {
+     "value": "host_offload",
+     "basis": "disclosed",
+     "source_id": "k_aimx_2023"
+    },
+    "A6_eval_rung": {
+     "value": "board_or_system",
+     "basis": "disclosed",
+     "source_id": "k_aimx_2023"
+    },
+    "A6_baseline_class": {
+     "value": "gpu",
+     "basis": "disclosed",
+     "source_id": "k_aimx_2023"
+    },
+    "A7_scale": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "design_method": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "lever": {
+     "value": "memory_hierarchy",
+     "basis": "disclosed",
+     "source_id": "k_aimx_2023"
+    }
+   },
+   "numbers": [
+    {
+     "metric": "reduction in data processing time",
+     "value": ">10",
+     "unit": "x",
+     "rung": "projection",
+     "tier": "T3",
+     "baseline": "systems with GPUs (not named)",
+     "conditions": "Meta OPT 13B on a server with the AiMX prototype; the page ties its performance comparison to the assumption that the AiM Control Hub is implemented as an ASIC",
+     "origin_source_id": "k_aimx_2023"
+    },
+    {
+     "metric": "power consumption relative to the GPU system",
+     "value": "1/5",
+     "unit": "ratio",
+     "rung": "projection",
+     "tier": "T3",
+     "baseline": "systems with GPUs (not named)",
+     "conditions": "same demonstration and the same ASIC assumption",
+     "origin_source_id": "k_aimx_2023"
+    },
+    {
+     "metric": "card memory capacity",
+     "value": "16",
+     "unit": "GB",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "not stated in 2023; follows from the 2024 statement that the 32 GB card doubles the earlier one",
+     "origin_source_id": "k_aimx_2024"
+    }
+   ],
+   "bets": [
+    {
+     "text": "LLM inference is limited by memory bandwidth, so a card of PIM memory chips can serve it faster and at lower power and cost than a GPU system.",
+     "status": "open",
+     "source_id": "k_aimx_2023",
+     "status_source_id": "k_infra_2025_ko"
+    },
+    {
+     "text": "The control hub that drives the PIM chips can later be hardened into an ASIC, which the headline comparison already assumes.",
+     "status": "unknown",
+     "source_id": "k_aimx_2023",
+     "status_source_id": null
+    }
+   ],
+   "what_changed_from_previous": "Several GDDR6-AiM chips are combined on one card behind an AiM Control Hub and the target narrows from general machine learning to generative LLMs (k_aimx_2023).",
+   "next": "32 GB card in 2024 (k_aimx_2024)."
+  },
+  {
+   "name": "AiMX 32 GB prototype card (2024)",
+   "year_announced": 2024,
+   "year_shipped": null,
+   "axes": {
+    "A0_workload": {
+     "value": "llm_autoregressive",
+     "basis": "disclosed",
+     "source_id": "k_aimx_2024"
+    },
+    "A1_paradigm": {
+     "value": "pim_dram_near_memory",
+     "basis": "disclosed",
+     "source_id": "k_aimx_2024"
+    },
+    "A1_device": {
+     "value": "dram",
+     "basis": "disclosed",
+     "source_id": "k_aimx_2024"
+    },
+    "A2_data_residency": {
+     "value": "hbm_or_dram_bound",
+     "basis": "disclosed",
+     "source_id": "k_aimx_2024"
+    },
+    "A3_numerics": {
+     "value": "fp16_bf16",
+     "basis": "disclosed",
+     "source_id": "k_pimphony_2025"
+    },
+    "A4_sparsity_codesign": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A5_programmability": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A6_eval_rung": {
+     "value": "board_or_system",
+     "basis": "disclosed",
+     "source_id": "k_aimx_2024"
+    },
+    "A6_baseline_class": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A7_scale": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "design_method": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "lever": {
+     "value": "memory_hierarchy",
+     "basis": "disclosed",
+     "source_id": "k_aimx_2024"
+    }
+   },
+   "numbers": [
+    {
+     "metric": "card memory capacity",
+     "value": "32",
+     "unit": "GB",
+     "rung": "board_or_system",
+     "tier": "T3",
+     "baseline": "the 2023 card (half the capacity)",
+     "conditions": "prototype shown running Llama 3 70B with multiple batches",
+     "origin_source_id": "k_aimx_2024"
+    },
+    {
+     "metric": "LLM speed-up for on-device use",
+     "value": "3",
+     "unit": "x",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": "mobile DRAM at the same power",
+     "conditions": "claim for a future mobile-DRAM-based AiM; model, workload and configuration not given",
+     "origin_source_id": "k_aimx_2024"
+    },
+    {
+     "metric": "throughput gain from PIM orchestration on a PIM-only system",
+     "value": "up to 11.3",
+     "unit": "x",
+     "rung": "simulator",
+     "tier": "T1",
+     "baseline": "CENT (PIM-only baseline)",
+     "conditions": "cycle-accurate simulator calibrated to AiMX specifications; long-context LLM inference; proposed changes, not the shipped card",
+     "origin_source_id": "k_pimphony_2025"
+    },
+    {
+     "metric": "throughput gain from PIM orchestration on an xPU+PIM system",
+     "value": "up to 8.4",
+     "unit": "x",
+     "rung": "simulator",
+     "tier": "T1",
+     "baseline": "NeuPIMs (xPU+PIM baseline)",
+     "conditions": "same simulator",
+     "origin_source_id": "k_pimphony_2025"
+    },
+    {
+     "metric": "memory capacity utilisation under static allocation",
+     "value": "36.2",
+     "unit": "%",
+     "rung": "simulator",
+     "tier": "T1",
+     "baseline": null,
+     "conditions": "average for existing static key-value cache management; the proposed dynamic scheme reaches 75.6%",
+     "origin_source_id": "k_pimphony_2025"
+    }
+   ],
+   "bets": [
+    {
+     "text": "The card's role in a data centre is to accelerate attention for large models served in batches.",
+     "status": "open",
+     "source_id": "k_aimx_2024",
+     "status_source_id": "k_ocp_2025"
+    },
+    {
+     "text": "A fixed command sequence and static memory layout are acceptable for LLM serving (the vendor's own co-authored simulation study names both as weaknesses at long context, without hardware measurements).",
+     "status": "open",
+     "source_id": "k_pimphony_2025",
+     "status_source_id": "k_pimphony_2025"
+    }
+   ],
+   "what_changed_from_previous": "Capacity doubled to 32 GB and the demonstration moved from OPT 13B to Llama 3 70B with multiple batches; the stated reason is that LLMs keep growing (k_aimx_2024).",
+   "next": "Multi-card use beside GPUs (2025); the vendor also stated plans for AiM on mobile DRAM (k_aimx_2024)."
+  },
+  {
+   "name": "AiMX multi-card system with GPUs (2025 demonstrations)",
+   "year_announced": 2025,
+   "year_shipped": null,
+   "axes": {
+    "A0_workload": {
+     "value": "llm_autoregressive",
+     "basis": "disclosed",
+     "source_id": "k_ocp_2025"
+    },
+    "A1_paradigm": {
+     "value": "pim_dram_near_memory",
+     "basis": "disclosed",
+     "source_id": "k_infra_2025_ko"
+    },
+    "A1_device": {
+     "value": "dram",
+     "basis": "disclosed",
+     "source_id": "k_infra_2025_ko"
+    },
+    "A2_data_residency": {
+     "value": "hbm_or_dram_bound",
+     "basis": "disclosed",
+     "source_id": "k_infra_2025_ko"
+    },
+    "A3_numerics": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A4_sparsity_codesign": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A5_programmability": {
+     "value": "host_offload",
+     "basis": "disclosed",
+     "source_id": "k_infra_2025_ko"
+    },
+    "A6_eval_rung": {
+     "value": "board_or_system",
+     "basis": "disclosed",
+     "source_id": "k_infra_2025_ko"
+    },
+    "A6_baseline_class": {
+     "value": "gpu",
+     "basis": "disclosed",
+     "source_id": "k_infra_2025_ko"
+    },
+    "A7_scale": {
+     "value": "system_datacenter",
+     "basis": "disclosed",
+     "source_id": "k_infra_2025_ko"
+    },
+    "design_method": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "lever": {
+     "value": "memory_hierarchy",
+     "basis": "disclosed",
+     "source_id": "k_infra_2025_ko"
+    }
+   },
+   "numbers": [
+    {
+     "metric": "AiMX cards in the demonstration server",
+     "value": "4",
+     "unit": "cards",
+     "rung": "board_or_system",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "Supermicro server with two NVIDIA H100 GPUs, Llama 3 served through vLLM",
+     "origin_source_id": "k_infra_2025_ko"
+    }
+   ],
+   "bets": [
+    {
+     "text": "PIM cards should not replace GPUs but take the memory-bound attention work off them, so that one server handles more concurrent requests and longer contexts.",
+     "status": "open",
+     "source_id": "k_infra_2025_ko",
+     "status_source_id": "k_ocp_2025"
+    },
+    {
+     "text": "Integration through a mainstream serving framework (vLLM) is enough for operators to adopt the cards.",
+     "status": "unknown",
+     "source_id": "k_infra_2025_ko",
+     "status_source_id": null
+    }
+   ],
+   "what_changed_from_previous": "From a single card compared against GPUs to four cards working with two GPUs in one server, with attention and key-value-cache handling offloaded to the cards and the stack moved onto vLLM; the stated reason is that GPU-only systems lose efficiency as requests and context length grow (k_infra_2025_ko, k_ocp_2025).",
+   "next": "A roadmap slide relayed by trade press lists LPDDR6-PIM for 2028 (k_toms_2025); no successor AiMX card was found."
+  }
+ ],
+ "sources": [
+  {
+   "id": "k_pr_2022_02",
+   "class": "vendor_doc",
+   "url": "https://www.stocktitan.net/news/HXSCL/sk-hynix-develops-pim-next-generation-ai-btgalax1re1j.html",
+   "author": "SK hynix Inc. (press release via PRNewswire, read on the StockTitan mirror)",
+   "date": "2022-02-16",
+   "language": "en",
+   "accessed": "2026-10-09",
+   "title_original": "SK hynix Develops PIM, Next-Generation AI Accelerator",
+   "summary_en": "Launch release for GDDR6-AiM, described as a sample that adds computing functions to 16 Gbps GDDR6 graphics memory so that it can sit beside a CPU or GPU in place of ordinary DRAM. Gives a speed-up for an unnamed computation, a lower supply voltage than the existing part, and a power saving attributed to less data movement, without naming test conditions. Targets machine learning, HPC and big-data workloads, announces a pairing with AI chips from SAPEON (spun off from SK Telecom) and a showing at ISSCC 2022. The mirror's machine-generated summary and FAQ were ignored.",
+   "tier": "T3",
+   "accepted": true,
+   "reject_reason": null,
+   "checks": null,
+   "quotes": []
+  },
+  {
+   "id": "k_ianus_2024",
+   "class": "paper",
+   "url": "https://arxiv.org/abs/2410.15008",
+   "author": "Minseok Seo, Xuan Truong Nguyen, Hyuk-Jae Lee (Seoul National University); Seok Joong Hwang and four others (SAPEON); Yongkee Kwon, Guhyun Kim and ten others (SK hynix); John Kim (KAIST)",
+   "date": "2024-10-19",
+   "language": "en",
+   "accessed": "2026-10-09",
+   "title_original": "IANUS: Integrated Accelerator based on NPU-PIM Unified Memory System",
+   "summary_en": "Updated arXiv version of an ASPLOS 2024 paper co-authored by SK hynix and SAPEON. It makes GDDR6-based AiM both the compute device and the main memory of an NPU and schedules around the fact that normal accesses and PIM computation cannot overlap. It is the most detailed device description opened here: one processing unit per bank with multipliers, adder tree, accumulator and an activation unit, BF16 data, a 2 KB global buffer per channel for the input vector, GELU through a lookup table held in reserved DRAM rows, macro commands sent over PCIe and decoded into micro commands. A prototype uses real AiM chips on an FMC card with a Xilinx VCU118, but only accuracy was measured on it; all speed and energy results are simulated (simulators stated to be within 5% of hardware). Stated limits: matrix-matrix products use the units poorly, 8 GB per device, batch size 1.",
+   "tier": "T1",
+   "accepted": true,
+   "reject_reason": null,
+   "checks": null,
+   "quotes": []
+  },
+  {
+   "id": "k_aimx_2023",
+   "class": "vendor_doc",
+   "url": "https://news.skhynix.com/en/sk-hynix-debuts-first-gddr6-aim-accelerator-card-aimx-for-generative-ai/",
+   "author": "SK hynix Newsroom",
+   "date": "2023-09-18",
+   "language": "en",
+   "accessed": "2026-10-09",
+   "title_original": "SK hynix Debuts Prototype of First GDDR6-AiM Accelerator Card ‘AiMX’ for Generative AI",
+   "summary_en": "First showing of AiMX, a prototype accelerator card that groups several GDDR6-AiM chips behind an 'AiM Control Hub', at the AI Hardware & Edge AI Summit 2023, running Meta's OPT 13B on a server. Compares the card with GPU systems on processing time and power and attaches the assumption that the control hub is built as an ASIC. Chip count, capacity, server and software are not given; a talk by Eui-cheol Lim argued the cost case qualitatively. No launch date.",
+   "tier": "T3",
+   "accepted": true,
+   "reject_reason": null,
+   "checks": null,
+   "quotes": []
+  },
+  {
+   "id": "k_aimx_2024",
+   "class": "vendor_doc",
+   "url": "https://news.skhynix.com/en/sk-hynix-presents-upgraded-aimx-solution-at-ai-hw-edge-ai-summit-2024/",
+   "author": "SK hynix Newsroom",
+   "date": "2024-09-13",
+   "language": "en",
+   "accessed": "2026-10-09",
+   "title_original": "SK hynix Presents Upgraded AiMX Solution at AI Hardware & Edge AI Summit 2024",
+   "summary_en": "Second AiMX prototype with 32 GB, stated to be twice the capacity of the 2023 card, shown running Llama 3 70B with multiple batches and presented as an attention accelerator for data centres. The motivation given is the growth of LLMs. Also states an intent to build AiM products on mobile DRAM for on-device AI, with one unconditioned speed claim for that scenario. No latency, throughput or power figures for the demonstration.",
+   "tier": "T3",
+   "accepted": true,
+   "reject_reason": null,
+   "checks": null,
+   "quotes": []
+  },
+  {
+   "id": "k_infra_2025_ko",
+   "class": "vendor_doc",
+   "url": "https://news.skhynix.co.kr/ai-infra-summit-2025/",
+   "author": "SK hynix Newsroom (Korean edition)",
+   "date": "2025-09-12",
+   "language": "ko",
+   "accessed": "2026-10-09",
+   "title_original": "SK하이닉스, ‘AI Infra Summit 2025’ 참가… AiM 설루션 시연 통해 AI 가속 위한 메모리 혁신 선보여",
+   "summary_en": "Korean-language report of the AI Infra Summit 2025 booth. The live demonstration is a Supermicro GPU server holding four AiMX cards and two NVIDIA H100 GPUs: the memory-bound operations go to AiMX so the GPUs keep the compute-bound ones, which the company says holds up better as concurrent requests and context length grow. The software is built on the vLLM inference framework. The accompanying talk by Eui-cheol Lim is about offloading attention to a PIM-GPU heterogeneous system to cut token cost. AiMX is called an accelerator-card product here, not a prototype. No figures.",
+   "tier": "T3",
+   "accepted": true,
+   "reject_reason": null,
+   "checks": null,
+   "quotes": []
+  },
+  {
+   "id": "k_ocp_2025",
+   "class": "vendor_doc",
+   "url": "https://news.skhynix.com/en/sk-hynix-showcases-full-stack-ai-memory-portfolio-at-2025-ocp-global-summit/",
+   "author": "SK hynix Newsroom",
+   "date": "2025-10-31",
+   "language": "en",
+   "accessed": "2026-10-09",
+   "title_original": "SK hynix Showcases Full-Stack AI Memory Portfolio at 2025 OCP Global Summit",
+   "summary_en": "Report of the OCP 2025 booth. Repeats the four-AiMX, two-H100 server running Llama 3 on vLLM as a multi-user chatbot and says the cards take the attention operations and improve key-value cache use in long sessions. A sibling item, CMM-Ax, adds computation to CXL memory and was shown on SK Telecom's cloud. No numbers and no statement of commercial availability.",
+   "tier": "T3",
+   "accepted": true,
+   "reject_reason": null,
+   "checks": null,
+   "quotes": []
+  },
+  {
+   "id": "k_pimphony_2025",
+   "class": "paper",
+   "url": "https://arxiv.org/abs/2412.20166",
+   "author": "Hyucksung Kwon, Kyungmo Koo, Janghyeon Kim, ..., Euicheol Lim, John Kim, Jungwook Choi (Hanyang University, KAIST, SK hynix Solution Advanced Technology)",
+   "date": "2025-12-25",
+   "language": "en",
+   "accessed": "2026-10-09",
+   "title_original": "PIMphony: Overcoming Bandwidth and Capacity Inefficiency in PIM-based Long-Context LLM Inference System",
+   "summary_en": "arXiv v3 of a paper listed as accepted to HPCA 2026, co-authored by SK hynix; the first 100,000 characters of the HTML were read. It describes the AiMX-style module (in-bank vector MAC units, a 2 KB input buffer per channel, a 4-byte output per bank, a hub with instruction sequencer, per-channel controllers and an extra unit for operations such as softmax) and names three weaknesses at long context: channels left idle by head-wise partitioning, MAC units stalled by a fixed write-input / MAC / read-output command order with small buffers, and memory wasted by static allocation. Its remedies are evaluated only in a Ramulator-based simulator calibrated to AiMX specifications.",
+   "tier": "T1",
+   "accepted": true,
+   "reject_reason": null,
+   "checks": null,
+   "quotes": []
+  },
+  {
+   "id": "k_toms_2025",
+   "class": "trade_press",
+   "url": "https://tech.yahoo.com/computing/articles/sk-hynix-reveals-dram-development-132000392.html",
+   "author": "Anton Shilov (Tom's Hardware, syndicated on Yahoo Tech)",
+   "date": "2025-11-05",
+   "language": "en",
+   "accessed": "2026-10-09",
+   "title_original": "SK hynix reveals DRAM development roadmap through 2031 — DDR6, GDDR8, LPDDR6, and 3D DRAM incoming",
+   "summary_en": "News item on a roadmap slide shown at SK AI Summit 2025 and circulated through a social-media post. The only PIM entry is LPDDR6-PIM in 2028 for specialised applications; AiM and AiMX are not mentioned and no mechanism is given for the PIM entry. The author notes the roadmap is very general. Rejected as independent evidence: no link to the vendor's own document; the roadmap date is kept as a relayed T3 claim.",
+   "tier": "T4",
+   "accepted": false,
+   "reject_reason": "NO_PRIMARY_LINKS",
+   "checks": {
+    "C1": true,
+    "C2": false,
+    "C3": false,
+    "C4": false,
+    "C5": true,
+    "C6": false
+   },
+   "quotes": []
+  }
+ ],
+ "conflicts": [
+  {
+   "metric": "data format of the AiM multiply-accumulate units",
+   "accounts": [
+    {
+     "metric": "data format",
+     "value": "BF16",
+     "unit": "format",
+     "rung": "board_or_system",
+     "tier": "T1",
+     "baseline": null,
+     "conditions": "used for the evaluated GPT-2 models",
+     "origin_source_id": "k_ianus_2024"
+    },
+    {
+     "metric": "data format",
+     "value": "FP16",
+     "unit": "format",
+     "rung": "simulator",
+     "tier": "T1",
+     "baseline": null,
+     "conditions": "format of the matrix-vector example",
+     "origin_source_id": "k_pimphony_2025"
+    }
+   ]
+  },
+  {
+   "metric": "how the vendor labels AiMX",
+   "accounts": [
+    {
+     "metric": "label",
+     "value": "prototype",
+     "unit": "label",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "2024 English newsroom article",
+     "origin_source_id": "k_aimx_2024"
+    },
+    {
+     "metric": "label",
+     "value": "accelerator-card product",
+     "unit": "label",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "2025 Korean newsroom article",
+     "origin_source_id": "k_infra_2025_ko"
+    }
+   ]
+  }
+ ],
+ "not_found": [
+  "Limits reached for this line: 4 of 8 searches, 12 of 12 pages. Two further vendor releases were opened but not recorded because of the 8-source cap: the CES 2024 release (2024-01-02) and the CES 2025 release (2025-01-02), both read on the StockTitan mirror; each only names AiMX as an LLM accelerator card built on GDDR6-AiM, and the 2025 one adds CMM-Ax.",
+  "The ISSCC 2022 paper and its JSSC version were not opened; process node, die capacity and measured silicon figures appear here only as device parameters quoted by the 2024 IANUS paper.",
+  "Number of GDDR6-AiM chips on an AiMX card, the implementation of the AiM Control Hub (FPGA or ASIC) in the cards actually shown, card power and price.",
+  "Any measured latency, throughput or energy figure for AiMX on real hardware: the 2023 figures carry an ASIC assumption and the 2024 and 2025 demonstrations publish none.",
+  "Any independent (T2) measurement of GDDR6-AiM or AiMX.",
+  "Whether GDDR6-AiM or AiMX has shipped to a customer; all year_shipped fields are null.",
+  "The outcome of the SAPEON pairing announced in 2022 beyond the 2024 co-authored paper.",
+  "A vendor document for the LPDDR6-PIM 2028 roadmap entry or for the mobile-DRAM AiM plan: only a trade-press relay of a slide was found.",
+  "The second half of the PIMphony HTML (after character 100,000) was not read.",
+  "Scale, sparsity co-design and design method for every generation; numerics and programmability where marked unknown."
+ ]
+}

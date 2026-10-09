@@ -1,0 +1,731 @@
+{
+ "product_line": "Mythic Analog Matrix Processor / Analog Processing Unit",
+ "vendor": "Mythic",
+ "country": "United States",
+ "status": {
+  "value": "alive",
+  "as_of": "2026-03-17",
+  "detail": "Ran out of capital in November 2022 and downsized, was refinanced with USD 13 million in March 2023 and USD 125 million in December 2025 under a new CEO; a supplier release of March 2026 names it as licensee for next-generation products. First-generation chips are no longer on its product page; the next product is listed for 2027.",
+  "source_id": "my-sst-pr"
+ },
+ "generations": [
+  {
+   "name": "M1108 Analog Matrix Processor",
+   "year_announced": 2020,
+   "year_shipped": null,
+   "axes": {
+    "A0_workload": {
+     "value": "cnn",
+     "basis": "disclosed",
+     "source_id": "my-m1108-pr"
+    },
+    "A1_paradigm": {
+     "value": "cim_analog_nvm",
+     "basis": "disclosed",
+     "source_id": "my-m1108-pr"
+    },
+    "A1_device": {
+     "value": "flash",
+     "basis": "disclosed",
+     "source_id": "my-m1108-pr"
+    },
+    "A2_data_residency": {
+     "value": "in_array_weights",
+     "basis": "relayed",
+     "source_id": "my-spectrum-2018"
+    },
+    "A3_numerics": {
+     "value": "analog_levels",
+     "basis": "relayed",
+     "source_id": "my-eetimes-2026"
+    },
+    "A4_sparsity_codesign": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A5_programmability": {
+     "value": "host_offload",
+     "basis": "disclosed",
+     "source_id": "my-m1108-pr"
+    },
+    "A6_eval_rung": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A6_baseline_class": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A7_scale": {
+     "value": "soc_chip",
+     "basis": "disclosed",
+     "source_id": "my-m1108-pr"
+    },
+    "design_method": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "lever": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    }
+   },
+   "numbers": [
+    {
+     "metric": "peak compute",
+     "value": 35,
+     "unit": "TOPS",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "stated as an upper bound; INT8 according to later trade press; measurement method not given",
+     "origin_source_id": "my-m1108-pr"
+    },
+    {
+     "metric": "typical power",
+     "value": 4,
+     "unit": "W (approximate)",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "running complex models at peak throughput; model not named",
+     "origin_source_id": "my-m1108-pr"
+    },
+    {
+     "metric": "cost advantage",
+     "value": 10,
+     "unit": "x (upper bound)",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": "'comparable digital architectures', not named",
+     "conditions": "attributed to the 40 nm node and no external memory; no method",
+     "origin_source_id": "my-m1108-pr"
+    },
+    {
+     "metric": "compute tiles",
+     "value": 108,
+     "unit": "tiles",
+     "rung": "silicon",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "plus four control tiles",
+     "origin_source_id": "my-m1108-pr"
+    },
+    {
+     "metric": "process node",
+     "value": 40,
+     "unit": "nm",
+     "rung": "silicon",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "embedded flash",
+     "origin_source_id": "my-m1108-pr"
+    },
+    {
+     "metric": "energy per multiply-accumulate (2018 goal)",
+     "value": 0.5,
+     "unit": "pJ",
+     "rung": "projection",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "company goal reported two years before the product; not a measurement",
+     "origin_source_id": "my-spectrum-2018"
+    }
+   ],
+   "bets": [
+    {
+     "text": "Storing each weight as an analog level in a flash cell and summing cell currents gives matrix multiplication without moving weights, at far lower energy than digital logic.",
+     "status": "open",
+     "source_id": "my-spectrum-2018",
+     "status_source_id": "my-eetimes-2026"
+    },
+    {
+     "text": "A mature 40 nm embedded-flash process with no external memory makes the product cheaper than digital accelerators on advanced nodes.",
+     "status": "open",
+     "source_id": "my-m1108-pr",
+     "status_source_id": null
+    },
+    {
+     "text": "A sea of identical tiles, each with a tiny RISC-V processor that would sit almost idle, linked by a network-on-chip, is enough digital support for the analog arrays.",
+     "status": "failed",
+     "source_id": "my-m1108-pr",
+     "status_source_id": "my-eetimes-2026"
+    },
+    {
+     "text": "ADC-only conversion at the array edge can reach the resolution needed for 8-bit results.",
+     "status": "failed",
+     "source_id": "my-m1108-pr",
+     "status_source_id": "my-eetimes-2026"
+    }
+   ],
+   "what_changed_from_previous": "First product. The 2018 magazine source describes the same mechanism as a goal-stage design from the then Austin-based startup.",
+   "next": "M1076"
+  },
+  {
+   "name": "M1076 Analog Matrix Processor",
+   "year_announced": 2021,
+   "year_shipped": null,
+   "axes": {
+    "A0_workload": {
+     "value": "cnn",
+     "basis": "disclosed",
+     "source_id": "my-m1076-pr"
+    },
+    "A1_paradigm": {
+     "value": "cim_analog_nvm",
+     "basis": "relayed",
+     "source_id": "my-register-2022"
+    },
+    "A1_device": {
+     "value": "flash",
+     "basis": "relayed",
+     "source_id": "my-eetimes-2026"
+    },
+    "A2_data_residency": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A3_numerics": {
+     "value": "analog_levels",
+     "basis": "relayed",
+     "source_id": "my-eetimes-2026"
+    },
+    "A4_sparsity_codesign": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A5_programmability": {
+     "value": "host_offload",
+     "basis": "disclosed",
+     "source_id": "my-m1076-pr"
+    },
+    "A6_eval_rung": {
+     "value": "board_or_system",
+     "basis": "relayed",
+     "source_id": "my-register-2022"
+    },
+    "A6_baseline_class": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A7_scale": {
+     "value": "soc_chip",
+     "basis": "disclosed",
+     "source_id": "my-m1076-pr"
+    },
+    "design_method": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "lever": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    }
+   },
+   "numbers": [
+    {
+     "metric": "peak compute per chip",
+     "value": 25,
+     "unit": "TOPS",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "stated as an upper bound; INT8 according to later trade press",
+     "origin_source_id": "my-m1076-pr"
+    },
+    {
+     "metric": "power envelope per chip",
+     "value": 3,
+     "unit": "W",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "workload not stated",
+     "origin_source_id": "my-m1076-pr"
+    },
+    {
+     "metric": "power advantage",
+     "value": 10,
+     "unit": "x less (upper bound)",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": "'typical SoC or GPU solution', not named",
+     "conditions": "no workload or device",
+     "origin_source_id": "my-m1076-pr"
+    },
+    {
+     "metric": "16-chip PCIe card compute",
+     "value": 400,
+     "unit": "TOPS",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "upper bound, card of 16 chips at 75 W",
+     "origin_source_id": "my-m1076-pr"
+    },
+    {
+     "metric": "16-chip PCIe card weight capacity",
+     "value": 1.28,
+     "unit": "billion weights",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "upper bound; per-chip capacity not given in the release",
+     "origin_source_id": "my-m1076-pr"
+    },
+    {
+     "metric": "four-chip card compute",
+     "value": 100,
+     "unit": "TOPS",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "MP10304 card, under 25 W; vendor claim relayed a year later",
+     "origin_source_id": "my-register-2022"
+    },
+    {
+     "metric": "YOLOv5 demo frame rate",
+     "value": 60,
+     "unit": "frames/s",
+     "rung": "board_or_system",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "vendor demo at a September 2022 industry event, high-resolution video, 3.5 W; resolution and number of chips not captured",
+     "origin_source_id": "my-register-2022"
+    },
+    {
+     "metric": "ADCs per chip",
+     "value": 20000,
+     "unit": "converters (approximate, 'nearly')",
+     "rung": "silicon",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "stated in a 2025 release",
+     "origin_source_id": "my-2025-pr"
+    }
+   ],
+   "bets": [
+    {
+     "text": "Shrinking the chip to fit the small M.2 A+E card would open embedded video-analytics sockets and bring volume revenue.",
+     "status": "failed",
+     "source_id": "my-m1076-pr",
+     "status_source_id": "my-register-2022"
+    },
+    {
+     "text": "The same tile design scales from a single-chip module to a 16-chip server card.",
+     "status": "unknown",
+     "source_id": "my-m1076-pr",
+     "status_source_id": null
+    }
+   ],
+   "what_changed_from_previous": "Smaller sibling of the M1108 with lower compute and power, aimed at compact M.2 cards and multi-chip PCIe cards; described later as using the same first-generation flash technology. The reason given in coverage opened but not recorded (see not_found) was customer demand for the smaller card format.",
+   "next": "Second-generation analog processing unit (Vanguard)"
+  },
+  {
+   "name": "Second-generation APU chiplet (Vanguard, on the M1 platform)",
+   "year_announced": 2025,
+   "year_shipped": null,
+   "axes": {
+    "A0_workload": {
+     "value": "generic_dnn",
+     "basis": "disclosed",
+     "source_id": "my-2025-pr"
+    },
+    "A1_paradigm": {
+     "value": "cim_analog_nvm",
+     "basis": "disclosed",
+     "source_id": "my-sst-pr"
+    },
+    "A1_device": {
+     "value": "flash",
+     "basis": "disclosed",
+     "source_id": "my-sst-pr"
+    },
+    "A2_data_residency": {
+     "value": "stacked_3d",
+     "basis": "relayed",
+     "source_id": "my-eetimes-2026"
+    },
+    "A3_numerics": {
+     "value": "analog_levels",
+     "basis": "disclosed",
+     "source_id": "my-sst-pr"
+    },
+    "A4_sparsity_codesign": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A5_programmability": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A6_eval_rung": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A6_baseline_class": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A7_scale": {
+     "value": "multi_chip_chiplet",
+     "basis": "relayed",
+     "source_id": "my-eetimes-2026"
+    },
+    "design_method": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "lever": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    }
+   },
+   "numbers": [
+    {
+     "metric": "energy efficiency",
+     "value": 120,
+     "unit": "TOPS/W",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "called the current architecture; no workload, precision or measurement method",
+     "origin_source_id": "my-2025-pr"
+    },
+    {
+     "metric": "energy efficiency advantage",
+     "value": 100,
+     "unit": "x",
+     "rung": "projection",
+     "tier": "T3",
+     "baseline": "'top GPUs', not named",
+     "conditions": "said to include memory transfers; the supplier release words the same multiple as a target",
+     "origin_source_id": "my-2025-pr"
+    },
+    {
+     "metric": "energy per multiply-accumulate",
+     "value": 17,
+     "unit": "fJ",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": "GPUs, claimed 1000x worse, not named",
+     "conditions": "no conditions",
+     "origin_source_id": "my-2025-pr"
+    },
+    {
+     "metric": "tokens per second per watt advantage, 1T-parameter LLM (release)",
+     "value": 750,
+     "unit": "x (upper bound)",
+     "rung": "projection",
+     "tier": "T3",
+     "baseline": "NVIDIA's highest-end GPUs, model not named",
+     "conditions": "vendor internal benchmarks; chip not yet taped out at the time",
+     "origin_source_id": "my-2025-pr"
+    },
+    {
+     "metric": "tokens per second per watt advantage, 1T-parameter LLM (product page)",
+     "value": "75 to 1900",
+     "unit": "x",
+     "rung": "projection",
+     "tier": "T3",
+     "baseline": "comparison details were in images not readable in this session",
+     "conditions": "product listed as available in 2027",
+     "origin_source_id": "my-products-page"
+    },
+    {
+     "metric": "single chiplet compute",
+     "value": 120,
+     "unit": "TOPS",
+     "rung": "projection",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "INT8, under 1 W, edge vision; design target relayed from the CEO",
+     "origin_source_id": "my-eetimes-2026"
+    },
+    {
+     "metric": "parameters per chiplet",
+     "value": 30,
+     "unit": "million",
+     "rung": "projection",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "upper bound; the product page gives the same count as in-memory compute cells per analog die",
+     "origin_source_id": "my-eetimes-2026"
+    },
+    {
+     "metric": "ADCs per analog die",
+     "value": 4096,
+     "unit": "converters",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "Vanguard",
+     "origin_source_id": "my-products-page"
+    },
+    {
+     "metric": "analog die process",
+     "value": 28,
+     "unit": "nm",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "GlobalFoundries flash; digital die on TSMC N5A",
+     "origin_source_id": "my-products-page"
+    },
+    {
+     "metric": "bits per flash cell",
+     "value": 8,
+     "unit": "bits (upper bound)",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "supplier bit-cell property, no measurement conditions",
+     "origin_source_id": "my-sst-pr"
+    }
+   ],
+   "bets": [
+    {
+     "text": "Stacking a mature-node flash analog die on an advanced-node digital die fixes the first generation's digital bottlenecks while keeping the analog array cheap.",
+     "status": "open",
+     "source_id": "my-eetimes-2026",
+     "status_source_id": null
+    },
+    {
+     "text": "Analog flash compute can leave edge vision and serve trillion-parameter language models in datacentres by tiling many chiplets on one substrate without a fast inter-unit link.",
+     "status": "open",
+     "source_id": "my-2025-pr",
+     "status_source_id": null
+    },
+    {
+     "text": "An advantage has to be around a hundredfold over GPUs to matter commercially, and the design can deliver it.",
+     "status": "open",
+     "source_id": "my-eetimes-2026",
+     "status_source_id": null
+    },
+    {
+     "text": "A sub-1 W analog compute chiplet bonded under an image sensor (Starlight) creates a second product line.",
+     "status": "open",
+     "source_id": "my-2025-pr",
+     "status_source_id": null
+    }
+   ],
+   "what_changed_from_previous": "Per the CEO's account relayed in trade press: the first generation's per-tile RISC-V processors ran near full load and choked the network-on-chip, it had no on-chip DACs, its ADCs missed their resolution and its software came after tape-out. The second generation separates analog and digital into two stacked dies, moves to 28 nm flash from a named supplier with a 5 nm-class digital die, cuts the ADC count per die, adds a DSP for unsupported operators, supports 4-bit as well as 8-bit compute, and is packaged as chiplets. Targets widen from edge video to automotive, robotics, defence and datacentre language models.",
+   "next": "Accelerator chiplet and Starlight image sensor planned to tape out in 2026 (CEO, January 2026); product page lists Vanguard as available in 2027; NAND-flash arrays planned after the NOR-based version."
+  }
+ ],
+ "sources": [
+  {
+   "id": "my-m1108-pr",
+   "class": "vendor_doc",
+   "url": "https://www.prnewswire.com/news-releases/mythic-launches-industry-first-ai-analog-matrix-processor-301176987.html",
+   "author": "Mythic",
+   "date": "2020-11-19",
+   "language": "en",
+   "accessed": "2026-10-09",
+   "title_original": "Mythic launches industry-first AI analog matrix processor",
+   "summary_en": "Vendor press release for the M1108. The chip has 108 tiles, each with an analog compute engine (a flash-cell array with ADCs), a 32-bit RISC-V nano-processor, a SIMD vector engine, SRAM and a network-on-chip router, plus four control tiles giving PCIe 2.0 to a host. Built on a mature 40 nm process, needs no external DRAM or SRAM, and is said to run ResNet-50, YOLOv3 and OpenPose on one chip. Offered on M.2 and PCIe cards with evaluation kits on request. The cost comparison names no baseline. Weight capacity, bit precision and measurement conditions are not stated.",
+   "tier": "T3",
+   "accepted": true,
+   "reject_reason": null,
+   "checks": null,
+   "quotes": []
+  },
+  {
+   "id": "my-m1076-pr",
+   "class": "vendor_doc",
+   "url": "https://www.prnewswire.com/news-releases/mythic-expands-product-lineup-with-new-scalable-power-efficient-analog-matrix-processor-for-edge-ai-applications-301306344.html",
+   "author": "Mythic",
+   "date": "2021-06-07",
+   "language": "en",
+   "accessed": "2026-10-09",
+   "title_original": "Mythic Expands Product Lineup with New Scalable, Power-Efficient Analog Matrix Processor for Edge AI Applications",
+   "summary_en": "Vendor press release for the M1076: per-chip compute and power envelope, a 16-chip PCIe card with its compute, power and total weight capacity, and two M.2 evaluation cards (ME1076 at 22 x 30 mm, MM1076) announced as available for evaluation from July 2021. Targets video analytics and body-pose estimation. The power comparison against a 'typical SoC or GPU' names no device or workload. Tile count, process, precision and measurement conditions are not stated.",
+   "tier": "T3",
+   "accepted": true,
+   "reject_reason": null,
+   "checks": null,
+   "quotes": []
+  },
+  {
+   "id": "my-spectrum-2018",
+   "class": "trade_press",
+   "url": "https://spectrum.ieee.org/amp/two-startups-use-processing-in-flash-memory-for-ai-at-the-edge-2650277347",
+   "author": "Samuel K. Moore (IEEE Spectrum)",
+   "date": "2018-08-13",
+   "language": "en",
+   "accessed": "2026-10-09",
+   "title_original": "Two Startups Use Processing in Flash Memory for AI at the Edge",
+   "summary_en": "Magazine article comparing Mythic and Syntiant. For Mythic: weights are held as charge levels in an embedded-flash array, the charge sets the cell current, and the array wiring sums currents to perform multiply-accumulate, so weights never move; programmable digital logic around the array lets it run varied network shapes. Reports an energy-per-operation goal and presents it explicitly as a goal, not a measurement, and relays the founder's remark that like-for-like comparisons are hard. Company then in Austin, Texas. No chip name, node or converter detail.",
+   "tier": "T4",
+   "accepted": true,
+   "reject_reason": null,
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": false,
+    "C5": true,
+    "C6": false
+   },
+   "quotes": []
+  },
+  {
+   "id": "my-register-2022",
+   "class": "trade_press",
+   "url": "https://www.theregister.com/2022/11/09/mythic_analog_ai_chips/",
+   "author": "Dylan Martin (The Register)",
+   "date": "2022-11-09",
+   "language": "en",
+   "accessed": "2026-10-09",
+   "title_original": "Mythic bet big on analog AI but has run out of cash",
+   "summary_en": "News report that Mythic had run out of capital, based on a public post and comments by its engineering vice-president, who said investor funding ended before the company reached revenue; the CEO did not comment. Recaps about USD 165 million raised by 2021, the product forms (chip, M.2 card, PCIe card), a four-chip M1076 card with its year-old vendor figures, a September 2022 demo of YOLOv5 on high-resolution video, and the vendor's own description of the mechanism (memory elements as tunable resistors, voltages in, currents out). Links to the executive's post, the vendor technology page and two vendor releases.",
+   "tier": "T4",
+   "accepted": true,
+   "reject_reason": null,
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": true,
+    "C4": true,
+    "C5": true,
+    "C6": false
+   },
+   "quotes": []
+  },
+  {
+   "id": "my-eetimes-2026",
+   "class": "trade_press",
+   "url": "https://www.eetimes.com/mythic-rises-from-the-ashes-with-125-million-funding-round/",
+   "author": "Sally Ward-Foxton (EE Times)",
+   "date": "2026-01-15",
+   "language": "en",
+   "accessed": "2026-10-09",
+   "title_original": "Mythic Rises from the Ashes with $125M Funding Round",
+   "summary_en": "Interview-based article with the CEO appointed in mid-2024. First generation: flash transistors driven at one of 256 sub-threshold levels for 8-bit values, needing substantial calibration and compensation; M1108 (2020) and M1076 (2021). The CEO's account of what went wrong: roughly 80 on-chip RISC-V processors ran near full load instead of almost idle, which overloaded the network-on-chip; there were no on-chip DACs and the ADCs missed their intended resolution; the first chip taped out before its software was ready. Second generation: a flash analog die stacked in 3D on a digital control die, sold as chiplets (1, 4 or 16, and a 1,024-chiplet substrate planned for language models), 8-bit and 4-bit compute, an on-chip DSP for unsupported operators, NOR flash now with NAND planned, tape-out of the accelerator chiplet and of an image-sensor product (Starlight) planned for 2026. Company founded 2012, downsized at the end of 2022, refinanced in March 2023 and December 2025. All performance figures are the CEO's and unmeasured in the article; it links only to earlier EE Times pieces.",
+   "tier": "T4",
+   "accepted": false,
+   "reject_reason": "NO_PRIMARY_LINKS",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": false,
+    "C4": false,
+    "C5": true,
+    "C6": false
+   },
+   "quotes": []
+  },
+  {
+   "id": "my-2025-pr",
+   "class": "vendor_doc",
+   "url": "https://markets.financialcontent.com/woonsocketcall/article/bizwire-2025-12-17-mythic-to-challenge-ais-gpu-pantheon-with-100x-energy-advantage-and-oversubscribed-125m-raise",
+   "author": "Mythic (Business Wire release, read on a syndication mirror)",
+   "date": "2025-12-17",
+   "language": "en",
+   "accessed": "2026-10-09",
+   "title_original": "Mythic to Challenge AI's GPU Pantheon with 100x Energy Advantage and Oversubscribed $125M Raise",
+   "summary_en": "Vendor press release on a USD 125 million round led by DCVC with Honda and Lockheed Martin among investors. Describes analog processing units that do matrix multiplication in mature memory cells, an efficiency figure for the current architecture with a multiple against GPUs, an energy per multiply-accumulate, and token-rate-per-watt and cost-per-token multiples for very large language models from internal benchmarks against unnamed top GPUs. Says each M1076 holds nearly 20,000 ADCs, that the CAMP software kit runs on first-generation units today and accepts ONNX, PyTorch and TensorFlow, and introduces Starlight, a sub-1 W sensing product. No dates for new chips, no process node.",
+   "tier": "T3",
+   "accepted": true,
+   "reject_reason": null,
+   "checks": null,
+   "quotes": []
+  },
+  {
+   "id": "my-sst-pr",
+   "class": "vendor_doc",
+   "url": "https://www.stocktitan.net/news/MCHP/mythic-selects-mem-brain-tm-technology-from-silicon-storage-5csn6pv7fl9k.html",
+   "author": "Microchip Technology / Silicon Storage Technology (GlobeNewswire release, read on a mirror)",
+   "date": "2026-03-17",
+   "language": "en",
+   "accessed": "2026-10-09",
+   "title_original": "Mythic Selects memBrain Technology from Silicon Storage Technology for its Next Generation of Ultra-Low-Power Analog Processing Units",
+   "summary_en": "Supplier press release: Mythic's next-generation units will use SST's SuperFlash embedded non-volatile bit cells through the memBrain analog in-memory-compute IP. Bit-cell properties listed (up to 8 bits per cell, nanoamp-scale read current, ten-year retention, 100,000 cycles, single-cycle multiply-accumulate) come without measurement conditions. The IP exists in 40 nm and 28 nm foundry processes with 22 nm planned. The efficiency figure is stated without test conditions and the multiple against GPUs is worded as a target. No launch date.",
+   "tier": "T3",
+   "accepted": true,
+   "reject_reason": null,
+   "checks": null,
+   "quotes": []
+  },
+  {
+   "id": "my-products-page",
+   "class": "vendor_doc",
+   "url": "https://mythic.ai/products/",
+   "author": "Mythic",
+   "date": "undated (copyright 2026)",
+   "language": "en",
+   "accessed": "2026-10-09",
+   "title_original": "Vanguard | Explore Next-Gen AI Solutions - Request a Demo - Mythic",
+   "summary_en": "Vendor product page. Lists Vanguard, Starlight, Mead and M1; only Vanguard has specifications in text. Vanguard is described as the next-generation analog processing unit, available in 2027, built on the M1 platform: an analog die in GlobalFoundries 28 nm flash with 30 million in-memory compute cells and 4,096 ADCs, and a digital die in TSMC N5A with a hierarchical 'SuperTile' design and PCIe and MIPI interfaces. A token-rate-per-watt range for trillion-parameter language models is shown with its comparison details in images that were not readable. M1076 and the first-generation cards are no longer listed.",
+   "tier": "T3",
+   "accepted": true,
+   "reject_reason": null,
+   "checks": null,
+   "quotes": []
+  }
+ ],
+ "conflicts": [
+  {
+   "metric": "Second-generation tokens per second per watt advantage on 1T-parameter language models",
+   "accounts": [
+    {
+     "metric": "advantage (December 2025 release)",
+     "value": 750,
+     "unit": "x (upper bound)",
+     "rung": "projection",
+     "tier": "T3",
+     "baseline": "NVIDIA's highest-end GPUs, not named",
+     "conditions": "internal benchmarks",
+     "origin_source_id": "my-2025-pr"
+    },
+    {
+     "metric": "advantage (product page, 2026)",
+     "value": "75 to 1900",
+     "unit": "x",
+     "rung": "projection",
+     "tier": "T3",
+     "baseline": "not readable",
+     "conditions": "range",
+     "origin_source_id": "my-products-page"
+    },
+    {
+     "metric": "advantage (CEO via trade press, January 2026)",
+     "value": 100,
+     "unit": "x (upper bound, 'up to two orders of magnitude')",
+     "rung": "projection",
+     "tier": "T3",
+     "baseline": "Nvidia Blackwell-generation systems",
+     "conditions": "no test conditions",
+     "origin_source_id": "my-eetimes-2026"
+    }
+   ]
+  }
+ ],
+ "not_found": [
+  "No peer-reviewed paper, Hot Chips deck or datasheet for M1108 or M1076 was found; the M1076 product page (mythic.ai/products/m1076-analog-matrix-processor/) and a 2022 next-generation preview page both returned HTTP 404.",
+  "No independent measurement of any Mythic chip was found; every number is a vendor claim or a vendor claim relayed by press.",
+  "M1076 tile count, per-chip weight capacity, INT4 support and process: a search-result snippet of the removed product page gave 76 tiles and 80 million weights, and an EE Times article of 2021-06-25 by Sally Ward-Foxton (opened, not recorded because of the eight-source limit; would be rejected as NO_MECHANISM) gave 76 tiles on 40 nm embedded flash, the same core design as M1108, and customer demand for the M.2 A+E format as the reason for the resize.",
+  "Shipping years: M1108 evaluation kits were 'on request' at launch and M1076 evaluation cards were announced for July 2021; no opened source confirms dates of first customer shipments or volumes, so year_shipped is null for both.",
+  "M2000: named as the next chip in a TechCrunch article of 2023-03-09 by Kyle Wiggers (opened, not recorded because of the eight-source limit; would be rejected as NO_MECHANISM). No primary document was found and it is not listed as a generation; whether it became the M1 / Vanguard platform is not stated anywhere opened.",
+  "Also opened and not recorded: the arXiv survey 2401.14428 (TU Dresden), whose Mythic paragraph relays the vendor website (flash array with ADCs, 32-bit RISC-V, SIMD engine, 64 KB SRAM, network-on-chip) - would be DUPLICATE of the M1108 release.",
+  "Second generation: measured silicon results, tape-out confirmation, the conditions behind 120 TOPS/W, and the baseline details behind the language-model multiples (shown only as images on the product page). Mead and Starlight specifications.",
+  "ADC resolution, DAC arrangement, calibration method and accuracy loss of the first generation beyond the CEO's 2026 remarks.",
+  "Sparsity co-design, design method, levers and evaluation rung for M1108 and the second generation: not stated."
+ ]
+}

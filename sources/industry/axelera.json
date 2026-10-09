@@ -1,0 +1,645 @@
+{
+ "product_line": "Axelera AI Metis / Europa / Titania AIPU",
+ "vendor": "Axelera AI",
+ "country": "Netherlands",
+ "status": {
+  "value": "alive",
+  "as_of": "2026-09-15",
+  "detail": "The vendor's own community post of that date announces Europa shipping on two cards and upcoming SDK releases. No independent dated confirmation of company status was opened.",
+  "source_id": "ax-community-2026"
+ },
+ "generations": [
+  {
+   "name": "Metis AIPU",
+   "year_announced": null,
+   "year_shipped": 2023,
+   "axes": {
+    "A0_workload": {
+     "value": "cnn",
+     "basis": "inferred",
+     "source_id": "ax-npu-eval"
+    },
+    "A1_paradigm": {
+     "value": "cim_digital",
+     "basis": "disclosed",
+     "source_id": "ax-survey"
+    },
+    "A1_device": {
+     "value": "sram",
+     "basis": "disclosed",
+     "source_id": "ax-survey"
+    },
+    "A2_data_residency": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A3_numerics": {
+     "value": "int8",
+     "basis": "disclosed",
+     "source_id": "ax-metis-page"
+    },
+    "A4_sparsity_codesign": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A5_programmability": {
+     "value": "host_offload",
+     "basis": "inferred",
+     "source_id": "ax-npu-eval"
+    },
+    "A6_eval_rung": {
+     "value": "board_or_system",
+     "basis": "inferred",
+     "source_id": "ax-npu-eval"
+    },
+    "A6_baseline_class": {
+     "value": "gpu",
+     "basis": "inferred",
+     "source_id": "ax-npu-eval"
+    },
+    "A7_scale": {
+     "value": "soc_chip",
+     "basis": "disclosed",
+     "source_id": "ax-arteris-pr"
+    },
+    "design_method": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "lever": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    }
+   },
+   "numbers": [
+    {
+     "metric": "peak compute per chip",
+     "value": 214,
+     "unit": "TOPS",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "INT8, one Metis AIPU, stated as an upper bound; measurement method not given",
+     "origin_source_id": "ax-metis-page"
+    },
+    {
+     "metric": "energy efficiency",
+     "value": 15,
+     "unit": "TOPS/W",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "conditions not stated on the page",
+     "origin_source_id": "ax-metis-page"
+    },
+    {
+     "metric": "typical power",
+     "value": 10,
+     "unit": "W",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "described as typical; workload not stated",
+     "origin_source_id": "ax-metis-page"
+    },
+    {
+     "metric": "ResNet-50 throughput (vendor)",
+     "value": 3200,
+     "unit": "frames/s",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "stated as an upper bound; batch size, resolution, number of cores used and card not stated",
+     "origin_source_id": "ax-metis-page"
+    },
+    {
+     "metric": "ResNet-50 throughput per dollar",
+     "value": 16.4,
+     "unit": "frames/s per USD",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "Metis PCIe system; price used and comparison set not stated",
+     "origin_source_id": "ax-metis-page"
+    },
+    {
+     "metric": "ResNet-50 throughput, single chip (independent)",
+     "value": 516,
+     "unit": "frames/s",
+     "rung": "board_or_system",
+     "tier": "T2",
+     "baseline": "NVIDIA RTX A5000 with TensorRT (baseline value not captured in this session)",
+     "conditions": "single-chip Metis, latency 2.9 ms, INT8 per the paper's specification table, batch size not stated",
+     "origin_source_id": "ax-npu-eval"
+    },
+    {
+     "metric": "ResNet-50 throughput, four-chip card (independent)",
+     "value": 2211,
+     "unit": "frames/s",
+     "rung": "board_or_system",
+     "tier": "T2",
+     "baseline": "NVIDIA RTX A5000 with TensorRT (baseline value not captured in this session)",
+     "conditions": "four-chip Metis PCIe card, 4.28x the single-chip figure; batch size not stated",
+     "origin_source_id": "ax-npu-eval"
+    },
+    {
+     "metric": "reference models that ran",
+     "value": 6,
+     "unit": "of 12 models",
+     "rung": "board_or_system",
+     "tier": "T2",
+     "baseline": null,
+     "conditions": "MNASNet-0.75, MobileNetV4-Conv-S, ResNet-18/34/50/101 ran; ConvNeXt-Tiny, EfficientNet-B0, MobileNetV3-Small, ResNeXt-101 32x8d, Tiny-ViT-5M, ViT-Tiny did not; SDK version not captured",
+     "origin_source_id": "ax-npu-eval"
+    },
+    {
+     "metric": "throughput advantage (vendor, relayed)",
+     "value": "2 to 5",
+     "unit": "x",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": "unnamed 'upstart competitors' chosen by the vendor",
+     "conditions": "no benchmark, model or precision named",
+     "origin_source_id": "ax-eetimes"
+    }
+   ],
+   "bets": [
+    {
+     "text": "Doing the multiply-accumulate digitally inside SRAM keeps the density benefit of in-memory computing while giving bit-exact, repeatable results that analog arrays cannot.",
+     "status": "open",
+     "source_id": "ax-survey",
+     "status_source_id": "ax-npu-eval"
+    },
+    {
+     "text": "INT8 operands with wide (INT32) accumulation are enough to match floating-point accuracy after post-training quantisation, so customers need not retrain.",
+     "status": "open",
+     "source_id": "ax-survey",
+     "status_source_id": null
+    },
+    {
+     "text": "Four identical, self-sufficient cores on one chip let the same silicon trade throughput, latency and multi-network operation, and scale further by putting several chips on a card (only the multi-chip part has independent support: about 4x from one to four chips).",
+     "status": "open",
+     "source_id": "ax-arteris-pr",
+     "status_source_id": "ax-npu-eval"
+    },
+    {
+     "text": "A vision-first operator set and SDK is a sufficient first market for an edge accelerator.",
+     "status": "open",
+     "source_id": "ax-eetimes",
+     "status_source_id": "ax-npu-eval"
+    }
+   ],
+   "what_changed_from_previous": "First product generation. The survey source mentions an earlier test chip, Thetis, taped out in December 2021; nothing else about it was found.",
+   "next": "Europa AIPU"
+  },
+  {
+   "name": "Europa AIPU",
+   "year_announced": 2025,
+   "year_shipped": 2026,
+   "axes": {
+    "A0_workload": {
+     "value": "generic_dnn",
+     "basis": "disclosed",
+     "source_id": "ax-europa-pr"
+    },
+    "A1_paradigm": {
+     "value": "cim_digital",
+     "basis": "disclosed",
+     "source_id": "ax-europa-pr"
+    },
+    "A1_device": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A2_data_residency": {
+     "value": "other",
+     "basis": "disclosed",
+     "source_id": "ax-europa-pr"
+    },
+    "A3_numerics": {
+     "value": "int8",
+     "basis": "disclosed",
+     "source_id": "ax-europa-pr"
+    },
+    "A4_sparsity_codesign": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A5_programmability": {
+     "value": "host_offload",
+     "basis": "disclosed",
+     "source_id": "ax-europa-pr"
+    },
+    "A6_eval_rung": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A6_baseline_class": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A7_scale": {
+     "value": "soc_chip",
+     "basis": "disclosed",
+     "source_id": "ax-europa-pr"
+    },
+    "design_method": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "lever": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    }
+   },
+   "numbers": [
+    {
+     "metric": "peak compute per chip",
+     "value": 629,
+     "unit": "TOPS",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "INT8, eight AI cores, stated as an upper bound at announcement before shipment",
+     "origin_source_id": "ax-europa-pr"
+    },
+    {
+     "metric": "RISC-V vector cluster peak",
+     "value": 4915,
+     "unit": "GOPS",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "16 RISC-V vector cores in two clusters; precision not stated",
+     "origin_source_id": "ax-europa-pr"
+    },
+    {
+     "metric": "external memory bandwidth",
+     "value": 200,
+     "unit": "GB/s",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "256-bit LPDDR5 interface",
+     "origin_source_id": "ax-europa-pr"
+    },
+    {
+     "metric": "on-chip L2 memory",
+     "value": 128,
+     "unit": "MB",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "SRAM",
+     "origin_source_id": "ax-europa-pr"
+    },
+    {
+     "metric": "performance efficiency advantage",
+     "value": "3 to 5",
+     "unit": "x",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": "unnamed 'leading industry solutions in the same product category' chosen by the vendor",
+     "conditions": "performance per watt and per dollar; no workload, precision or method named",
+     "origin_source_id": "ax-europa-pr"
+    },
+    {
+     "metric": "thermal design power",
+     "value": 45,
+     "unit": "W",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "vendor specification relayed in the independent evaluation's table; hardware was not measured there",
+     "origin_source_id": "ax-npu-eval"
+    },
+    {
+     "metric": "four-chip card peak compute",
+     "value": 2500,
+     "unit": "TOPS",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "Server 250p card with four Europa chips, stated as a lower bound ('2500+'); precision not stated",
+     "origin_source_id": "ax-community-2026"
+    }
+   ],
+   "bets": [
+    {
+     "text": "A large on-chip L2 SRAM plus a very wide LPDDR5 interface removes the memory bottleneck for multi-user generative workloads on an in-memory-compute chip.",
+     "status": "open",
+     "source_id": "ax-europa-pr",
+     "status_source_id": null
+    },
+    {
+     "text": "Putting RISC-V vector clusters and a video decoder on the accelerator moves pre- and post-processing off the host CPU and lowers system cost.",
+     "status": "open",
+     "source_id": "ax-europa-pr",
+     "status_source_id": null
+    },
+    {
+     "text": "One SDK across generations protects customer software investment; a hand-programmable core language shortens the port of new model families.",
+     "status": "open",
+     "source_id": "ax-europa-pr",
+     "status_source_id": "ax-community-2026"
+    }
+   ],
+   "what_changed_from_previous": "Second-generation AI cores, eight instead of Metis's four, each now paired with a large vector engine; added on-chip RISC-V vector clusters, 128 MB L2 SRAM, LPDDR5 in place of the LPDDR4X controller named for Metis, a video decoder and PCIe Gen4; manufactured on Samsung 5 nm per the foundry's quote. Target widened from computer vision to multi-modal and generative AI. The stated reasons are removing memory bottlenecks and reducing host CPU load. The independent evaluation's specification table additionally lists INT4/INT8/INT16 support, which the press release does not state.",
+   "next": "Titania"
+  },
+  {
+   "name": "Titania",
+   "year_announced": 2025,
+   "year_shipped": null,
+   "axes": {
+    "A0_workload": {
+     "value": "generic_dnn",
+     "basis": "relayed",
+     "source_id": "ax-techzine"
+    },
+    "A1_paradigm": {
+     "value": "cim_digital",
+     "basis": "relayed",
+     "source_id": "ax-techzine"
+    },
+    "A1_device": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A2_data_residency": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A3_numerics": {
+     "value": "mixed_or_variable",
+     "basis": "relayed",
+     "source_id": "ax-techzine"
+    },
+    "A4_sparsity_codesign": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A5_programmability": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A6_eval_rung": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A6_baseline_class": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A7_scale": {
+     "value": "multi_chip_chiplet",
+     "basis": "relayed",
+     "source_id": "ax-techzine"
+    },
+    "design_method": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "lever": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    }
+   },
+   "numbers": [
+    {
+     "metric": "public funding for development",
+     "value": 61.6,
+     "unit": "million EUR (upper bound)",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "EuroHPC Joint Undertaking, DARE project; not a hardware metric",
+     "origin_source_id": "ax-techzine"
+    }
+   ],
+   "bets": [
+    {
+     "text": "The digital in-memory core can be packaged as chiplets and scaled close to linearly from edge parts to cloud-class inference.",
+     "status": "open",
+     "source_id": "ax-techzine",
+     "status_source_id": null
+    }
+   ],
+   "what_changed_from_previous": "Moves from a monolithic SoC to a chiplet-based design with proprietary RISC-V vector extensions and mixed precision; no source opened gives the reason beyond scaling from edge to cloud.",
+   "next": "Launch planned for 2028 according to the relayed announcement; not shipped as of the access date."
+  }
+ ],
+ "sources": [
+  {
+   "id": "ax-npu-eval",
+   "class": "paper",
+   "url": "https://arxiv.org/abs/2609.13166",
+   "author": "Davide Baltieri, Tobia Peruzzi (Covision Lab, Bressanone, Italy)",
+   "date": "2026-07-22",
+   "language": "en",
+   "accessed": "2026-10-09",
+   "title_original": "NPU Hardware Evaluation v1.0",
+   "summary_en": "Non-peer-reviewed arXiv white paper benchmarking ten edge inference accelerators on twelve reference models against an NVIDIA RTX A5000 running TensorRT. A single-chip Metis and a four-chip Metis PCIe card were physically measured (latency and frames per second for six convolutional models; four-chip scaling close to 4x). Six of the twelve models (the transformer ones, EfficientNet-B0, MobileNetV3-Small, ConvNeXt-Tiny, ResNeXt-101) did not run on Metis. Power was not measured; the power and TOPS/W figures in its tables are vendor specifications. Europa hardware was not available, so its row is vendor specification only (629 TOPS INT8, 45 W TDP, eight cores, 16 RISC-V vector units). The fetched text does not state batch size or whether the authors declare vendor independence.",
+   "tier": "T2",
+   "accepted": true,
+   "reject_reason": null,
+   "checks": null,
+   "quotes": []
+  },
+  {
+   "id": "ax-metis-page",
+   "class": "vendor_doc",
+   "url": "https://axelera.ai/ai-accelerators/aipu/metis/",
+   "author": "Axelera AI",
+   "date": "undated (page footer 2026)",
+   "language": "en",
+   "accessed": "2026-10-09",
+   "title_original": "Metis: the best AI Processing Unit | Axelera AI",
+   "summary_en": "Vendor product page for the Metis AIPU. States peak compute at INT8, an energy-efficiency figure, typical power, a ResNet-50 throughput figure and a throughput-per-dollar figure, none with batch size, resolution or measurement method. Claims existing models run without retraining and that several Metis chips can be combined. Does not state process node, core count, the in-memory mechanism or on-chip memory.",
+   "tier": "T3",
+   "accepted": true,
+   "reject_reason": null,
+   "checks": null,
+   "quotes": []
+  },
+  {
+   "id": "ax-europa-pr",
+   "class": "vendor_doc",
+   "url": "https://axelera.ai/news/axelera-announces-europa-aipu-setting-new-industry-benchmark-for-ai-accelerator-performance-power-efficiency-and-affordability",
+   "author": "Axelera AI",
+   "date": "2025-10-21",
+   "language": "en",
+   "accessed": "2026-10-09",
+   "title_original": "Axelera Announces Europa AIPU, Setting New Industry Benchmark for AI Accelerator Performance, Power Efficiency and Affordability",
+   "summary_en": "Vendor press release announcing Europa. Eight second-generation AI cores, each with digital in-memory compute and a large vector engine; two clusters of eight RISC-V vector cores for non-AI pre/post-processing; 128 MB on-chip L2 SRAM; a 256-bit LPDDR5 interface; hardware H.264/H.265 decode; PCIe Gen4 x4; 35x35 mm package; same Voyager SDK as Metis. A Samsung quote says the design is made on its 5 nm process. Targets multi-modal and generative AI plus vision from edge to enterprise server. Shipments of chip and PCIe card were planned for the first half of 2026. The efficiency comparison names no competitor, workload or method. No power figure is given. Card memory is described as single-chip 16 GB up to four-chip 256 GB. Calls Metis the first-generation product and lists integrators (Advantech, SECO) and testers.",
+   "tier": "T3",
+   "accepted": true,
+   "reject_reason": null,
+   "checks": null,
+   "quotes": [
+    "3 to 5 times performance efficiency (performance per watt and performance per dollar) over the leading industry solutions in the same product category"
+   ]
+  },
+  {
+   "id": "ax-community-2026",
+   "class": "vendor_doc",
+   "url": "https://community.axelera.ai/axelera-edge-and-server-7/axscript-and-europa-are-here-1599",
+   "author": "Axelera AI team member (forum handle 'Spanner')",
+   "date": "2026-09-15",
+   "language": "en",
+   "accessed": "2026-10-09",
+   "title_original": "AxScript and Europa are here",
+   "summary_en": "Vendor community announcement that Europa is shipping on two cards: Edge 232p (half-height half-length PCIe, one Europa) and Server 250p (full-height full-length, four Europa). Repeats the per-chip specification without power or precision. Introduces AxScript, a Python-embedded language for programming the AI cores directly, usable by hand or through an agent-assisted flow, alongside the existing automatic ONNX/PyTorch compiler; says the same code targets Metis and Europa and is meant to carry to Titania. Reports an internal port of a Qwen-family language model in one day. No ship date other than the post date; no public date for language-model support.",
+   "tier": "T3",
+   "accepted": true,
+   "reject_reason": null,
+   "checks": null,
+   "quotes": []
+  },
+  {
+   "id": "ax-survey",
+   "class": "paper",
+   "url": "https://arxiv.org/abs/2401.14428",
+   "author": "Asif Ali Khan, Joao Paulo C. De Lima, Hamid Farzaneh, Jeronimo Castrillon (TU Dresden)",
+   "date": "2024-01-24",
+   "language": "en",
+   "accessed": "2026-10-09",
+   "title_original": "The Landscape of Compute-near-memory and Compute-in-memory: A Research and Commercial Overview",
+   "summary_en": "arXiv survey preprint (no journal venue named on the page) with a commercial-landscape section. For Axelera it describes an SRAM-based digital in-memory compute engine, INT8 weights and activations with INT32 accumulation, a claim of FP32-level accuracy without retraining, an SoC of four AI cores plus a RISC-V control core, and a first test chip (Thetis) taped out in December 2021. Its only reference for these is the company website, so the content is a relay of vendor statements, not an independent inference. No node, TOPS or power given.",
+   "tier": "T4",
+   "accepted": true,
+   "reject_reason": null,
+   "checks": null,
+   "quotes": []
+  },
+  {
+   "id": "ax-arteris-pr",
+   "class": "vendor_doc",
+   "url": "https://www.tipranks.com/news/press-releases/arteris-ip-licensed-by-axelera-ai-to-accelerate-computer-vision-at-the-edge",
+   "author": "Arteris, Inc. (press release via GlobeNewswire, mirrored by TipRanks)",
+   "date": "2023-04-26",
+   "language": "en",
+   "accessed": "2026-10-09",
+   "title_original": "Arteris IP Licensed by Axelera AI to Accelerate Computer Vision at the Edge",
+   "summary_en": "Supplier press release. Metis has four identical AI cores, each able to run all layers of a standard network on its own; the cores can share one workload, run copies of one network, or run different networks. Cores, RISC-V controller, PCIe interface, LPDDR4X controller and security block are joined by a network-on-chip built with Arteris FlexWay. At that date Metis was on pre-order and with selected early-access customers. Says nothing about in-memory computing, TOPS or process.",
+   "tier": "T3",
+   "accepted": true,
+   "reject_reason": null,
+   "checks": null,
+   "quotes": []
+  },
+  {
+   "id": "ax-eetimes",
+   "class": "trade_press",
+   "url": "https://www.eetimes.com/axelera-ai-platform-accelerates-edge-application-deployment/",
+   "author": "Maurizio Di Paolo Emilio (EE Times)",
+   "date": "2023-11-21",
+   "language": "en",
+   "accessed": "2026-10-09",
+   "title_original": "Axelera AI Platform Accelerates Edge Application Deployment",
+   "summary_en": "Trade-press article built on vendor statements. Calls Metis the first-generation AIPU combining digital in-memory computing with RISC-V-controlled dataflow, says hardware and software had recently been delivered to customers with volume production as the next milestone, describes an M.2 module with one Metis and 512 MB LPDDR4x, and says the Voyager SDK covered computer-vision networks with language processing planned. Throughput and efficiency multiples are given against unnamed competitors with no benchmark. Links only to the vendor home page and two other EE Times pieces.",
+   "tier": "T4",
+   "accepted": false,
+   "reject_reason": "UNCONDITIONED_NUMBERS",
+   "checks": {
+    "C1": true,
+    "C2": false,
+    "C3": false,
+    "C4": false,
+    "C5": true,
+    "C6": false
+   },
+   "quotes": []
+  },
+  {
+   "id": "ax-techzine",
+   "class": "trade_press",
+   "url": "https://www.techzine.eu/news/devices/129384/dutch-startup-axelera-ai-raises-over-60-million-and-unveils-new-chip/",
+   "author": "Erik van Klinken (Techzine)",
+   "date": "2025-03-06",
+   "language": "en",
+   "accessed": "2026-10-09",
+   "title_original": "Dutch startup Axelera AI raises over 60 million and unveils new chip",
+   "summary_en": "News item on the EUR 61.6 million EuroHPC DARE funding and the Titania announcement: a chiplet-based inference chip using the digital in-memory architecture with proprietary RISC-V vector extensions in a mixed-precision platform, for generative AI and vision, planned to launch in 2028. Adds only glossary-level explanation to the vendor announcement. Recorded because it is the only account of Titania opened in this session.",
+   "tier": "T4",
+   "accepted": false,
+   "reject_reason": "PRESS_REWRITE",
+   "checks": {
+    "C1": true,
+    "C2": false,
+    "C3": false,
+    "C4": false,
+    "C5": false,
+    "C6": false
+   },
+   "quotes": []
+  }
+ ],
+ "conflicts": [
+  {
+   "metric": "Metis ResNet-50 throughput",
+   "accounts": [
+    {
+     "metric": "ResNet-50 throughput (vendor)",
+     "value": 3200,
+     "unit": "frames/s",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "upper bound, conditions not stated",
+     "origin_source_id": "ax-metis-page"
+    },
+    {
+     "metric": "ResNet-50 throughput, single chip (independent)",
+     "value": 516,
+     "unit": "frames/s",
+     "rung": "board_or_system",
+     "tier": "T2",
+     "baseline": "NVIDIA RTX A5000 with TensorRT",
+     "conditions": "single chip, 2.9 ms latency, batch size not stated",
+     "origin_source_id": "ax-npu-eval"
+    },
+    {
+     "metric": "ResNet-50 throughput, four-chip card (independent)",
+     "value": 2211,
+     "unit": "frames/s",
+     "rung": "board_or_system",
+     "tier": "T2",
+     "baseline": "NVIDIA RTX A5000 with TensorRT",
+     "conditions": "four-chip PCIe card, batch size not stated",
+     "origin_source_id": "ax-npu-eval"
+    }
+   ]
+  }
+ ],
+ "not_found": [
+  "Metis announcement year: the launch press release (businesswire.com/news/home/20221213005651/en) returned HTTP 403 and was not read, so year_announced is left null.",
+  "The ISSCC 2024 Metis paper: only its title appeared in search results (a 12 nm, 209.6 TOPS, 15 TOPS/W SoC, which would differ from the 214 TOPS on the product page). The IEEE Xplore page returned no text and a guessed IBM Research URL returned 404, so the process node, the measured silicon numbers and the bit-cell mechanism of Metis are not recorded and the 209.6-vs-214 difference is not entered under conflicts.",
+  "Metis process node, die area and how weights are placed in the in-memory array (A2 data residency).",
+  "Any independent power or energy measurement of Metis: the one independent evaluation did not measure power.",
+  "Europa: memory cell type of its in-memory array, a vendor-stated power figure (the 45 W comes from a third party's table of vendor specifications; a search-result snippet of another vendor page mentioned 30 W average, not opened), exact first-shipment date, and any independent measurement.",
+  "Europa card memory: the press release says single-chip 16 GB to four-chip 256 GB, which does not scale by four; per-chip DRAM capacity is unclear.",
+  "Titania: a primary vendor document, specifications, process node and numbers. Only a trade-press relay was opened.",
+  "Why the product page names a third-party test (HotTech Vision & Analysis) without numbers: the report was not opened.",
+  "Opened but not recorded because of the eight-source limit: the English Wikipedia article 'Axelera AI' (last edited 2026-06-11; funding history and reference list only, no technical mechanism; would be rejected as NO_MECHANISM).",
+  "Sparsity co-design, design method and levers: not stated in any opened source."
+ ]
+}

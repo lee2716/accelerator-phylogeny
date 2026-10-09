@@ -1,0 +1,701 @@
+{
+ "product_line": "Houmo 鸿途 H30 / 漫界 M30 / M50 computing-in-memory SoCs",
+ "vendor": "后摩智能 (Houmo AI)",
+ "country": "CN",
+ "status": {
+  "value": "pivoted",
+  "as_of": "2026-05-31",
+  "detail": "Company is active: its site announced an M50-based laptop on 2026-05-31 (houmo-n90pro-news). The product line pivoted from automotive (H30, 2023) to edge large-model chips (M30, M50); the CEO dates the decision to the end of 2023 (houmo-wuqiang-interview, 2025-07-26), and the H30 and H50 are absent from the vendor site as accessed (houmo-site-index).",
+  "source_id": "houmo-n90pro-news"
+ },
+ "generations": [
+  {
+   "name": "鸿途 H30 (Hongtu H30)",
+   "year_announced": 2023,
+   "year_shipped": null,
+   "axes": {
+    "A0_workload": {
+     "value": "other",
+     "basis": "relayed",
+     "source_id": "houmo-h30-ithome",
+     "note": "intelligent-driving perception; network family not stated"
+    },
+    "A1_paradigm": {
+     "value": "cim_digital",
+     "basis": "relayed",
+     "source_id": "houmo-h30-ithome"
+    },
+    "A1_device": {
+     "value": "sram",
+     "basis": "relayed",
+     "source_id": "houmo-h30-ithome"
+    },
+    "A2_data_residency": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A3_numerics": {
+     "value": "int8",
+     "basis": "relayed",
+     "source_id": "houmo-h30-ithome"
+    },
+    "A4_sparsity_codesign": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A5_programmability": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A6_eval_rung": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A6_baseline_class": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A7_scale": {
+     "value": "soc_chip",
+     "basis": "relayed",
+     "source_id": "houmo-h30-ithome"
+    },
+    "design_method": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "lever": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    }
+   },
+   "numbers": [
+    {
+     "metric": "peak_compute",
+     "value": 256,
+     "unit": "TOPS",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "Int8; vendor 'physical compute' at launch event; 12 nm",
+     "origin_source_id": "houmo-h30-ithome"
+    },
+    {
+     "metric": "typical_power",
+     "value": 35,
+     "unit": "W",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "upper bound of typical power as announced; workload not stated",
+     "origin_source_id": "houmo-h30-ithome"
+    },
+    {
+     "metric": "ipu_energy_efficiency",
+     "value": 15,
+     "unit": "TOPS/W",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": "unnamed 'conventional architecture' chips, claimed >7x",
+     "conditions": "AI core (IPU) only, Int8",
+     "origin_source_id": "houmo-h30-ithome"
+    },
+    {
+     "metric": "soc_energy_efficiency",
+     "value": 7.3,
+     "unit": "TOPS/W",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "whole SoC; equals 256 TOPS / 35 W",
+     "origin_source_id": "houmo-h30-ithome"
+    },
+    {
+     "metric": "platform_power",
+     "value": 85,
+     "unit": "W",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "力驭 driving platform built on H30: 200 Kdmips CPU, 256 TOPS",
+     "origin_source_id": "houmo-h30-ithome"
+    }
+   ],
+   "bets": [
+    {
+     "text": "A large digital SRAM computing-in-memory SoC can win intelligent-driving sockets on energy efficiency per TOPS.",
+     "status": "failed",
+     "source_id": "houmo-h30-ithome",
+     "status_source_id": "houmo-wuqiang-interview"
+    },
+    {
+     "text": "A dedicated multi-core, multi-hardware-thread IPU (天枢) wrapped around the in-memory arrays is the way to scale compute.",
+     "status": "unknown",
+     "source_id": "houmo-h30-ithome",
+     "status_source_id": null
+    }
+   ],
+   "what_changed_from_previous": null,
+   "next": "An automotive H50 was announced for 2024 (vehicle programmes in 2025); it does not appear on the vendor site in 2026. The CEO says the company decided at the end of 2023 to leave driving for edge large models because the first chip was too costly for a market moving to cheap driving chips; the next chip actually released was the M30."
+  },
+  {
+   "name": "漫界 M30 (Manjie M30)",
+   "year_announced": 2024,
+   "year_shipped": null,
+   "axes": {
+    "A0_workload": {
+     "value": "llm_autoregressive",
+     "basis": "disclosed",
+     "source_id": "houmo-m30-product"
+    },
+    "A1_paradigm": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A1_device": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A2_data_residency": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A3_numerics": {
+     "value": "int8",
+     "basis": "disclosed",
+     "source_id": "houmo-m30-product"
+    },
+    "A4_sparsity_codesign": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A5_programmability": {
+     "value": "host_offload",
+     "basis": "disclosed",
+     "source_id": "houmo-m30-product",
+     "note": "PCIe 4.0 endpoint mode"
+    },
+    "A6_eval_rung": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A6_baseline_class": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A7_scale": {
+     "value": "soc_chip",
+     "basis": "disclosed",
+     "source_id": "houmo-m30-product"
+    },
+    "design_method": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "lever": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    }
+   },
+   "numbers": [
+    {
+     "metric": "peak_compute",
+     "value": 100,
+     "unit": "TOPS",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "INT8, vendor 'physical compute'",
+     "origin_source_id": "houmo-m30-product"
+    },
+    {
+     "metric": "typical_power",
+     "value": 12,
+     "unit": "W",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "typical power; workload not stated",
+     "origin_source_id": "houmo-m30-product"
+    },
+    {
+     "metric": "memory_bandwidth",
+     "value": 128,
+     "unit": "GB/s",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "upper bound ('up to')",
+     "origin_source_id": "houmo-m30-product"
+    },
+    {
+     "metric": "energy_efficiency",
+     "value": "7-8",
+     "unit": "TOPS/W",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": "unnamed competitors at about 3 TOPS/W",
+     "conditions": "stated jointly for H30 and M30 in a vendor talk",
+     "origin_source_id": "houmo-gacs2024-talk"
+    },
+    {
+     "metric": "llm_decode_speed",
+     "value": "15-20",
+     "unit": "tokens/s",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "'mainstream large models'; model, context length and precision not stated; speaker says it varies with configuration",
+     "origin_source_id": "houmo-gacs2024-talk"
+    }
+   ],
+   "bets": [
+    {
+     "text": "The same computing-in-memory technology pays off better for edge large-model inference (dense prefill, bandwidth-bound decode) than for driving.",
+     "status": "open",
+     "source_id": "houmo-wuqiang-interview",
+     "status_source_id": null
+    },
+    {
+     "text": "Edge large-model chips must avoid HBM-class packaging cost, so efficiency has to come from the compute architecture.",
+     "status": "open",
+     "source_id": "houmo-gacs2024-talk",
+     "status_source_id": null
+    }
+   ],
+   "what_changed_from_previous": "Target moved from intelligent driving to edge large-language-model inference; compute dropped from 256 TOPS / 35 W to 100 TOPS / 12 W and the chip is offered as a PCIe endpoint with cards, a SoM and an edge box. Reason given by the CEO: H30 was too large and costly for the driving market. Whether the in-memory IP changed is not stated.",
+   "next": "M50 on the second-generation 天璇 IPU."
+  },
+  {
+   "name": "漫界 M50 (Manjie M50)",
+   "year_announced": 2025,
+   "year_shipped": null,
+   "axes": {
+    "A0_workload": {
+     "value": "llm_autoregressive",
+     "basis": "disclosed",
+     "source_id": "houmo-m50-launch"
+    },
+    "A1_paradigm": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A1_device": {
+     "value": "sram",
+     "basis": "disclosed",
+     "source_id": "houmo-m50-launch",
+     "note": "second-generation dual-port SRAM-CIM; digital vs analog not stated on the vendor pages"
+    },
+    "A2_data_residency": {
+     "value": "hbm_or_dram_bound",
+     "basis": "disclosed",
+     "source_id": "houmo-m50-product",
+     "note": "up to 48 GB LPDDR5, up to 153.6 GB/s"
+    },
+    "A3_numerics": {
+     "value": "mixed_or_variable",
+     "basis": "disclosed",
+     "source_id": "houmo-m50-product",
+     "note": "INT8, INT16, FP16, FP32, bFP16, bFP24"
+    },
+    "A4_sparsity_codesign": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A5_programmability": {
+     "value": "host_offload",
+     "basis": "disclosed",
+     "source_id": "houmo-m50-product",
+     "note": "PCIe Gen4 x4"
+    },
+    "A6_eval_rung": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A6_baseline_class": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A7_scale": {
+     "value": "soc_chip",
+     "basis": "disclosed",
+     "source_id": "houmo-m50-product"
+    },
+    "design_method": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "lever": {
+     "value": "precision_format",
+     "basis": "disclosed",
+     "source_id": "houmo-m50-launch",
+     "note": "floating-point in-memory computing without quantisation tuning"
+    }
+   },
+   "numbers": [
+    {
+     "metric": "peak_compute",
+     "value": 160,
+     "unit": "TOPS",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "INT8, vendor 'physical compute'",
+     "origin_source_id": "houmo-m50-product"
+    },
+    {
+     "metric": "peak_compute_fp",
+     "value": 100,
+     "unit": "TFLOPS",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "bFP16",
+     "origin_source_id": "houmo-m50-product"
+    },
+    {
+     "metric": "typical_power",
+     "value": 10,
+     "unit": "W",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "typical power; workload not stated",
+     "origin_source_id": "houmo-m50-product"
+    },
+    {
+     "metric": "memory_capacity",
+     "value": 48,
+     "unit": "GB",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "upper bound, LPDDR5",
+     "origin_source_id": "houmo-m50-product"
+    },
+    {
+     "metric": "memory_bandwidth",
+     "value": 153.6,
+     "unit": "GB/s",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "upper bound, bus up to 192 bit",
+     "origin_source_id": "houmo-m50-product"
+    },
+    {
+     "metric": "energy_efficiency_gain",
+     "value": "5-10",
+     "unit": "x",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": "unnamed 'traditional architectures'",
+     "conditions": "no workload or precision given",
+     "origin_source_id": "houmo-m50-launch"
+    },
+    {
+     "metric": "llm_decode_speed",
+     "value": 25,
+     "unit": "tokens/s",
+     "rung": "board_or_system",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "lower bound ('above 25'); LQ50 M.2 card, 7B/8B models; precision, context and prompt not stated",
+     "origin_source_id": "houmo-m50-launch"
+    },
+    {
+     "metric": "llm_decode_speed_laptop",
+     "value": 30,
+     "unit": "tokens/s",
+     "rung": "board_or_system",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "Great Wall N90 Pro laptop with M50, 'short conversations'; the same post cites a 35B model running offline; model for this figure not explicit",
+     "origin_source_id": "houmo-n90pro-news"
+    },
+    {
+     "metric": "die_or_package_size",
+     "value": "20x23",
+     "unit": "mm",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "called chip size in an interview; die vs package not specified",
+     "origin_source_id": "houmo-wuqiang-interview"
+    },
+    {
+     "metric": "multi_chip_compute",
+     "value": 640,
+     "unit": "TOPS",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "LM5070 card, four M50 chips",
+     "origin_source_id": "houmo-m50-launch"
+    }
+   ],
+   "bets": [
+    {
+     "text": "A second-generation dual-port SRAM computing-in-memory IP with data-adaptive (bit-serial) compute cycles gives elastic speed-up on large models.",
+     "status": "open",
+     "source_id": "houmo-m50-launch",
+     "status_source_id": null
+    },
+    {
+     "text": "Running floating-point models directly in the in-memory engine removes the quantisation step that slows deployment.",
+     "status": "open",
+     "source_id": "houmo-m50-launch",
+     "status_source_id": null
+    },
+    {
+     "text": "Decode speed is bound by memory, so the chip pairs the engine with wide LPDDR5 and a chip-to-chip link to scale bandwidth across chips.",
+     "status": "open",
+     "source_id": "houmo-m50-product",
+     "status_source_id": "houmo-n90pro-news"
+    }
+   ],
+   "what_changed_from_previous": "New in-memory IP (second-generation dual-port SRAM-CIM) and second-generation IPU 天璇; number formats widened from INT8 to INT16 and several floating-point formats; 100 TOPS / 12 W became 160 TOPS / 10 W; memory bandwidth rose from up to 128 to up to 153.6 GB/s; a 16 GB/s inter-chip link allows two- and four-chip cards. A 2024 vendor talk put the AI-core gain at about 20%.",
+   "next": null
+  }
+ ],
+ "sources": [
+  {
+   "id": "houmo-m50-product",
+   "class": "datasheet",
+   "url": "https://www.houmoai.com/60/ProductType.html",
+   "author": "Houmo AI (后摩智能)",
+   "date": null,
+   "language": "zh",
+   "accessed": "2026-10-09",
+   "title_original": "后摩漫界®M50",
+   "summary_en": "Vendor product page for the M50 edge large-model chip. Lists 160 TOPS at INT8 and 100 TFLOPS at bFP16, a 10 W typical power, supported number formats (INT8, INT16, FP16, FP32, bFP16, bFP24), up to 48 GB of LPDDR5 on a bus up to 192 bits wide with up to 153.6 GB/s, a PCIe Gen4 x4 host interface and a 16 GB/s chip-to-chip link called HM-Link. It calls the design computing-in-memory without saying how the in-memory computation is done; process node and package are absent. The page carries no date.",
+   "tier": "T3",
+   "accepted": true,
+   "reject_reason": null,
+   "checks": null,
+   "quotes": [
+    "存算一体创新架构"
+   ]
+  },
+  {
+   "id": "houmo-m50-launch",
+   "class": "vendor_doc",
+   "url": "https://www.houmoai.com/1/35/NewsDetails.html",
+   "author": "Houmo AI (后摩智能)",
+   "date": "2025-08-01",
+   "language": "zh",
+   "accessed": "2026-10-09",
+   "title_original": "全新端边大模型 AI 芯片——后摩漫界®M50 正式发布",
+   "summary_en": "Vendor news post on the M50 launch (launch dated 25 July 2025, before WAIC 2025). Describes a second-generation dual-port SRAM computing-in-memory IP and a second-generation IPU named 天璇 (Tianxuan) whose compute cycle adapts to the data, claimed to give up to 160% acceleration; floating-point models run without quantisation tuning. Repeats 160 TOPS / 100 TFLOPS / 10 W / 48 GB / 153.6 GB/s, claims 5-10x the energy efficiency of unnamed conventional architectures, and lists boards: LQ50 M.2 card (above 25 tokens/s on 7B/8B models, test conditions absent), LQ50 Duo (two chips, 320 TOPS), LM5050 (two chips), LM5070 (four chips, 640 TOPS) and a compute box. The compiler is called 后摩大道. No process node, no shipping date, no mention of H30.",
+   "tier": "T3",
+   "accepted": true,
+   "reject_reason": null,
+   "checks": null,
+   "quotes": []
+  },
+  {
+   "id": "houmo-m30-product",
+   "class": "datasheet",
+   "url": "https://www.houmoai.com/55/ProductType.html",
+   "author": "Houmo AI (后摩智能)",
+   "date": null,
+   "language": "zh",
+   "accessed": "2026-10-09",
+   "title_original": "后摩漫界®M30",
+   "summary_en": "Vendor product page for the M30. Lists 100 TOPS physical compute at INT8, 12 W typical power, memory bandwidth up to 128 GB/s, PCIe 4.0 with endpoint mode and FHD video codec support, and names ChatGLM, Llama2 and Tongyi Qianwen as examples of supported large models. Derived products: LM30 accelerator card and SoM, BX30 edge box. Says only that the chip is computing-in-memory; memory device, process node, release date and tokens/s are absent.",
+   "tier": "T3",
+   "accepted": true,
+   "reject_reason": null,
+   "checks": null,
+   "quotes": []
+  },
+  {
+   "id": "houmo-n90pro-news",
+   "class": "vendor_doc",
+   "url": "https://www.houmoai.com/1/47/NewsDetails.html",
+   "author": "Houmo AI (后摩智能)",
+   "date": "2026-05-31",
+   "language": "zh",
+   "accessed": "2026-10-09",
+   "title_original": "赛道抢跑！后摩智能联手长城N90 Pro，端侧算力开启AI PC新赛点",
+   "summary_en": "Vendor news post: China Great Wall launched the N90 Pro laptop with an M50 inside on 29 May 2026 in Tianjin. States 160 TOPS of on-device compute from the M50, offline operation of a 35B-parameter model and 30 tokens/s in short conversations. Does not say whether the laptop is on sale or in volume production. Shows the company active and selling M-series chips, boards and its software stack in mid-2026.",
+   "tier": "T3",
+   "accepted": true,
+   "reject_reason": null,
+   "checks": null,
+   "quotes": []
+  },
+  {
+   "id": "houmo-site-index",
+   "class": "vendor_doc",
+   "url": "https://www.houmoai.com/",
+   "author": "Houmo AI (后摩智能)",
+   "date": null,
+   "language": "zh",
+   "accessed": "2026-10-09",
+   "title_original": "后摩智能 官网首页 / 新闻中心",
+   "summary_en": "Vendor home page and news index as accessed. The product list contains only the M50, the M30, the LQ50/LM50x0/LM30/BX30 boards and the 后摩大道 software stack; the 鸿途 H30 automotive chip and the announced H50 are not listed anywhere, and the eight news items (August 2025 to May 2026) all concern M50 and its partners (Lenovo AI host P7, Great Wall N90 Pro, China Mobile, Unisplendour, Kylin OS). The technology page names computing-in-memory, the IPU and the software stack without technical detail.",
+   "tier": "T3",
+   "accepted": true,
+   "reject_reason": null,
+   "checks": null,
+   "quotes": []
+  },
+  {
+   "id": "houmo-h30-ithome",
+   "class": "trade_press",
+   "url": "https://www.ithome.com/0/692/588.htm",
+   "author": "泽泷 (IT之家)",
+   "date": "2023-05-15",
+   "language": "zh",
+   "accessed": "2026-10-09",
+   "title_original": "后摩智能发布存算一体智驾芯片鸿途 H30，最高物理算力 256TOPS",
+   "summary_en": "News report relaying the H30 launch event. H30 is described as a digital computing-in-memory chip on SRAM in a 12 nm process with up to 256 TOPS at Int8 and at most 35 W typical power; its first-generation IPU 天枢 (Tianshu) scales with multiple cores and hardware threads. Efficiency is given twice: 15 TOPS/W for the IPU at Int8 (claimed over 7x unnamed conventional chips) and 7.3 TOPS/W for the whole SoC. The 力驭 driving platform built on it has 200 Kdmips CPU, 256 TOPS and 85 W. The 后摩大道 toolchain takes PyTorch, TensorFlow and ONNX. Alpha-customer sampling was to start in June; an H50 was planned for 2024 for 2025 vehicle programmes; IPU generations 天璇 (mesh interconnect) and 天玑 were on the roadmap. No independent test and no primary links.",
+   "tier": "T3",
+   "accepted": false,
+   "reject_reason": "PRESS_REWRITE",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": false,
+    "C4": false,
+    "C5": false,
+    "C6": false
+   },
+   "quotes": []
+  },
+  {
+   "id": "houmo-gacs2024-talk",
+   "class": "conference_talk",
+   "url": "https://zhidx.com/p/443318.html",
+   "author": "信晓旭 (Houmo AI co-founder, VP Product); transcript by 芯东西",
+   "date": "2024-09-12",
+   "language": "zh",
+   "accessed": "2026-10-09",
+   "title_original": "后摩智能信晓旭：存算一体解锁AI大模型的边端侧潜力 | GACS 2024",
+   "summary_en": "Transcript of a vendor talk at the Global AI Chip Summit (Beijing, 6-7 September 2024). Gives the sequence H30 (2023), M30 (2024, 100 TOPS at about 12 W) and an M50 then in development on the 天璇 architecture with AI-core performance said to rise about 20%. Claims 7-8 TOPS/W for H30 and M30 against roughly 3 TOPS/W for unnamed competitors, and 15-20 tokens/s on mainstream large models with the caveat that it depends on context and configuration. Argues that edge chips cannot afford HBM-style packaging. Does not describe the in-memory computing circuit.",
+   "tier": "T3",
+   "accepted": true,
+   "reject_reason": null,
+   "checks": null,
+   "quotes": []
+  },
+  {
+   "id": "houmo-wuqiang-interview",
+   "class": "trade_press",
+   "url": "https://news.qq.com/rain/a/20250726A04D2P00",
+   "author": "王金旺 (至顶科技, via 腾讯新闻)",
+   "date": "2025-07-26",
+   "language": "zh",
+   "accessed": "2026-10-09",
+   "title_original": "对话后摩智能吴强：大模型90%计算需求将来自端边，存算一体是未来",
+   "summary_en": "Interview with founder and CEO Wu Qiang at the M50 launch. Timeline as told: H30 for intelligent driving in May 2023, M30 for large models in June 2024 (first used in a China Mobile all-in-one machine), M50 in July 2025. He explains leaving the driving market: the first chip was large and costly while driving chips were moving to low price points, so the company began to reconsider in 2023 and decided at the end of 2023 to target large models, whose compute-dense prefill and bandwidth-bound decoding he considers a fit. M50: 20 x 23 mm, 10 W, 160 TOPS, 48 GB, 153.6 GB/s, 25+ tokens/s on 7B/8B, bit-serial computation giving elastic speed-up, FP16 models run directly. Intended customers named: Lenovo, iFlytek, China Mobile; China Mobile funds are investors. All figures are the company's own; no caveat from the journalist, no links.",
+   "tier": "T3",
+   "accepted": false,
+   "reject_reason": "NO_PRIMARY_LINKS",
+   "checks": {
+    "C1": true,
+    "C2": true,
+    "C3": false,
+    "C4": false,
+    "C5": true,
+    "C6": false
+   },
+   "quotes": []
+  }
+ ],
+ "conflicts": [
+  {
+   "metric": "H30 energy efficiency (TOPS/W) - three vendor figures with different scope",
+   "accounts": [
+    {
+     "metric": "ipu_energy_efficiency",
+     "value": 15,
+     "unit": "TOPS/W",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "IPU only, Int8, launch event",
+     "origin_source_id": "houmo-h30-ithome"
+    },
+    {
+     "metric": "soc_energy_efficiency",
+     "value": 7.3,
+     "unit": "TOPS/W",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "whole SoC, launch event",
+     "origin_source_id": "houmo-h30-ithome"
+    },
+    {
+     "metric": "energy_efficiency",
+     "value": "7-8",
+     "unit": "TOPS/W",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "H30 and M30 together, 2024 talk, scope not stated",
+     "origin_source_id": "houmo-gacs2024-talk"
+    }
+   ]
+  },
+  {
+   "metric": "M50 gain attributed to the 天璇 IPU",
+   "accounts": [
+    {
+     "metric": "acceleration_from_adaptive_cycles",
+     "value": 160,
+     "unit": "%",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": null,
+     "conditions": "'up to', launch post; reference point not stated",
+     "origin_source_id": "houmo-m50-launch"
+    },
+    {
+     "metric": "ai_core_performance_gain",
+     "value": 20,
+     "unit": "%",
+     "rung": "not_stated",
+     "tier": "T3",
+     "baseline": "previous IPU generation (implied)",
+     "conditions": "'about', overall, pre-launch talk",
+     "origin_source_id": "houmo-gacs2024-talk"
+    }
+   ]
+  }
+ ],
+ "not_found": [
+  "Process node of M30 and M50 (only H30's 12 nm is stated, and only via a press report of the launch event).",
+  "Whether M30 and M50 use digital or analog in-memory computing; the vendor pages say only computing-in-memory / SRAM-CIM. Paradigm left unknown for both; memory device of M30 left unknown.",
+  "Any peer-reviewed paper (ISSCC, VLSI, Hot Chips) or independent measurement of an H30, M30 or M50; every number here is a vendor claim (T3).",
+  "Shipment years and volumes: H30 was only said to sample to alpha customers from June 2023; M30 and M50 appear inside partner products but no source opened states volume production or on-sale dates.",
+  "What happened to the H30 and the announced H50 automotive chips after the pivot.",
+  "Exact M30 release date: the CEO interview says June 2024; an official dated M30 announcement was not opened.",
+  "The 2022 22 nm test chip mentioned in search snippets was not confirmed in any page opened.",
+  "Candidates not readable within the page limit: https://www.eet-china.com/news/202305111167.html (timed out) and https://www.eefocus.com/article/1523738.html (captcha wall); the vendor's original H30 press release was not located.",
+  "The vendor launch post names the box 'BX50' in the text but 'BX30' in its product list.",
+  "Limits used: 5 of 8 searches, 12 of 12 pages, 8 of 8 sources."
+ ]
+}

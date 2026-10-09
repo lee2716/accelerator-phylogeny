@@ -1,0 +1,268 @@
+[
+ {
+  "venue": "aspdac",
+  "edition": 2018,
+  "container_titles": [
+   "2018 23rd Asia and South Pacific Design Automation Conference (ASP-DAC)"
+  ]
+ },
+ {
+  "venue": "aspdac",
+  "edition": 2019,
+  "container_titles": [
+   "Proceedings of the 24th Asia and South Pacific Design Automation Conference"
+  ]
+ },
+ {
+  "venue": "aspdac",
+  "edition": 2020,
+  "container_titles": [
+   "2020 25th Asia and South Pacific Design Automation Conference (ASP-DAC)"
+  ]
+ },
+ {
+  "venue": "aspdac",
+  "edition": 2021,
+  "container_titles": [
+   "Proceedings of the 26th Asia and South Pacific Design Automation Conference"
+  ]
+ },
+ {
+  "venue": "aspdac",
+  "edition": 2022,
+  "container_titles": [
+   "2022 27th Asia and South Pacific Design Automation Conference (ASP-DAC)"
+  ]
+ },
+ {
+  "venue": "aspdac",
+  "edition": 2023,
+  "container_titles": [
+   "Proceedings of the 28th Asia and South Pacific Design Automation Conference"
+  ]
+ },
+ {
+  "venue": "aspdac",
+  "edition": 2024,
+  "container_titles": [
+   "2024 29th Asia and South Pacific Design Automation Conference (ASP-DAC)"
+  ]
+ },
+ {
+  "venue": "aspdac",
+  "edition": 2025,
+  "container_titles": [
+   "Proceedings of the 30th Asia and South Pacific Design Automation Conference"
+  ]
+ },
+ {
+  "venue": "aspdac",
+  "edition": 2026,
+  "container_titles": [
+   "2026 31st Asia and South Pacific Design Automation Conference (ASP-DAC)"
+  ]
+ },
+ {
+  "venue": "dac",
+  "edition": 2018,
+  "container_titles": [
+   "2018 55th ACM/ESDA/IEEE Design Automation Conference (DAC)",
+   "Proceedings of the 55th Annual Design Automation Conference"
+  ]
+ },
+ {
+  "venue": "dac",
+  "edition": 2019,
+  "container_titles": [
+   "Proceedings of the 56th Annual Design Automation Conference 2019"
+  ]
+ },
+ {
+  "venue": "dac",
+  "edition": 2020,
+  "container_titles": [
+   "2020 57th ACM/IEEE Design Automation Conference (DAC)"
+  ]
+ },
+ {
+  "venue": "dac",
+  "edition": 2021,
+  "container_titles": [
+   "2021 58th ACM/IEEE Design Automation Conference (DAC)"
+  ]
+ },
+ {
+  "venue": "dac",
+  "edition": 2022,
+  "container_titles": [
+   "Proceedings of the 59th ACM/IEEE Design Automation Conference"
+  ]
+ },
+ {
+  "venue": "dac",
+  "edition": 2023,
+  "container_titles": [
+   "2023 60th ACM/IEEE Design Automation Conference (DAC)"
+  ]
+ },
+ {
+  "venue": "dac",
+  "edition": 2024,
+  "container_titles": [
+   "Proceedings of the 61st ACM/IEEE Design Automation Conference"
+  ]
+ },
+ {
+  "venue": "dac",
+  "edition": 2025,
+  "container_titles": [
+   "2025 62nd ACM/IEEE Design Automation Conference (DAC)"
+  ]
+ },
+ {
+  "venue": "iccad",
+  "edition": 2018,
+  "container_titles": [
+   "Proceedings of the International Conference on Computer-Aided Design"
+  ]
+ },
+ {
+  "venue": "iccad",
+  "edition": 2019,
+  "container_titles": [
+   "2019 IEEE/ACM International Conference on Computer-Aided Design (ICCAD)"
+  ]
+ },
+ {
+  "venue": "iccad",
+  "edition": 2020,
+  "container_titles": [
+   "Proceedings of the 39th International Conference on Computer-Aided Design"
+  ]
+ },
+ {
+  "venue": "iccad",
+  "edition": 2021,
+  "container_titles": [
+   "2021 IEEE/ACM International Conference On Computer Aided Design (ICCAD)"
+  ]
+ },
+ {
+  "venue": "iccad",
+  "edition": 2022,
+  "container_titles": [
+   "Proceedings of the 41st IEEE/ACM International Conference on Computer-Aided Design"
+  ]
+ },
+ {
+  "venue": "iccad",
+  "edition": 2023,
+  "container_titles": [
+   "2023 IEEE/ACM International Conference on Computer Aided Design (ICCAD)"
+  ]
+ },
+ {
+  "venue": "iccad",
+  "edition": 2024,
+  "container_titles": [
+   "Proceedings of the 43rd IEEE/ACM International Conference on Computer-Aided Design"
+  ]
+ },
+ {
+  "venue": "iccad",
+  "edition": 2025,
+  "container_titles": [
+   "2025 IEEE/ACM International Conference On Computer Aided Design (ICCAD)"
+  ]
+ },
+ {
+  "venue": "date",
+  "edition": 2018,
+  "container_titles": [
+   "2018 Design, Automation &amp; Test in Europe Conference &amp; Exhibition (DATE)",
+   "2018 Design, Automation &amp;amp; Test in Europe Conference &amp;amp; Exhibition (DATE)",
+   "2018 Design, Automation &amp; Test in Europe Conference (DATE)",
+   "2018 Design, Automation &amp;amp; Test in Europe Conference (DATE)"
+  ]
+ },
+ {
+  "venue": "date",
+  "edition": 2019,
+  "container_titles": [
+   "2019 Design, Automation &amp; Test in Europe Conference &amp; Exhibition (DATE)",
+   "2019 Design, Automation &amp;amp; Test in Europe Conference &amp;amp; Exhibition (DATE)",
+   "2019 Design, Automation &amp; Test in Europe Conference (DATE)",
+   "2019 Design, Automation &amp;amp; Test in Europe Conference (DATE)"
+  ]
+ },
+ {
+  "venue": "date",
+  "edition": 2020,
+  "container_titles": [
+   "2020 Design, Automation &amp; Test in Europe Conference &amp; Exhibition (DATE)",
+   "2020 Design, Automation &amp;amp; Test in Europe Conference &amp;amp; Exhibition (DATE)",
+   "2020 Design, Automation &amp; Test in Europe Conference (DATE)",
+   "2020 Design, Automation &amp;amp; Test in Europe Conference (DATE)"
+  ]
+ },
+ {
+  "venue": "date",
+  "edition": 2021,
+  "container_titles": [
+   "2021 Design, Automation &amp; Test in Europe Conference &amp; Exhibition (DATE)",
+   "2021 Design, Automation &amp;amp; Test in Europe Conference &amp;amp; Exhibition (DATE)",
+   "2021 Design, Automation &amp; Test in Europe Conference (DATE)",
+   "2021 Design, Automation &amp;amp; Test in Europe Conference (DATE)"
+  ]
+ },
+ {
+  "venue": "date",
+  "edition": 2022,
+  "container_titles": [
+   "2022 Design, Automation &amp; Test in Europe Conference &amp; Exhibition (DATE)",
+   "2022 Design, Automation &amp;amp; Test in Europe Conference &amp;amp; Exhibition (DATE)",
+   "2022 Design, Automation &amp; Test in Europe Conference (DATE)",
+   "2022 Design, Automation &amp;amp; Test in Europe Conference (DATE)"
+  ]
+ },
+ {
+  "venue": "date",
+  "edition": 2023,
+  "container_titles": [
+   "2023 Design, Automation &amp; Test in Europe Conference &amp; Exhibition (DATE)",
+   "2023 Design, Automation &amp;amp; Test in Europe Conference &amp;amp; Exhibition (DATE)",
+   "2023 Design, Automation &amp; Test in Europe Conference (DATE)",
+   "2023 Design, Automation &amp;amp; Test in Europe Conference (DATE)"
+  ]
+ },
+ {
+  "venue": "date",
+  "edition": 2024,
+  "container_titles": [
+   "2024 Design, Automation &amp; Test in Europe Conference &amp; Exhibition (DATE)",
+   "2024 Design, Automation &amp;amp; Test in Europe Conference &amp;amp; Exhibition (DATE)",
+   "2024 Design, Automation &amp; Test in Europe Conference (DATE)",
+   "2024 Design, Automation &amp;amp; Test in Europe Conference (DATE)"
+  ]
+ },
+ {
+  "venue": "date",
+  "edition": 2025,
+  "container_titles": [
+   "2025 Design, Automation &amp; Test in Europe Conference &amp; Exhibition (DATE)",
+   "2025 Design, Automation &amp;amp; Test in Europe Conference &amp;amp; Exhibition (DATE)",
+   "2025 Design, Automation &amp; Test in Europe Conference (DATE)",
+   "2025 Design, Automation &amp;amp; Test in Europe Conference (DATE)"
+  ]
+ },
+ {
+  "venue": "date",
+  "edition": 2026,
+  "container_titles": [
+   "2026 Design, Automation &amp; Test in Europe Conference &amp; Exhibition (DATE)",
+   "2026 Design, Automation &amp;amp; Test in Europe Conference &amp;amp; Exhibition (DATE)",
+   "2026 Design, Automation &amp; Test in Europe Conference (DATE)",
+   "2026 Design, Automation &amp;amp; Test in Europe Conference (DATE)"
+  ]
+ }
+]

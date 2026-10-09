@@ -1,0 +1,12 @@
+# machine-specific paths
+config.local.json
+# never publish: publisher-owned text, API caches, unpublished ideas
+data_local/
+raw/
+*.pdf
+abstracts*.jsonl
+ideas/
+__pycache__/
+*.pyc
+.claude/
+.mcp.json

@@ -1,0 +1,209 @@
+{
+ "version": "axes_v1",
+ "note": "Closed vocabularies. 'other' is a legal value everywhere; 'not_stated' means the text does not say; 'unknown' is used only for industry nodes. A value outside these lists is a parse failure, never coerced.",
+ "gate": {
+  "is_ai_hardware": [
+   "yes",
+   "no",
+   "borderline"
+  ],
+  "gate_reason_if_no": [
+   "ai_for_eda",
+   "ai_algorithm_only",
+   "security_or_test_of_ai",
+   "not_ai",
+   "other"
+  ]
+ },
+ "single": {
+  "A0_workload": [
+   "cnn",
+   "transformer_encoder_vit",
+   "llm_autoregressive",
+   "gnn",
+   "snn",
+   "rnn_lstm",
+   "recommendation",
+   "generative_diffusion",
+   "training",
+   "non_nn",
+   "generic_dnn",
+   "not_stated",
+   "other"
+  ],
+  "A1_paradigm": [
+   "digital_spatial_asic",
+   "systolic_matrix_engine",
+   "vector_simd_isa_ext",
+   "cgra_dataflow",
+   "gpu_simt",
+   "fpga",
+   "cim_analog_sram",
+   "cim_analog_nvm",
+   "cim_digital",
+   "pim_dram_near_memory",
+   "photonic",
+   "neuromorphic",
+   "stochastic_or_approximate",
+   "target_generic",
+   "not_stated",
+   "other"
+  ],
+  "A1_device": [
+   "sram",
+   "rram",
+   "pcm",
+   "fefet",
+   "mram",
+   "dram",
+   "flash",
+   "gain_cell",
+   "none",
+   "not_stated",
+   "other"
+  ],
+  "A2_data_residency": [
+   "cache_hierarchy",
+   "scratchpad_dma",
+   "shared_l1_cluster",
+   "noc_mesh_tiles",
+   "stacked_3d",
+   "chiplet_multi_die",
+   "hbm_or_dram_bound",
+   "in_array_weights",
+   "not_stated",
+   "other"
+  ],
+  "A3_numerics": [
+   "fp32",
+   "fp16_bf16",
+   "fp8",
+   "int8",
+   "int4_or_less",
+   "binary_ternary",
+   "mixed_or_variable",
+   "block_microscaling",
+   "bit_serial",
+   "posit_or_lns",
+   "analog_levels",
+   "not_stated",
+   "other"
+  ],
+  "A4_sparsity_codesign": [
+   "none_stated",
+   "unstructured_sparsity",
+   "structured_sparsity",
+   "pruning_hw_codesign",
+   "quantization_aware",
+   "token_or_attention_sparsity",
+   "nas_hw_codesign",
+   "other"
+  ],
+  "A5_programmability": [
+   "isa_extension",
+   "tightly_coupled_coprocessor",
+   "memory_mapped_shared_l1_engine",
+   "standalone_accelerator",
+   "host_offload",
+   "fixed_function",
+   "not_stated",
+   "other"
+  ],
+  "A6_eval_rung": [
+   "analytical",
+   "simulator",
+   "rtl_sim",
+   "fpga",
+   "post_synthesis",
+   "post_layout",
+   "silicon",
+   "board_or_system",
+   "not_stated"
+  ],
+  "A6_baseline_class": [
+   "cpu",
+   "gpu",
+   "prior_accelerator",
+   "own_variant_only",
+   "none_stated"
+  ],
+  "A7_scale": [
+   "macro_circuit",
+   "engine_core",
+   "cluster_tile",
+   "soc_chip",
+   "multi_chip_chiplet",
+   "system_datacenter",
+   "tool_only",
+   "not_stated"
+  ],
+  "design_method": [
+   "hand_rtl",
+   "hls",
+   "generator",
+   "ai_generated",
+   "not_stated"
+  ]
+ },
+ "multi": {
+  "lever": {
+   "max": 3,
+   "values": [
+    "dataflow_tiling_buffering",
+    "precision_format",
+    "sparsity",
+    "mapping_dse_compiler",
+    "interconnect_noc_chiplet",
+    "memory_hierarchy",
+    "nonideality_reliability",
+    "programmability_sw_stack",
+    "on_device_training",
+    "security",
+    "power_thermal",
+    "circuit_macro_design",
+    "scheduling_control",
+    "other"
+   ]
+  }
+ },
+ "industry_only": {
+  "basis": [
+   "disclosed",
+   "relayed",
+   "inferred",
+   "unknown"
+  ],
+  "basis_meaning": {
+   "disclosed": "stated in the vendor's own document, talk or paper, which was opened",
+   "relayed": "a vendor statement reported by a third party; the vendor's own document was not opened",
+   "inferred": "inferred by an independent source (teardown, benchmark, analyst, paper), not stated by the vendor",
+   "unknown": "not disclosed and not inferred; never filled in by analogy"
+  }
+ },
+ "number": {
+  "rung": [
+   "analytical",
+   "simulator",
+   "rtl_sim",
+   "fpga",
+   "post_synthesis",
+   "post_layout",
+   "silicon",
+   "board_or_system",
+   "projection",
+   "not_stated"
+  ],
+  "tier": [
+   "T1",
+   "T2",
+   "T3",
+   "T4"
+  ]
+ },
+ "tiers": {
+  "T1": "peer-reviewed paper",
+  "T2": "independent measurement (MLPerf closed, third-party benchmark, teardown)",
+  "T3": "vendor or author's own claim outside peer review",
+  "T4": "commentary or interpretation"
+ }
+}

@@ -1,0 +1,652 @@
+{
+ "product_line": "TSMC digital computing-in-memory SRAM macros (ISSCC / VLSI, 2021-2024)",
+ "vendor": "TSMC",
+ "country": "TW",
+ "status": {
+  "value": "unknown",
+  "as_of": "2024-11-12",
+  "detail": "Research macro series, not a sold product. The latest macro found is ISSCC 2024 (3 nm), cited as the state of digital CIM scaling by a November 2024 review. No 2025 or 2026 digital SRAM CIM macro from TSMC was found within the search limit, and no source opened says whether the series continues or is offered as IP.",
+  "source_id": "tsmc-yoshioka-review"
+ },
+ "generations": [
+  {
+   "name": "22 nm all-digital full-precision macro (ISSCC 2021, paper 16.4)",
+   "year_announced": 2021,
+   "year_shipped": null,
+   "axes": {
+    "A0_workload": {
+     "value": "generic_dnn",
+     "basis": "disclosed",
+     "source_id": "tsmc-yoshioka-review",
+     "note": "title says machine-learning edge applications"
+    },
+    "A1_paradigm": {
+     "value": "cim_digital",
+     "basis": "disclosed",
+     "source_id": "tsmc-yoshioka-review",
+     "note": "paper title: all-digital SRAM-based"
+    },
+    "A1_device": {
+     "value": "sram",
+     "basis": "disclosed",
+     "source_id": "tsmc-yoshioka-review"
+    },
+    "A2_data_residency": {
+     "value": "in_array_weights",
+     "basis": "inferred",
+     "source_id": "tsmc-kuleuven-benchmark"
+    },
+    "A3_numerics": {
+     "value": "bit_serial",
+     "basis": "inferred",
+     "source_id": "tsmc-kuleuven-benchmark",
+     "note": "weights stationary, input bits applied serially; benchmarked at 4b/4b"
+    },
+    "A4_sparsity_codesign": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A5_programmability": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A6_eval_rung": {
+     "value": "silicon",
+     "basis": "inferred",
+     "source_id": "tsmc-kuleuven-benchmark",
+     "note": "treated as a published chip in the survey"
+    },
+    "A6_baseline_class": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A7_scale": {
+     "value": "macro_circuit",
+     "basis": "disclosed",
+     "source_id": "tsmc-yoshioka-review"
+    },
+    "design_method": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "lever": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    }
+   },
+   "numbers": [
+    {
+     "metric": "energy_efficiency",
+     "value": 89,
+     "unit": "TOPS/W",
+     "rung": "silicon",
+     "tier": "T1",
+     "baseline": null,
+     "conditions": "figure from the paper title; survey lists it at 4b/4b operands and kept only works reporting at 50% sparsity; supply voltage not seen",
+     "origin_source_id": "tsmc-yoshioka-review"
+    },
+    {
+     "metric": "area_efficiency",
+     "value": 16.3,
+     "unit": "TOPS/mm2",
+     "rung": "silicon",
+     "tier": "T1",
+     "baseline": null,
+     "conditions": "figure from the paper title; same caveats",
+     "origin_source_id": "tsmc-yoshioka-review"
+    }
+   ],
+   "bets": [
+    {
+     "text": "Doing the multiply-accumulate with digital gates and an adder tree beside the SRAM cells gives exact results that analog CIM cannot guarantee.",
+     "status": "paid_off",
+     "source_id": "tsmc-kuleuven-benchmark",
+     "status_source_id": "tsmc-yoshioka-review"
+    },
+    {
+     "text": "A digital CIM macro will keep improving with each logic node, unlike converter-limited analog CIM.",
+     "status": "paid_off",
+     "source_id": "tsmc-kuleuven-benchmark",
+     "status_source_id": "tsmc-yoshioka-review"
+    }
+   ],
+   "what_changed_from_previous": null,
+   "next": "12 nm (VLSI 2022) and 5 nm (ISSCC 2022) macros."
+  },
+  {
+   "name": "12 nm all-digital full-precision macro (VLSI 2022, C02-5)",
+   "year_announced": 2022,
+   "year_shipped": null,
+   "axes": {
+    "A0_workload": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A1_paradigm": {
+     "value": "cim_digital",
+     "basis": "relayed",
+     "source_id": "tsmc-buaa-reading-list",
+     "note": "paper title: all digital full precision SRAM-based"
+    },
+    "A1_device": {
+     "value": "sram",
+     "basis": "relayed",
+     "source_id": "tsmc-buaa-reading-list"
+    },
+    "A2_data_residency": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A3_numerics": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A4_sparsity_codesign": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A5_programmability": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A6_eval_rung": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A6_baseline_class": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A7_scale": {
+     "value": "macro_circuit",
+     "basis": "relayed",
+     "source_id": "tsmc-buaa-reading-list"
+    },
+    "design_method": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "lever": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    }
+   },
+   "numbers": [
+    {
+     "metric": "energy_efficiency",
+     "value": 121,
+     "unit": "TOPS/W",
+     "rung": "not_stated",
+     "tier": "T1",
+     "baseline": null,
+     "conditions": "figure from the paper title as listed in a reading list; precision, voltage and sparsity not seen",
+     "origin_source_id": "tsmc-buaa-reading-list"
+    },
+    {
+     "metric": "area_efficiency",
+     "value": 41.6,
+     "unit": "TOPS/mm2",
+     "rung": "not_stated",
+     "tier": "T1",
+     "baseline": null,
+     "conditions": "figure from the paper title as listed in a reading list",
+     "origin_source_id": "tsmc-buaa-reading-list"
+    }
+   ],
+   "bets": [],
+   "what_changed_from_previous": "Node 22 nm to 12 nm; title figures rise from 89 to 121 TOPS/W and from 16.3 to 41.6 TOPS/mm2. The paper itself was not readable, so the reason and the operating points are not recorded.",
+   "next": null
+  },
+  {
+   "name": "5 nm fully-digital macro with DVFS and simultaneous MAC and write (ISSCC 2022, paper 11.6)",
+   "year_announced": 2022,
+   "year_shipped": null,
+   "axes": {
+    "A0_workload": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A1_paradigm": {
+     "value": "cim_digital",
+     "basis": "disclosed",
+     "source_id": "tsmc-kuleuven-benchmark",
+     "note": "paper title: fully-digital"
+    },
+    "A1_device": {
+     "value": "sram",
+     "basis": "inferred",
+     "source_id": "tsmc-kuleuven-benchmark",
+     "note": "treated as an SRAM design in the survey"
+    },
+    "A2_data_residency": {
+     "value": "in_array_weights",
+     "basis": "inferred",
+     "source_id": "tsmc-kuleuven-benchmark"
+    },
+    "A3_numerics": {
+     "value": "bit_serial",
+     "basis": "inferred",
+     "source_id": "tsmc-kuleuven-benchmark",
+     "note": "weights stationary, input bits applied serially; benchmarked at 4b/4b"
+    },
+    "A4_sparsity_codesign": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A5_programmability": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A6_eval_rung": {
+     "value": "silicon",
+     "basis": "inferred",
+     "source_id": "tsmc-kuleuven-benchmark",
+     "note": "treated as a published chip in the survey"
+    },
+    "A6_baseline_class": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A7_scale": {
+     "value": "macro_circuit",
+     "basis": "disclosed",
+     "source_id": "tsmc-kuleuven-benchmark"
+    },
+    "design_method": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "lever": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    }
+   },
+   "numbers": [
+    {
+     "metric": "energy_efficiency",
+     "value": 254,
+     "unit": "TOPS/W",
+     "rung": "silicon",
+     "tier": "T1",
+     "baseline": null,
+     "conditions": "figure from the paper title; survey lists it at 4b/4b operands, 50% sparsity; supply voltage not seen",
+     "origin_source_id": "tsmc-kuleuven-benchmark"
+    },
+    {
+     "metric": "area_efficiency",
+     "value": 221,
+     "unit": "TOPS/mm2",
+     "rung": "silicon",
+     "tier": "T1",
+     "baseline": null,
+     "conditions": "figure from the paper title; same caveats",
+     "origin_source_id": "tsmc-kuleuven-benchmark"
+    }
+   ],
+   "bets": [
+    {
+     "text": "The macro should work across a wide voltage and frequency range and allow weight writes during computation, so it can sit inside a real SoC power-management scheme.",
+     "status": "unknown",
+     "source_id": "tsmc-kuleuven-benchmark",
+     "status_source_id": null
+    }
+   ],
+   "what_changed_from_previous": "Node 22 nm to 5 nm at the same 4b/4b benchmark point; the title adds wide-range dynamic voltage-frequency scaling and simultaneous MAC and write. The independent survey attributes the density and power gain of digital CIM largely to the smaller node.",
+   "next": "4 nm macro with flexible bit width."
+  },
+  {
+   "name": "4 nm bit-width-flexible macro (ISSCC 2023, paper 7.4)",
+   "year_announced": 2023,
+   "year_shipped": null,
+   "axes": {
+    "A0_workload": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A1_paradigm": {
+     "value": "cim_digital",
+     "basis": "relayed",
+     "source_id": "tsmc-buaa-reading-list",
+     "note": "paper title: SRAM based digital computing-in-memory"
+    },
+    "A1_device": {
+     "value": "sram",
+     "basis": "relayed",
+     "source_id": "tsmc-buaa-reading-list"
+    },
+    "A2_data_residency": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A3_numerics": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A4_sparsity_codesign": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A5_programmability": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A6_eval_rung": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A6_baseline_class": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A7_scale": {
+     "value": "macro_circuit",
+     "basis": "relayed",
+     "source_id": "tsmc-buaa-reading-list"
+    },
+    "design_method": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "lever": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    }
+   },
+   "numbers": [
+    {
+     "metric": "energy_efficiency_per_bit",
+     "value": 6163,
+     "unit": "TOPS/W/b",
+     "rung": "not_stated",
+     "tier": "T1",
+     "baseline": null,
+     "conditions": "per-bit normalised figure from the paper title; not comparable with plain TOPS/W; voltage and sparsity not seen",
+     "origin_source_id": "tsmc-buaa-reading-list"
+    },
+    {
+     "metric": "area_efficiency_per_bit",
+     "value": 4790,
+     "unit": "TOPS/mm2/b",
+     "rung": "not_stated",
+     "tier": "T1",
+     "baseline": null,
+     "conditions": "per-bit normalised figure as relayed in a blog comparison",
+     "origin_source_id": "tsmc-3nm-blog"
+    }
+   ],
+   "bets": [],
+   "what_changed_from_previous": "Node 5 nm to 4 nm; headline metric switches to per-bit normalised values, which an independent survey calls distorting for cross-design comparison. Paper not readable; details not recorded.",
+   "next": "3 nm parallel-MAC macro."
+  },
+  {
+   "name": "3 nm INT12 x INT12 parallel-MAC macro with foundry 6T cell (ISSCC 2024, paper 34.4)",
+   "year_announced": 2024,
+   "year_shipped": null,
+   "axes": {
+    "A0_workload": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A1_paradigm": {
+     "value": "cim_digital",
+     "basis": "disclosed",
+     "source_id": "tsmc-yoshioka-review",
+     "note": "paper title: fully-digital"
+    },
+    "A1_device": {
+     "value": "sram",
+     "basis": "disclosed",
+     "source_id": "tsmc-yoshioka-review",
+     "note": "foundry 6T-SRAM bit cell"
+    },
+    "A2_data_residency": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A3_numerics": {
+     "value": "other",
+     "basis": "disclosed",
+     "source_id": "tsmc-yoshioka-review",
+     "note": "INT12 x INT12, bit-parallel"
+    },
+    "A4_sparsity_codesign": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A5_programmability": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A6_eval_rung": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A6_baseline_class": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "A7_scale": {
+     "value": "macro_circuit",
+     "basis": "disclosed",
+     "source_id": "tsmc-yoshioka-review"
+    },
+    "design_method": {
+     "value": "unknown",
+     "basis": "unknown",
+     "source_id": null
+    },
+    "lever": {
+     "value": "circuit_macro_design",
+     "basis": "inferred",
+     "source_id": "tsmc-yoshioka-review"
+    }
+   },
+   "numbers": [
+    {
+     "metric": "energy_efficiency",
+     "value": 32.5,
+     "unit": "TOPS/W",
+     "rung": "not_stated",
+     "tier": "T1",
+     "baseline": null,
+     "conditions": "figure from the paper title, INT12 x INT12; voltage, frequency and sparsity not seen",
+     "origin_source_id": "tsmc-yoshioka-review"
+    },
+    {
+     "metric": "area_efficiency",
+     "value": 55.0,
+     "unit": "TOPS/mm2",
+     "rung": "not_stated",
+     "tier": "T1",
+     "baseline": null,
+     "conditions": "figure from the paper title, INT12 x INT12",
+     "origin_source_id": "tsmc-yoshioka-review"
+    },
+    {
+     "metric": "memory_density",
+     "value": 3.78,
+     "unit": "Mb/mm2",
+     "rung": "not_stated",
+     "tier": "T1",
+     "baseline": null,
+     "conditions": "figure from the paper title",
+     "origin_source_id": "tsmc-yoshioka-review"
+    },
+    {
+     "metric": "peak_dynamic_power_reduction",
+     "value": 21,
+     "unit": "%",
+     "rung": "not_stated",
+     "tier": "T1",
+     "baseline": "the same design without look-up-table selectors (as described by a blog)",
+     "conditions": "relayed by a pseudonymous blog; 1-bit input case",
+     "origin_source_id": "tsmc-3nm-blog"
+    }
+   ],
+   "bets": [
+    {
+     "text": "Applying operands in parallel instead of bit-serially removes the throughput cap of earlier macros, at the price of area and power.",
+     "status": "open",
+     "source_id": "tsmc-3nm-blog",
+     "status_source_id": null
+    },
+    {
+     "text": "Keeping storage in a standard foundry 6T array and the arithmetic outside the cell lets memory and logic be designed independently and keeps density high.",
+     "status": "open",
+     "source_id": "tsmc-yoshioka-review",
+     "status_source_id": null
+    },
+    {
+     "text": "Edge workloads need 12-bit integer precision rather than the 4-bit points used to headline earlier macros.",
+     "status": "open",
+     "source_id": "tsmc-yoshioka-review",
+     "status_source_id": null
+    }
+   ],
+   "what_changed_from_previous": "Node 4 nm to 3 nm; bit-serial input replaced by a parallel-MAC architecture because serial input and few rows limited throughput; precision raised to INT12 x INT12; storage separated from arithmetic (register-file-plus-ALU style) on a foundry 6T cell; memory density becomes a headline metric. The headline TOPS/W is far below the 5 nm figure, but the operand precision differs (12b vs 4b), so the two are not comparable.",
+   "next": null
+  }
+ ],
+ "sources": [
+  {
+   "id": "tsmc-yoshioka-review",
+   "class": "paper",
+   "url": "https://arxiv.org/pdf/2411.06079",
+   "author": "Kentaro Yoshioka, Shimpei Ando, Satomi Miyagi, Yung-Chin Chen, Wenlun Zhang (Keio University)",
+   "date": "2024-11-12",
+   "language": "en",
+   "accessed": "2026-10-09",
+   "title_original": "A Review of SRAM-based Compute-in-Memory Circuits",
+   "summary_en": "arXiv tutorial and review (v2) of digital, analog and hybrid SRAM computing-in-memory; peer-review status not visible in the preprint, so it is tiered as commentary. On digital CIM: accumulation uses a digital adder tree, which gives exact results and lets the design follow process scaling, with a demonstration down to 3 nm cited as evidence; the costs are adder power and area, and hand layout under memory design rules. It describes the ISSCC 2024 3 nm INT12 x INT12 macro as keeping storage apart from the arithmetic, closer to a register file plus ALU than to in-cell arithmetic, so the two parts can be designed independently. It observes that system-level CIM chips have mostly used digital CIM because deterministic behaviour simplifies system and compiler work. Its reference list gives full titles and author lists of the ISSCC 2021 22 nm and ISSCC 2024 3 nm macros.",
+   "tier": "T4",
+   "accepted": true,
+   "reject_reason": null,
+   "checks": null,
+   "quotes": []
+  },
+  {
+   "id": "tsmc-kuleuven-benchmark",
+   "class": "paper",
+   "url": "https://arxiv.org/pdf/2305.18335",
+   "author": "Pouya Houshmand, Jiacong Sun, Marian Verhelst (MICAS, KU Leuven)",
+   "date": "2023-05-25",
+   "language": "en",
+   "accessed": "2026-10-09",
+   "title_original": "Benchmarking and modeling of analog and digital SRAM in-memory computing architectures",
+   "summary_en": "arXiv paper (peer-review status not visible) that surveys published in-memory computing chips and fits one analytical energy/throughput model to them. Explains digital IMC as reading the weights of a selected row into multiplier cells next to the bit cells and summing in an adder tree, with weights stationary and input bits applied serially over cycles. Includes the 22 nm ISSCC 2021 and 5 nm ISSCC 2022 macros among three digital designs, plotted at 4b/4b operands; only works reporting at 50% sparsity were kept. Finds digital IMC efficiency and density depend strongly on node and operand precision, says peak TOPS/W and TOPS/mm2 alone cannot separate these effects, rejects per-bit-normalised metrics as distorting, and reports about 15% model mismatch overall with leakage at low voltage not covered.",
+   "tier": "T4",
+   "accepted": true,
+   "reject_reason": null,
+   "checks": null,
+   "quotes": []
+  },
+  {
+   "id": "tsmc-buaa-reading-list",
+   "class": "personal_blog",
+   "url": "https://github.com/BUAA-CI-LAB/Literatures-on-SRAM-based-CIM",
+   "author": "Yingjie Qi, Cenlin Duan, Xiaolin He (BUAA-CI-LAB, Beihang University)",
+   "date": null,
+   "language": "en",
+   "accessed": "2026-10-09",
+   "title_original": "Literatures-on-SRAM-based-CIM",
+   "summary_en": "Curated reading list of SRAM computing-in-memory papers. Used only as an index: it lists ISSCC 2021 paper 16.4 (22 nm, first author Chih, doi 10.1109/ISSCC42613.2021.9365766), VLSI 2022 C02-5 (12 nm, 121 TOPS/W and 41.6 TOPS/mm2, first author Chia-Fu Lee, doi 10.1109/VLSITechnologyandCir46769.2022.9830438), ISSCC 2022 paper 11.6 (5 nm, first author Fujiwara, doi 10.1109/ISSCC42614.2022.9731754) and ISSCC 2023 paper 7.4 (4 nm, 6163 TOPS/W/b, first author Mori, doi 10.1109/ISSCC42615.2023.10067555). Gives no affiliations, mechanisms or conditions, and no update date.",
+   "tier": "T4",
+   "accepted": false,
+   "reject_reason": "NO_MECHANISM",
+   "checks": {
+    "C1": true,
+    "C2": false,
+    "C3": false,
+    "C4": true,
+    "C5": false,
+    "C6": false
+   },
+   "quotes": []
+  },
+  {
+   "id": "tsmc-3nm-blog",
+   "class": "personal_blog",
+   "url": "https://hub.baai.ac.cn/view/37049",
+   "author": "存内计算开发者 (pseudonymous; reposted from blog.csdn.net)",
+   "date": "2024-05-13",
+   "language": "zh",
+   "accessed": "2026-10-09",
+   "title_original": "ISSCC论文详解-2024 ISSCC 34.4 台积电3nm[1]",
+   "summary_en": "Blog walkthrough of ISSCC 2024 paper 34.4, attributed to 23 TSMC authors (first author Hidehiro Fujiwara). Describes the weight store as 18 segments of 18 rows x 192 columns (12 bit x 4 input x 4 output channels), giving 72 input channels and 4 outputs per access; the parallel-MAC scheme multiplies four weight groups with one input group at once because bit-serial input and few rows had capped throughput; look-up-table selectors replace the multiplier and first adder level, said to cut peak dynamic power by 21%. Quotes 32.5 TOPS/W, 55.0 TOPS/mm2 and 3.78 Mb/mm2 without voltage, frequency or sparsity. Its comparison lists TSMC macros at 7 nm (ISSCC 2020, 351 TOPS/W), 5 nm (254 TOPS/W, 221 TOPS/mm2) and 4 nm (6163 TOPS/W per bit, 4790 TOPS/mm2 per bit). The author is not identifiable and two reference attributions are wrong.",
+   "tier": "T4",
+   "accepted": false,
+   "reject_reason": "NO_AUTHOR",
+   "checks": {
+    "C1": false,
+    "C2": true,
+    "C3": false,
+    "C4": true,
+    "C5": true,
+    "C6": false
+   },
+   "quotes": []
+  },
+  {
+   "id": "tsmc-carleton-overview",
+   "class": "paper",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10456776/",
+   "author": "Waqas Gul, Maitham Shams, Dhamin Al-Khalili (Carleton University)",
+   "date": "2023-07-31",
+   "language": "en",
+   "accessed": "2026-10-09",
+   "title_original": "FinFET 6T-SRAM All-Digital Compute-in-Memory for Artificial Intelligence Applications: An Overview and Analysis",
+   "summary_en": "Peer-reviewed overview (Micromachines 14(8):1535, doi 10.3390/mi14081535). In the part read (the first 100k of 128k characters) it does not discuss the TSMC macros by name. It gives the general case for all-digital CIM in FinFET nodes: no converter bottleneck, no analog precision limit, better scaling to advanced nodes; against it, hardware and power overhead. Mixed-signal CIM is credited with better energy efficiency and multi-row activation but limited precision and poor low-voltage behaviour.",
+   "tier": "T1",
+   "accepted": true,
+   "reject_reason": null,
+   "checks": null,
+   "quotes": []
+  }
+ ],
+ "conflicts": [],
+ "not_found": [
+  "The five primary papers themselves: IEEE Xplore pages for documents 9365766, 9731754, 9830438 and 10067555 returned empty content, the ISSCC 2024 paper was not reachable, and research.tsmc.com returned 403. Every generation therefore rests on titles and on independent descriptions; none has an opened primary source.",
+  "Measurement conditions for every headline number (supply voltage, frequency, input/weight sparsity, operand widths other than the 4b/4b point the KU Leuven survey uses for 22 nm and 5 nm).",
+  "Bit-cell type, array size and macro area for the 22 nm, 12 nm, 5 nm and 4 nm macros; architecture details of the 12 nm and 4 nm macros (their numerics and evaluation rung are left unknown).",
+  "Author affiliations for the 22 nm and 12 nm papers were not stated on any page opened; TSMC attribution for 5 nm, 4 nm and 3 nm comes from a blog's comparison and author description.",
+  "Any TSMC digital SRAM CIM macro at ISSCC or VLSI in 2025 or 2026, and any VLSI 2023/2024 entry. A search snippet mentioned a 16 nm gain-cell CIM design at ISSCC 2025 in TSMC's annual report; that is a different memory device and the report was not opened.",
+  "Whether any macro in the series reached a product or a customer chip. A search snippet listed a 3 nm digital-CIM neural engine at ISSCC 2024 (paper 20.1) without affiliation; it was not opened.",
+  "The 7 nm ISSCC 2020 macro (351 TOPS/W) that a blog lists as the TSMC predecessor is before the 2021 start of this line and was not examined.",
+  "Limits used: 2 of 8 searches, 12 of 12 pages (five returned no usable content), 5 of 8 sources."
+ ]
+}
