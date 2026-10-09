@@ -1,4 +1,4 @@
-# Execution plan and status
+# Accelerator Phylogeny — execution plan and status
 
 This file is the working plan: what is done, what runs next, and how to resume after a stop.
 The contract (thresholds, hypotheses, kill criteria) is `docs/PREREG.md`; this file never overrides it.
@@ -29,7 +29,7 @@ Legend: ✅ done and verified · 🔄 running · ⬜ not started · ⛔ stopped 
 | P1.5 | Merge labels, agreement, trend tables | `labels/cim_v1.jsonl`, `labels/cim_agreement.json`, `labels/cim_tables.json`, `labels/cim_prereg_results.md` | Cohen's kappa: gate ≥ 0.80, A1/A2 ≥ 0.70 → else kill criterion K1 | ✅ K1 PASS (gate 0.813, A1 0.902, A2 0.860). A7 0.674 below threshold; A5 unreadable from abstracts |
 | P1.6 | Citation edges inside the corpus, three sources merged (`scripts/edges.py`) | `<data>/data/works_cim.jsonl`, `citers_cim.jsonl`, `crossref_refs.jsonl`, `edge_recall_cim.json` | recall vs 50 full-text reference sections ≥ 0.80; fetch fails if any volume is < 98% covered | ✅ 1659 edges; recall 0.96 (OpenAlex alone 0.65; ACM-published citing papers 0.28 → 0.94); 16/16 title-only edges confirmed in the citing PDF |
 | P1.7 | 9 industry product lines, in-memory computing (brief: `prompts/industry_brief.md`, format: `docs/SOURCES.md`) | `sources/industry/*.json` | `python3 scripts/check_sources.py <file>` | ✅ 9/9 pass. No peer-reviewed primary source could be opened for most lines (IEEE Xplore returns empty pages); those facts are under `not_found` |
-| P1.8 | First interactive page | `web/index.html`, `web/app.js`, `web/data.js` (generated) | `python3 scripts/build_page.py cim` refuses invalid data; `python3 tests/test_page.py` loads every view in headless Chrome (run outside a sandbox: Chrome needs a local socket) | ✅ 13/13 view checks. Layout was checked as text only, not by eye |
+| P1.8 | Interactive page (redesigned 2026-10-09 as a river tree with a launch-style hero; measured layout probe: `web/index.html?probe`) | `web/index.html`, `web/app.js`, `web/data.js` (generated) | `python3 scripts/build_page.py cim` refuses invalid data; `python3 tests/test_page.py` loads every view in headless Chrome (run outside a sandbox: Chrome needs a local socket) | ✅ 13/13 view checks. Layout was checked as text only, not by eye |
 | P2 | Widen to the AI-hardware slice, arm A, cross-field | see `docs/PREREG.md` | positive control (transformer up, CNN down), no-op control, K2 | ⬜ |
 | P3 | Industry and long-form writing, wave 1 | `sources/` | K3 | ⬜ |
 | P4 | Idea board | `<data>/ideas/*.md` (private) | every card carries F1–F5; K4 | ⬜ |
