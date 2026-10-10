@@ -306,8 +306,9 @@ function viewTree(stage, side) {
     taken.push(spot); named++;
     const tx = spot.anchor === "start" ? spot.x + LABEL_GAP : spot.anchor === "end" ? spot.x + spot.w - LABEL_GAP : spot.x + spot.w / 2;
     const role = selPaper ? (p.id === selPaper.id ? " self" : kin.up.seen.has(p.id) ? " up" : " down") : "";
-    svg.append(tip(s("text", { class: "plabel" + role, x: tx, y: spot.y + LABEL_H - 2.5, "text-anchor": spot.anchor, "data-label": p.id, style: `--i:${d.at.i}`,
-      text: name, onclick: () => pickPaper(p.id) }), () => card(p)));
+    svg.append(tip(s("a", { href: "https://doi.org/" + p.id, target: "_blank", rel: "noopener", "aria-label": `Open the paper: ${p.t}` },
+      s("text", { class: "plabel" + role, x: tx, y: spot.y + LABEL_H - 2.5, "text-anchor": spot.anchor, "data-label": p.id, style: `--i:${d.at.i}`, text: name })),
+      () => [...card(p), el("span", { class: "tm", text: "the name opens the paper · the light opens its lineage" })]));
   }
   ruler.remove();
   const trackY = L.H - 30;
@@ -325,7 +326,7 @@ function viewTree(stage, side) {
   const legend = el("div", { class: "legend" });
   colors.named.forEach(v => legend.append(el("span", {}, el("i", { style: `background:${colors.get(v)}` }), pretty(v))));
   legend.append(el("span", {}, el("i", { style: "background:var(--c0)" }), "other / not stated"));
-  stage.append(legend, el("div", { class: "legend" }, el("span", { text: "Named, ringed lights are landmarks: top 10% of their venue and year, or in the first year of a combination that reached five papers (◆), or followed at least 8 times here. The faint small lights are every other paper. A name is the system name before the colon of the title, else its first words; names that would collide are left out, so hover any light. Gold threads lead back to what a paper cites, cyan forward to what cites it. * partial year." })));
+  stage.append(legend, el("div", { class: "legend" }, el("span", { text: "Named, ringed lights are landmarks: top 10% of their venue and year, or in the first year of a combination that reached five papers (◆), or followed at least 8 times here. The faint small lights are every other paper. A name is the system name before the colon of the title, else its first words; names that would collide are left out, so hover any light. A name opens the paper; a light opens its lineage. Gold threads lead back to what a paper cites, cyan forward to what cites it. * partial year." })));
   if (selPaper) sidePaper(side, selPaper, kin); else if (selYear) sideYear(side, selYear); else if (selLane) sideLane(side, selLane, L); else sideIntro(side);
 }
 function sideIntro(side) {
@@ -338,6 +339,7 @@ function sideIntro(side) {
 }
 function sidePaper(side, p, kin) {
   side.append(el("p", { class: "focus-title", text: p.t }), el("div", { class: "meta" }, `${p.au ? p.au + " et al. · " : ""}${p.v} ${p.y} · `, doiLink(p.id)),
+    el("p", { style: "margin:10px 0 0" }, el("a", { class: "chip-btn primary", id: "open-paper", href: "https://doi.org/" + p.id, target: "_blank", rel: "noopener", text: "Open the paper ↗" })),
     el("div", { style: "margin:8px 0 2px" }, marks(p)),
     el("div", {}, tag("T1 peer-reviewed", "tier"), p.gate === "borderline" ? tag("relevance: borderline", "warn") : null,
       Object.entries(p.ax).filter(([, v]) => !["not_stated", "none_stated", "none"].includes(v)).map(([a, v]) => tip(tag(pretty(v)), `${AXIS_NAME[a]}\nread from the abstract · ${kappaNote(a)}`)),
@@ -538,7 +540,10 @@ function viewRoadmap(stage, side) {
     const g = s("g", { class: "pcard" + (on ? "" : " off") + (selPaper && selPaper.id === id ? " sel" : "") + (p.inf.tier === "top_10" ? " star" : ""), tabindex: 0, "data-card": id, style: `color:${c}`,
       onclick: pick, onkeydown: e => e.key === "Enter" && pick() },
       s("rect", { class: "cbox", x: at.x, y: at.y, width: R.cardW, height: CARD_H, rx: 8, stroke: c }), s("rect", { x: at.x, y: at.y, width: 6, height: CARD_H, rx: 3, fill: c }),
-      s("text", { class: "cname", x: at.x + 13, y: at.y + 16, text: fitText(ruler, shortName(p.t).replace(/…$/, ""), R.cardW - 20, 1) }),
+      s("a", { class: "clink", href: "https://doi.org/" + id, target: "_blank", rel: "noopener", "aria-label": `Open the paper: ${p.t}`,
+        onclick: e => e.stopPropagation(), onkeydown: e => e.stopPropagation() },       // the name opens the paper; the rest of the card opens its lineage
+        s("text", { class: "cname", x: at.x + 13, y: at.y + 16, text: fitText(ruler, shortName(p.t).replace(/…$/, ""), R.cardW - 36, 1) }),
+        s("text", { class: "cgo", x: at.x + R.cardW - 8, y: at.y + 16, "text-anchor": "end", text: "↗" })),
       s("text", { class: "cmeta", x: at.x + 13, y: at.y + 31, text: `${p.v} ’${String(p.y).slice(2)}` }),
       s("text", { class: "cmark", x: at.x + R.cardW - 8, y: at.y + 31, "text-anchor": "end", text: marksText }));
     svg.append(tip(g, () => [el("b", { class: "tt", text: p.t }), el("span", { class: "tm", text: `${p.v} ${p.y}${p.au ? " · " + p.au + " et al." : ""}` }),
@@ -555,7 +560,7 @@ function viewRoadmap(stage, side) {
         onclick: () => go({ view: "products", tour: null, line: x.line.slug, gen: x.k }) }), `${x.line.vendor} — ${x.g.name}\nannounced ${year}\nclick to open`)); }); });
   const legend = el("div", { class: "legend" });
   R.lanes.filter(l => l.key !== "__other").forEach(l => legend.append(el("span", {}, el("i", { style: `background:${laneColor.get(l.key)}` }), l.name)));
-  stage.append(legend, el("div", { class: "legend" }, el("span", { text: `★ = citation rank inside its own venue and year (★★★ top 10%). ◆ = published in the first year of a combination that reached five papers or more; ◇ = the year after. A line between cards is a citation, not a claim that the idea was inherited. At most ${CARDS_PER_CELL} landmarks are shown per branch and year. * partial year.` })));
+  stage.append(legend, el("div", { class: "legend" }, el("span", { text: `A card's name (↗) opens the paper; the rest of the card opens its lineage. ★ = citation rank inside its own venue and year (★★★ top 10%). ◆ = published in the first year of a combination that reached five papers or more; ◇ = the year after. A line between cards is a citation, not a claim that the idea was inherited. At most ${CARDS_PER_CELL} landmarks are shown per branch and year. * partial year.` })));
   if (touring) {
     const focus = [...step.focus].map(id => paperById.get(id)).sort((a, b) => landmarkScore(b) - landmarkScore(a));
     side.append(el("h2", { text: step.year ? `Landmarks of ${step.year} · ${focus.length}` : `Landmarks in this step · ${focus.length}` }));

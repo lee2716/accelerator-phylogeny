@@ -219,6 +219,11 @@ body.wide.drawer .side { position: fixed; top: 12px; right: 12px; bottom: 12px; 
 body.wide .sub { display: none; } body.wide header { padding-block: 14px 8px; } body.wide h1 { font-size: clamp(26px, 3vw, 38px); }
 body.wide .stat b { font-size: 20px; } body.wide .limits { margin-bottom: 8px; }
 .narration { position: sticky; top: 0; z-index: 12; box-shadow: 0 10px 24px rgba(0, 0, 0, .35); }
+.clink .cname { text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--ink) 35%, transparent); text-underline-offset: 3px; }
+.clink:hover .cname, .clink:focus-visible .cname { fill: var(--accent); text-decoration-color: var(--accent); } .clink:focus-visible { outline: none; }
+.cgo { font: 12px var(--mono); fill: var(--muted); } .clink:hover .cgo { fill: var(--accent); }
+svg a .plabel { text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--ink) 30%, transparent); text-underline-offset: 2px; }
+a.chip-btn { display: inline-block; text-decoration: none; } a.chip-btn:hover { text-decoration: none; }
 .stepdot { width: 34px; height: 30px; border-radius: 15px; font-size: 12px; color: var(--ink-2); }
 </style>
 </head>

@@ -57,7 +57,10 @@ def tree_shape(dom):
         problems.append("fewer than four rivers drawn")
     if "class=\"kin" in dom:
         problems.append("kinship threads drawn with nothing selected")
+    name_links = len(re.findall(r'<a href="https://doi\.org/[^"]+" target="_blank"[^>]*><text class="plabel', dom))
     names = re.findall(r'class="plabel[^"]*"[^>]*>([^<]+)<', dom)
+    if name_links != len(names):
+        problems.append(f"{name_links} of {len(names)} names on the tree link to their paper")
     if len(names) < 30:
         problems.append(f"only {len(names)} landmark names on the tree, expected at least 30")
     if len(dom.split('class="halo"')) - 1 < 50:
@@ -92,6 +95,11 @@ def roadmap_shape(dom):
         problems.append("fewer than 10 citation threads between cards")
     if "[object" in dom:
         problems.append("an object was rendered as text")
+    links = re.findall(r'<a class="clink" href="https://doi\.org/([^"]+)" target="_blank"', dom)
+    if len(links) != len(cards):
+        problems.append(f"{len(links)} card names link to their paper, {len(cards)} cards drawn")
+    if any(doi not in ids for doi in links):
+        problems.append("a card links to a DOI that is not in the data")
     return problems
 
 
@@ -114,7 +122,7 @@ def tour_step(expect_dimmed):
 card_paper = next(p for p in PAPERS if "ReTransformer" in p["t"])
 results = [
     check("roadmap", {"view": "roadmap"}, ["The landmarks, branch by branch", "Start the guided tour", "ReTransformer", "A field in nine years", "Industry"], roadmap_shape),
-    check("roadmap, card selected", {"view": "roadmap", "sel": {"type": "paper", "id": card_paper["id"]}}, ["Grew out of it", "Grew from", "★★★ top 10%", "✕ Close"],
+    check("roadmap, card selected", {"view": "roadmap", "sel": {"type": "paper", "id": card_paper["id"]}}, ["Grew out of it", "Grew from", "★★★ top 10%", "✕ Close", "Open the paper"],
           lambda dom: [] if re.search(r'<body class="[^"]*drawer', dom) else ["the details drawer is not open"]),
     check("tour, first step", {"view": "roadmap", "tour": 0}, ["How to read this roadmap", "Next ▶", "step 1 of 12", "Leave tour"], tour_step(False)),
     check("tour, a year", {"view": "roadmap", "tour": 3}, ["2020", "papers in these venues", "Most common paradigm", "Industry announced", "Landmarks of 2020"], tour_step(True)),

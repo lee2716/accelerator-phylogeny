@@ -10,6 +10,10 @@
   <img alt="edge recall" src="https://img.shields.io/badge/edge_recall-0.96-199e70?style=for-the-badge&labelColor=0e1526">
 </p>
 
+<h3 align="center">
+  <a href="https://lee2716.github.io/accelerator-phylogeny/">▶ Open the live page — lee2716.github.io/accelerator-phylogeny</a>
+</h3>
+
 <h3 align="center">Every paper a light. Every citation a thread. Every product a marker on the same time axis.</h3>
 
 <p align="center">
@@ -21,7 +25,9 @@ An interactive map of how AI accelerators have evolved since 2018, built to answ
 
 ## See it
 
-Open **`web/index.html`** in a browser. No server, no install.
+**Online:** <https://lee2716.github.io/accelerator-phylogeny/> — or open **`web/index.html`** from a clone; no server, no install.
+
+Every paper name on the page is a link: it opens the paper itself through its DOI.
 
 **The roadmap** shows only the landmarks — about 40 of 562 papers — as named cards on one branch per compute paradigm, drawn at full width so every name is readable. Everything else folds into a “+N papers” tag you can open.
 
