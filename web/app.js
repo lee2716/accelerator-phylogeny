@@ -17,15 +17,31 @@ const VALUE_NAME = {
 const INFLUENCE_MARK = { top_10: "★★★ top 10%", top_25: "★★ top 25%", upper_half: "★ upper half", lower_half: "lower half", too_early: "too recent to rank" };
 const NOVELTY_MARK = { opened_line: "◆ opened a line", early_entrant: "◇ early entrant", singleton: "○ singleton", predates_data: "line predates the data (2018)" };
 const RADIUS = { top_10: 6.4, top_25: 4.9, upper_half: 3.9, lower_half: 3, too_early: 3.2 };
+const MINOR_RADIUS = 2.3;    // a paper that is not a landmark, when landmarks are being named
+const MAX_LABELS = 80;       // names placed on the tree at once; placement stops earlier if space runs out
+const LABEL_H = 12, LABEL_GAP = 3;   // height of a name label and the clear space kept around it
+const LANE_PAD = 18, LANE_MIN_H = 44;   // room above and below a river's lights, where names go
+const LIFTED_MAX_R = 5.4;             // lights sit on a 12-unit grid: a larger radius would cover a neighbour
+// A landmark is a paper worth naming on the tree without being asked: top 10% of its venue-year,
+// or first of a line that grew, or followed at least 8 times inside these venues.
+const isLandmark = p => p.inf.tier === "top_10" || p.nov.tier === "opened_line" || p.fol.length >= 8;
+const landmarkScore = p => ({ top_10: 3, top_25: 1 }[p.inf.tier] || 0) + (p.nov.tier === "opened_line" ? 3 : p.nov.tier === "early_entrant" ? 1 : 0) + p.fol.length * 0.25;
+function shortName(title) {      // the system name before a colon when there is one, else the first words
+  const head = title.split(/[:：]| - | – | — /)[0].trim();
+  if (head.length >= 2 && head.length <= 22) return head;
+  let out = "";
+  for (const word of title.split(/\s+/)) { if ((out + " " + word).trim().length > 21) break; out = (out + " " + word).trim(); }
+  return out + "…";
+}
 const MIN_SOLID_N = 10;      // below this a bar or stack is hatched: 3 papers must not look like 300
 const LANE_MIN = 12;         // paradigms with fewer papers share one "other paradigms" river
 const KIN_DEPTH = 2;         // generations of ancestors and descendants lit on selection
 const YEARS = Object.keys(D.tables.n_per_year).map(Number);
 const LAST_FULL_YEAR = 2025;
-const state = { view: "tree", sel: null, colorBy: "A1_paradigm", axis: "A1_paradigm", dir: null, pick: null, line: null, gen: 0 };
+const state = { view: "tree", sel: null, show: "landmarks", colorBy: "A1_paradigm", axis: "A1_paradigm", dir: null, pick: null, line: null, gen: 0 };
 const paperById = new Map(D.papers.map(p => [p.id, p]));
 const reducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-let firstPaint = true;       // the entrance animation plays once, on the first tree render
+let firstPaint = !location.search;   // the entrance animation plays once; never when a test or screenshot adds a query
 const pretty = v => VALUE_NAME[v] || String(v).replace(/_/g, " ");
 const pct = x => (x * 100).toFixed(x < 0.1 && x > 0 ? 1 : 0) + "%";
 const valuesOf = (p, axis) => axis === "lever" ? p.lever : [p.ax[axis]];
@@ -44,8 +60,9 @@ function el(tag, props, ...children) {
 }
 const s = (tag, props, ...children) => el(tag, { ns: 1, ...props }, ...children);
 const tipBox = document.getElementById("tip");
-function showTip(text, event) {
-  tipBox.textContent = text; tipBox.hidden = false;
+function showTip(content, event) {
+  if (typeof content === "string") tipBox.textContent = content; else tipBox.replaceChildren(...content);
+  tipBox.hidden = false;
   tipBox.style.left = Math.max(8, Math.min(event.clientX + 14, window.innerWidth - 356)) + "px";
   tipBox.style.top = Math.max(8, Math.min(event.clientY + 16, window.innerHeight - 20 - tipBox.offsetHeight)) + "px";
 }
@@ -153,7 +170,7 @@ function layoutTree() {
     const byYear = new Map(YEARS.map(year => [year, []]));
     for (const p of lane.papers) byYear.get(p.y).push(p);
     lane.counts = YEARS.map(year => byYear.get(year).length);
-    lane.h = Math.max(...lane.counts.map(rowsOf)) * gap + 22; lane.mid = y + lane.h / 2;
+    lane.h = Math.max(Math.max(...lane.counts.map(rowsOf)) * gap + LANE_PAD, LANE_MIN_H); lane.mid = y + lane.h / 2;
     YEARS.forEach((year, i) => {
       const list = byYear.get(year).sort((a, b) => tierOrder.indexOf(a.inf.tier) - tierOrder.indexOf(b.inf.tier) || b.fol.length - a.fol.length);
       const rows = rowsOf(list.length), cx = left + colW * (i + 0.5);
@@ -195,11 +212,14 @@ function viewTree(stage, side) {
     el("div", { class: "controls" },
       el("label", {}, "Colour ", el("select", { id: "color-by", onchange: e => go({ colorBy: e.target.value }) },
         ["A1_paradigm", "A0_workload", "A1_device", "lever", "A6_eval_rung", "A7_scale"].map(a => el("option", { value: a, selected: a === state.colorBy ? "" : null, text: AXIS_NAME[a] })))),
+      el("label", {}, "Show ", el("select", { id: "show", onchange: e => go({ show: e.target.value }) },
+        [["landmarks", "Landmarks, named"], ["all", "Every paper alike"]].map(([v, name]) => el("option", { value: v, selected: v === state.show ? "" : null, text: name })))),
       el("label", {}, "Find ", el("input", { type: "search", id: "find", placeholder: "title word…", size: 18,
         onchange: e => { const q = e.target.value.toLowerCase(), hit = q.length > 2 && D.papers.find(p => p.t.toLowerCase().includes(q)); if (hit) pickPaper(hit.id); } })),
       state.sel ? el("button", { class: "chip-btn", id: "clear", text: "Clear selection", onclick: () => go({ sel: null }) }) : null,
       el("span", { class: "meta", text: kappaNote(state.colorBy) })));
   const svg = s("svg", { class: "tree" + (firstPaint && !state.sel ? " intro" : ""), viewBox: `0 0 ${L.W} ${L.H}`, role: "img", "aria-label": "Papers by year and compute paradigm, with citation threads" });
+  stage.append(el("div", { class: "scroll" }, svg));      // in the document now: name widths are measured, not estimated
   YEARS.forEach((year, i) => {
     const x = L.left + L.colW * (i + 0.5), on = year === selYear || (selPaper && selPaper.y === year);
     svg.append(s("line", { class: "year-line" + (on ? " on" : ""), x1: x, x2: x, y1: L.top - 6, y2: L.H - 50 }),
@@ -228,17 +248,56 @@ function viewTree(stage, side) {
       for (const [from, to, depth] of group.edges) svg.append(s("path", { class: "kin" + (depth > 1 ? " far" : ""), d: edgePath(L.pos.get(from), L.pos.get(to)), stroke }));
   }
   const inLane = p => selLane === "__other" ? !L.lanes.some(l => l.key === p.ax.A1_paradigm) : p.ax.A1_paradigm === selLane;
-  for (const p of D.papers) {
-    const at = L.pos.get(p.id), c = colors.get(valuesOf(p, state.colorBy)[0]), r = RADIUS[p.inf.tier], hollow = p.inf.tier === "too_early";
+  const naming = state.show === "landmarks", drawn = new Map();
+  const card = p => [el("b", { class: "tt", text: p.t }), el("span", { class: "tm", text: `${p.v} ${p.y}${p.au ? " · " + p.au + " et al." : ""}` }),
+    el("span", { class: "tm", text: `${pretty(p.ax.A1_paradigm)} · ${pretty(p.ax.A0_workload)}${p.ax.A1_device !== "not_stated" && p.ax.A1_device !== "none" ? " · " + pretty(p.ax.A1_device) : ""}` }),
+    el("span", { class: "tk", text: `${INFLUENCE_MARK[p.inf.tier]}${NOVELTY_MARK[p.nov.tier] ? "  ·  " + NOVELTY_MARK[p.nov.tier] : ""}` }),
+    el("span", { class: "tm", text: `${p.fol.length} follower(s) in these venues · cited ${p.inf.cites} in total · click to trace` })];
+  const ordered = [...D.papers].sort((a, b) => isLandmark(a) - isLandmark(b));       // landmarks are drawn last, on top
+  for (const p of ordered) {
+    const at = L.pos.get(p.id), c = colors.get(valuesOf(p, state.colorBy)[0]), hollow = p.inf.tier === "too_early", land = isLandmark(p);
+    const lifted = land || lit.has(p.id) || (selPaper && selPaper.id === p.id);
+    const r = naming ? (lifted ? Math.min(RADIUS[p.inf.tier] + 0.6, LIFTED_MAX_R) : MINOR_RADIUS) : Math.min(RADIUS[p.inf.tier], LIFTED_MAX_R);
     const dim = (kin && !lit.has(p.id)) || (selYear && p.y !== selYear) || (selLane && !inLane(p));
-    const cls = "dot" + (p.inf.tier === "top_10" ? " star" : "") + (hollow ? " unranked" : "") + (dim ? " dim" : "") + (selPaper && selPaper.id === p.id ? " sel" : "");
-    const common = { class: cls, fill: c, color: c, stroke: hollow ? c : null, style: `--i:${at.i}`, tabindex: 0, "data-id": p.id,
+    const cls = "dot" + (p.inf.tier === "top_10" ? " star" : "") + (hollow && lifted ? " unranked" : "") + (dim ? " dim" : "") + (naming && !lifted && !dim ? " minor" : "") + (selPaper && selPaper.id === p.id ? " sel" : "");
+    if (naming && land && !dim) svg.append(s("circle", { class: "halo", cx: at.x, cy: at.y, r: r + 4.5, stroke: c, style: `--i:${at.i}` }));
+    const common = { class: cls, fill: c, color: c, stroke: hollow && lifted ? c : null, style: `--i:${at.i}`, tabindex: lifted ? 0 : -1, "data-id": p.id,
       onclick: () => pickPaper(p.id), onkeydown: e => e.key === "Enter" && pickPaper(p.id) };
     const shape = p.nov.tier === "opened_line"
-      ? s("rect", { ...common, x: at.x - r, y: at.y - r, width: 2 * r, height: 2 * r, transform: `rotate(45 ${at.x} ${at.y})` })
-      : s("circle", { ...common, cx: at.x, cy: at.y, r, opacity: p.gate === "borderline" && !dim ? 0.6 : null });
-    svg.append(tip(shape, () => `${p.t}\n${p.v} ${p.y} · ${pretty(p.ax.A1_paradigm)} · ${pretty(p.ax.A0_workload)}\n${INFLUENCE_MARK[p.inf.tier]}${NOVELTY_MARK[p.nov.tier] ? " · " + NOVELTY_MARK[p.nov.tier] : ""}\n${p.fol.length} follower(s) in these venues`));
+      ? s("rect", { ...common, x: at.x - r * 0.78, y: at.y - r * 0.78, width: 1.56 * r, height: 1.56 * r, transform: `rotate(45 ${at.x} ${at.y})` })   // a diamond's corners reach r·1.1, inside the grid cell
+      : s("circle", { ...common, cx: at.x, cy: at.y, r, opacity: p.gate === "borderline" && !dim && lifted ? 0.7 : null });
+    svg.append(tip(shape, () => card(p)));
+    drawn.set(p.id, { at, r, dim });
   }
+  // names: the selection and its kin when a paper is chosen, else the leading papers of the year, river or whole tree
+  let toName;
+  if (selPaper) toName = [selPaper, ...[...lit.keys()].filter(id => id !== selPaper.id).map(id => paperById.get(id)).sort((a, b) => lit.get(a.id) - lit.get(b.id) || landmarkScore(b) - landmarkScore(a))];
+  else if (selYear) toName = D.papers.filter(p => p.y === selYear).sort((a, b) => landmarkScore(b) - landmarkScore(a)).slice(0, 18);
+  else if (selLane) toName = D.papers.filter(inLane).sort((a, b) => landmarkScore(b) - landmarkScore(a)).slice(0, 45);
+  else toName = naming ? D.papers.filter(isLandmark).sort((a, b) => landmarkScore(b) - landmarkScore(a)) : [];
+  const taken = [], hits = (a, b) => a.x < b.x + b.w && b.x < a.x + a.w && a.y < b.y + b.h && b.y < a.y + a.h;
+  for (const p of toName) { const d = drawn.get(p.id); taken.push({ x: d.at.x - d.r - 1, y: d.at.y - d.r - 1, w: 2 * d.r + 2, h: 2 * d.r + 2 }); }
+  let named = 0;
+  const ruler = s("text", { class: "plabel", visibility: "hidden", x: 0, y: 0 }); svg.append(ruler);
+  const scale = svg.getBoundingClientRect().width ? L.W / svg.getBoundingClientRect().width : 1;      // screen px -> drawing units
+  for (const p of toName) {
+    if (named >= MAX_LABELS) break;
+    const d = drawn.get(p.id), name = shortName(p.t); ruler.textContent = name;
+    const measured = ruler.getBoundingClientRect().width * scale, w = (measured || name.length * 7.2) + 2 * LABEL_GAP, h = LABEL_H + LABEL_GAP;
+    const x0 = d.at.x, y0 = d.at.y, pad = d.r + 5;
+    const spots = [["start", x0 + pad, y0 - h / 2], ["end", x0 - pad - w, y0 - h / 2], ["middle", x0 - w / 2, y0 - pad - h], ["middle", x0 - w / 2, y0 + pad - 2],
+      ["start", x0 + pad, y0 - pad - h + 3], ["start", x0 + pad, y0 + pad - 5], ["end", x0 - pad - w, y0 - pad - h + 3], ["end", x0 - pad - w, y0 + pad - 5],
+      ["middle", x0 - w / 2, y0 - pad - 2 * h], ["middle", x0 - w / 2, y0 + pad + h - 2], ["start", x0 + pad + 6, y0 - pad - 2 * h + 3], ["end", x0 - pad - 6 - w, y0 + pad + h - 5]]
+      .map(([anchor, x, y]) => ({ anchor, x, y, w, h }));
+    const spot = spots.find(box => box.x >= L.left - 30 && box.x + box.w <= L.W - 4 && box.y >= L.top - 4 && box.y + box.h <= L.H - 58 && !taken.some(other => hits(box, other)));
+    if (!spot) continue;
+    taken.push(spot); named++;
+    const tx = spot.anchor === "start" ? spot.x + LABEL_GAP : spot.anchor === "end" ? spot.x + spot.w - LABEL_GAP : spot.x + spot.w / 2;
+    const role = selPaper ? (p.id === selPaper.id ? " self" : kin.up.seen.has(p.id) ? " up" : " down") : "";
+    svg.append(tip(s("text", { class: "plabel" + role, x: tx, y: spot.y + LABEL_H - 2.5, "text-anchor": spot.anchor, "data-label": p.id, style: `--i:${d.at.i}`,
+      text: name, onclick: () => pickPaper(p.id) }), () => card(p)));
+  }
+  ruler.remove();
   const trackY = L.H - 30;
   svg.append(s("text", { class: "lane-label", x: 8, y: trackY + 4, text: "Industry products" }), s("line", { class: "year-line", x1: L.left, x2: L.W - L.right, y1: trackY, y2: trackY }));
   const generations = D.industry.flatMap(line => line.generations.map((g, k) => ({ line, g, k })));
@@ -248,13 +307,13 @@ function viewTree(stage, side) {
       svg.append(tip(s("rect", { class: "prod", x: cx - 4.5, y: trackY - 4.5, width: 9, height: 9, transform: `rotate(45 ${cx} ${trackY})`, tabindex: 0,
         onclick: () => go({ view: "products", line: x.line.slug, gen: x.k }) }), `${x.line.vendor} — ${x.g.name}\nannounced ${year}\nclick to open`)); });
   });
-  stage.append(el("div", { class: "scroll" }, svg),
+  stage.append(
     el("p", { class: "q", style: "margin:8px 2px 0", text: "Time runs left to right; a river is as wide as that year's papers. Click a light to trace what it grew from and what grew out of it. Click a year for a cross-section, a river's name for the whole direction." }));
   firstPaint = false;
   const legend = el("div", { class: "legend" });
   colors.named.forEach(v => legend.append(el("span", {}, el("i", { style: `background:${colors.get(v)}` }), pretty(v))));
   legend.append(el("span", {}, el("i", { style: "background:var(--c0)" }), "other / not stated"));
-  stage.append(legend, el("div", { class: "legend" }, el("span", { text: "Size = influence inside its own venue and year (largest: top 10%). Hollow = too recent to rank. ◆ = first of a line that later grew. Gold threads lead back to what a paper cites, cyan threads forward to what cites it, two generations each way. * partial year." })));
+  stage.append(legend, el("div", { class: "legend" }, el("span", { text: "Named, ringed lights are landmarks: top 10% of their venue and year, or first of a line that grew (◆), or followed at least 8 times here. The faint small lights are every other paper. A name is the system name before the colon of the title, else its first words; names that would collide are left out, so hover any light. Gold threads lead back to what a paper cites, cyan forward to what cites it. * partial year." })));
   if (selPaper) sidePaper(side, selPaper, kin); else if (selYear) sideYear(side, selYear); else if (selLane) sideLane(side, selLane, L); else sideIntro(side);
 }
 function sideIntro(side) {
@@ -474,6 +533,8 @@ function viewSources(stage, side) {
 try { Object.assign(state, JSON.parse(decodeURIComponent(location.hash.slice(1)))); } catch (error) { /* no saved state */ }
 if (!VIEWS.some(([id]) => id === state.view)) state.view = "tree";
 header(); render();
+// names are placed by measured width, so place them again once the web fonts have replaced the fallback
+if (document.fonts && document.fonts.ready && !document.fonts.check('600 10.5px "Chakra Petch"')) document.fonts.ready.then(() => { firstPaint = false; render(); });
 
 // ---------- layout probe (tests only): open the page with ?probe to append measured geometry as text ----------
 if (location.search === "?probe") setTimeout(() => {
@@ -484,6 +545,15 @@ if (location.search === "?probe") setTimeout(() => {
     const a = dots[i], b = dots[j], dx = (a.left + a.width / 2) - (b.left + b.width / 2), dy = (a.top + a.height / 2) - (b.top + b.height / 2);
     if (Math.hypot(dx, dy) < (Math.min(a.width, a.height) + Math.min(b.width, b.height)) / 2 * 0.75) overlaps++;
   }
+  const labelBoxes = [...document.querySelectorAll(".plabel")].map(n => n.getBoundingClientRect());
+  const landmarks_total = D.papers.filter(isLandmark).length;
+  const cross = (a, b) => a.left < b.right - 1 && b.left < a.right - 1 && a.top < b.bottom - 1 && b.top < a.bottom - 1;
+  let nameOverlaps = 0, namesOverLights = 0;
+  for (let i = 0; i < labelBoxes.length; i++) for (let j = i + 1; j < labelBoxes.length; j++) if (cross(labelBoxes[i], labelBoxes[j])) nameOverlaps++;
+  const halos = [...document.querySelectorAll(".halo")].map(n => n.getBoundingClientRect());
+  for (const lb of labelBoxes) for (const h of halos) { const cx = h.left + h.width / 2, cy = h.top + h.height / 2; if (cx > lb.left && cx < lb.right && cy > lb.top && cy < lb.bottom) namesOverLights++; }
+  const treeBox = document.querySelector("svg.tree") ? document.querySelector("svg.tree").getBoundingClientRect() : null;
+  const namesOutside = treeBox ? labelBoxes.filter(b => b.left < treeBox.left - 1 || b.right > treeBox.right + 1).length : 0;
   const svg = document.querySelector("svg.tree"), plotLeft = svg ? svg.getBoundingClientRect().left + svg.getBoundingClientRect().width * 206 / 1180 : 0;
   const clipped = [...document.querySelectorAll(".card h4, .gen, .tname, nav button, .stat b")].filter(n => n.scrollWidth > n.clientWidth + 1).length;
   const report = {
@@ -493,6 +563,8 @@ if (location.search === "?probe") setTimeout(() => {
     tree: svg ? box(svg) : null, lights: dots.length, overlapping_light_pairs: overlaps,
     lane_labels_reaching_into_plot: [...document.querySelectorAll(".lane-label")].filter(n => n.getBoundingClientRect().right > plotLeft).length,
     clipped_text_elements: clipped,
+    names_on_tree: labelBoxes.length, landmarks_total, overlapping_name_pairs: nameOverlaps, names_outside_tree: namesOutside,
+    names_over_a_landmark_light: namesOverLights, sample_names: [...document.querySelectorAll(".plabel")].slice(0, 10).map(n => n.textContent),
     fonts_loaded: { display: document.fonts.check('700 30px "Chakra Petch"'), body: document.fonts.check('14px "IBM Plex Sans"'), mono: document.fonts.check('12px "IBM Plex Mono"') },
     body_background: getComputedStyle(document.body).backgroundColor, ink: getComputedStyle(document.body).color,
     h1_font_px: parseFloat(getComputedStyle(document.querySelector("h1")).fontSize),

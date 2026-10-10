@@ -19,7 +19,7 @@ outside_only = next(p for p in PAPERS if not p["fol"] and p["cit"]["status"] == 
 
 
 def render(state):
-    url = PAGE + "#" + urllib.parse.quote(json.dumps(state))
+    url = PAGE + "?test#" + urllib.parse.quote(json.dumps(state))   # a query switches the entrance animation off
     with tempfile.TemporaryDirectory() as profile:
         result = subprocess.run(["google-chrome", "--headless=new", "--no-sandbox", "--disable-gpu", f"--user-data-dir={profile}",
                                  "--enable-logging=stderr", "--v=0", "--virtual-time-budget=5000", "--dump-dom", url],
@@ -57,6 +57,11 @@ def tree_shape(dom):
         problems.append("fewer than four rivers drawn")
     if "class=\"kin" in dom:
         problems.append("kinship threads drawn with nothing selected")
+    names = re.findall(r'class="plabel[^"]*"[^>]*>([^<]+)<', dom)
+    if len(names) < 30:
+        problems.append(f"only {len(names)} landmark names on the tree, expected at least 30")
+    if len(dom.split('class="halo"')) - 1 < 50:
+        problems.append("fewer than 50 landmark halos drawn")
     products = sum(1 for line in DATA["industry"] for g in line["generations"] if g["year_announced"] and 2018 <= g["year_announced"] <= 2026)
     if dom.count('class="prod"') != products:
         problems.append(f"{dom.count('class=\"prod\"')} product markers for {products} dated generations")
@@ -70,12 +75,16 @@ def kin_threads(paper):
         problems = [] if drawn >= direct else [f"{drawn} threads drawn, at least {direct} direct in-slice links expected"]
         if dom.count(" sel\"") != 1:
             problems.append("exactly one light should be marked selected")
+        if 'class="plabel self"' not in dom:
+            problems.append("the selected paper is not named on the tree")
+        if dom.count('class="plabel down"') + dom.count('class="plabel up"') < min(direct, 5):
+            problems.append("the selection's kin are not named on the tree")
         return problems
     return expect
 
 
 results = [
-    check("hero and tree", {"view": "tree"}, ["Accelerator Phylogeny", "papers placed", "lineage threads", "Every paper is a light", "Start anywhere", "Industry products"], tree_shape),
+    check("hero and tree", {"view": "tree"}, ["Accelerator Phylogeny", "papers placed", "lineage threads", "Every paper is a light", "Start anywhere", "Industry products", "Landmarks, named", "ReTransformer"], tree_shape),
     check("tree coloured by workload", {"view": "tree", "colorBy": "A0_workload"}, ["LLM (autoregressive)", "two-prompt agreement"]),
     check("paper selected: threads", {"view": "tree", "sel": {"type": "paper", "id": followed["id"]}}, ["Grew out of it", "Grew from", followed["t"][:40], "Lit on the tree", "via "], kin_threads(followed)),
     check("marks on a marked paper", {"view": "tree", "sel": {"type": "paper", "id": marked["id"]}}, ["★★★ top 10%", "◆ opened a line", "T1 peer-reviewed"]),

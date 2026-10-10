@@ -60,7 +60,7 @@ h1 { font: 700 clamp(30px, 4vw, 50px)/0.95 var(--display); letter-spacing: 0.01e
 @keyframes rise { from { opacity: 0; transform: translateY(6px) scale(.2); } }
 @keyframes reveal { from { opacity: 0; } }
 .dot { transform-box: fill-box; transform-origin: center; }
-@media (prefers-reduced-motion: reduce) { body::after, .tree.intro .dot, .tree.intro .river, .tree.intro .river-edge { animation: none; } }
+@media (prefers-reduced-motion: reduce) { body::after, .tree.intro .dot, .tree.intro .river, .tree.intro .river-edge, .tree.intro .halo, .tree.intro .plabel { animation: none; } }
 nav { display: flex; gap: 6px; flex-wrap: wrap; }
 nav button, .chip-btn { font: 600 12px/1 var(--display); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); background: transparent;
   border: 1px solid var(--line); border-radius: 999px; padding: 9px 14px; cursor: pointer; transition: color .15s, border-color .15s, box-shadow .15s; }
@@ -95,6 +95,12 @@ svg { display: block; }
 .dot.unranked { fill: transparent !important; stroke-width: 1.4; }
 .dot.star { filter: drop-shadow(0 0 calc(5px * var(--glow)) currentColor); }
 .dot.dim { opacity: .1; } .dot.sel { stroke: var(--ink); stroke-width: 2.2; }
+.dot.minor { opacity: .34; stroke-width: .5; }
+.halo { fill: none; stroke-width: 1.3; opacity: .5; pointer-events: none; }
+.plabel { font: 600 10.5px var(--display); letter-spacing: .02em; fill: var(--ink); paint-order: stroke; stroke: var(--bg); stroke-width: 3.2px; stroke-linejoin: round; cursor: pointer; }
+.plabel:hover { fill: var(--accent); } .plabel.self { fill: var(--ink); font-size: 12px; } .plabel.up { fill: var(--c4); } .plabel.down { fill: var(--accent); }
+.tree.intro .halo, .tree.intro .plabel { animation: reveal .8s ease-out both; animation-delay: calc(var(--i) * 95ms + 500ms); }
+#tip .tt { display: block; font: 600 13px/1.3 var(--display); margin-bottom: 4px; } #tip .tm { display: block; opacity: .78; } #tip .tk { display: block; font-weight: 600; margin: 3px 0; }
 .kin { fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-dasharray: 5 7; animation: flow 1.4s linear infinite; }
 .kin.far { stroke-width: 1; opacity: .5; }
 @keyframes flow { to { stroke-dashoffset: -24; } }
