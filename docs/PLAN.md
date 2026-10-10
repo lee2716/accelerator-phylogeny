@@ -52,6 +52,12 @@ Legend: ✅ done and verified · 🔄 running · ⬜ not started · ⛔ stopped 
 
 A lane or period built from fewer than 10 papers is drawn hatched with its n; an empty lane says why (no data yet / not found), never just blank.
 
+## Tests a change to the page must pass
+
+- `python3 tests/test_page.py` — every view renders, counts match the data, no script error (run outside a sandbox).
+- `python3 tests/test_legibility.py` — no text under 12 px on screen, contrast at least 4.5:1, at 1500 and 1280 wide.
+- `web/index.html?probe` — appends measured geometry (overlaps, overflow, first-screen share) as text.
+
 ## How to resume
 
 1. `cd` to the repository root; `python3 tests/test_validate.py && python3 scripts/validate.py prereg`.

@@ -23,7 +23,7 @@ An interactive map of how AI accelerators have evolved since 2018, built to answ
 
 Open **`web/index.html`** in a browser. No server, no install.
 
-**The roadmap** shows only the landmarks — 46 of 562 papers — as named cards on one branch per compute paradigm. Everything else folds into a “+N papers” tag you can open.
+**The roadmap** shows only the landmarks — about 40 of 562 papers — as named cards on one branch per compute paradigm, drawn at full width so every name is readable. Everything else folds into a “+N papers” tag you can open.
 
 <p align="center"><img src="docs/img/roadmap.png" alt="The roadmap: landmark papers as named cards, one branch per compute paradigm" width="100%"></p>
 
@@ -77,6 +77,7 @@ A trend map is only worth as much as its honesty about its own limits, so the li
 - **Thin evidence looks thin.** Anything resting on fewer than 10 papers is drawn hatched. 2026 is marked partial.
 - **A thread is a citation, not a claim of inheritance.** OpenAlex alone recovered 0.65 of the references checked against full texts; merging three sources brought that to 0.96. "No follower found" can still be a missing record, and the page says so.
 - **Every industry number carries its evidence tier** — peer-reviewed, independently measured, vendor claim, or commentary — with its rung and its baseline. Conflicting accounts are shown side by side, not resolved.
+- **Legibility is tested, not assumed.** `tests/test_legibility.py` measures the on-screen size and contrast of every kind of text; nothing is under 12 px or below 4.5:1. An earlier version drew card names at 7 px.
 - **"Not found" stays on the page.** What was looked for and not found is listed per product line.
 
 ## How it is built
