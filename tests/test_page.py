@@ -2,7 +2,7 @@
 
 Run: python3 tests/test_page.py      (needs google-chrome; run outside a sandbox: Chrome needs a local socket)
 Checks per view: no uncaught script error; no 'undefined' / 'NaN' / '[object Object]' in the visible text;
-four navigation tabs; view-specific content; on the tree, one light per paper and the right kinship threads.
+five navigation tabs; view-specific content; on the tree, one light per paper and the right kinship threads.
 """
 import json, os, re, subprocess, sys, tempfile, urllib.parse
 
@@ -39,8 +39,8 @@ def check(name, state, must_contain, extra=None):
     text = visible_text(dom)
     problems = [f"script error: {e[-160:]}" for e in errors]
     problems += [f"'{bad}' appears in the page text" for bad in ("undefined", "NaN", "[object Object]") if bad in text]
-    if dom.count('role="tab"') != 4:
-        problems.append(f"expected 4 tabs, found {dom.count('role=\"tab\"')}")
+    if dom.count('role="tab"') != 5:
+        problems.append(f"expected 5 tabs, found {dom.count('role=\"tab\"')}")
     problems += [f"missing text: {needle!r}" for needle in must_contain if needle not in text]
     if extra:
         problems += extra(dom)
@@ -83,8 +83,44 @@ def kin_threads(paper):
     return expect
 
 
+def roadmap_shape(dom):
+    cards = re.findall(r'class="pcard[^"]*"', dom)
+    problems = [] if 35 <= len(cards) <= 83 else [f"{len(cards)} cards on the roadmap, expected 35 to 83"]
+    if any(" off" in c for c in cards):
+        problems.append("cards dimmed with nothing selected")
+    if dom.count('class="thread') < 10:
+        problems.append("fewer than 10 citation threads between cards")
+    if "[object" in dom:
+        problems.append("an object was rendered as text")
+    return problems
+
+
+def tour_step(expect_dimmed):
+    def check_dom(dom):
+        dimmed = len(re.findall(r'class="pcard[^"]* off', dom))
+        problems = []
+        if expect_dimmed and not dimmed:
+            problems.append("a year step should dim the other years' cards")
+        if not expect_dimmed and dimmed:
+            problems.append(f"{dimmed} cards dimmed in a step that focuses on everything")
+        if dom.count('class="narr"') < 3:
+            problems.append("fewer than three lines of narration")
+        if 'class="presenting"' not in dom:
+            problems.append("presentation mode is not on during the tour")
+        return problems
+    return check_dom
+
+
+card_paper = next(p for p in PAPERS if "ReTransformer" in p["t"])
 results = [
-    check("hero and tree", {"view": "tree"}, ["Accelerator Phylogeny", "papers placed", "lineage threads", "Every paper is a light", "Start anywhere", "Industry products", "Landmarks, named", "ReTransformer"], tree_shape),
+    check("roadmap", {"view": "roadmap"}, ["The landmarks, branch by branch", "Start the guided tour", "ReTransformer", "A field in nine years", "Industry"], roadmap_shape),
+    check("roadmap, card selected", {"view": "roadmap", "sel": {"type": "paper", "id": card_paper["id"]}}, ["Grew out of it", "Grew from", "★★★ top 10%"]),
+    check("tour, first step", {"view": "roadmap", "tour": 0}, ["Guided tour", "How to read this roadmap", "Next ▶", "step 1 of 12", "Leave tour"], tour_step(False)),
+    check("tour, a year", {"view": "roadmap", "tour": 3}, ["Guided tour · 2020", "papers in these venues", "Most common paradigm", "Industry announced", "Landmarks in this step"], tour_step(True)),
+    check("tour, partial year", {"view": "roadmap", "tour": 9}, ["Guided tour · 2026", "partial year"], tour_step(True)),
+    check("tour, what moved", {"view": "roadmap", "tour": 10}, ["what moved", "pre-registered test", "RRAM", "LLM (autoregressive)"], tour_step(False)),
+    check("tour, last step", {"view": "roadmap", "tour": 11}, ["Where to look next", "not world priority", "step 12 of 12"]),
+    check("hero and all papers", {"view": "tree"}, ["Accelerator Phylogeny", "papers placed", "lineage threads", "Every paper is a light", "Start anywhere", "Industry products", "Landmarks, named", "ReTransformer"], tree_shape),
     check("tree coloured by workload", {"view": "tree", "colorBy": "A0_workload"}, ["LLM (autoregressive)", "two-prompt agreement"]),
     check("paper selected: threads", {"view": "tree", "sel": {"type": "paper", "id": followed["id"]}}, ["Grew out of it", "Grew from", followed["t"][:40], "Lit on the tree", "via "], kin_threads(followed)),
     check("marks on a marked paper", {"view": "tree", "sel": {"type": "paper", "id": marked["id"]}}, ["★★★ top 10%", "◆ opened a line", "T1 peer-reviewed"]),
@@ -93,7 +129,7 @@ results = [
     check("year cross-section", {"view": "tree", "sel": {"type": "year", "id": 2022}}, ["2022 — a cross-section", "Compute paradigm", "Industry that year", "No data yet"]),
     check("river selected", {"view": "tree", "sel": {"type": "lane", "id": "cim_digital"}}, ["Digital in-memory", "Most followed", "Compare its periods"]),
     check("directions", {"view": "directions", "axis": "A1_paradigm", "dir": "A1_paradigm=cim_digital"}, ["Which directions grew", "How one direction changed", "2018-2020", "2024-2025", "n="]),
-    check("directions, other axis", {"view": "directions", "axis": "lever"}, ["What the paper acts on", "nonideality reliability"]),
+    check("directions, other axis", {"view": "directions", "axis": "lever"}, ["What the paper acts on", "non-ideality and reliability"]),
     check("industry", {"view": "products"}, ["What industry shipped", "Where it sits", "Looked for and not found", "Sources for this line", "year ?"]),
     check("industry, conflicting accounts", {"view": "products", "line": "axelera", "gen": 0}, ["Conflicting accounts", "rung:", "T2"]),
     check("sources", {"view": "sources"}, ["What this page rests on", "Cohen's kappa", "Measured recall", "Title-only threads", "Evidence tiers", "Novelty by precedence"]),

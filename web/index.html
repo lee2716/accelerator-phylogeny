@@ -100,6 +100,26 @@ svg { display: block; }
 .plabel { font: 600 10.5px var(--display); letter-spacing: .02em; fill: var(--ink); paint-order: stroke; stroke: var(--bg); stroke-width: 3.2px; stroke-linejoin: round; cursor: pointer; }
 .plabel:hover { fill: var(--accent); } .plabel.self { fill: var(--ink); font-size: 12px; } .plabel.up { fill: var(--c4); } .plabel.down { fill: var(--accent); }
 .tree.intro .halo, .tree.intro .plabel { animation: reveal .8s ease-out both; animation-delay: calc(var(--i) * 95ms + 500ms); }
+body.presenting .eyebrow, body.presenting .sub, body.presenting .stats, body.presenting .limits { display: none; }
+body.presenting header { padding-block: 12px 8px; align-items: center; } body.presenting h1 { font-size: 24px; }
+.tourbar { display: flex; flex-wrap: wrap; gap: 8px 10px; align-items: center; margin: 6px 0 10px; }
+.chip-btn.primary { color: var(--bg); background: var(--accent); border-color: var(--accent); box-shadow: 0 0 calc(16px * var(--glow)) color-mix(in srgb, var(--accent) 55%, transparent); }
+.chip-btn[disabled] { opacity: .35; cursor: default; }
+.steps { display: flex; gap: 4px; flex-wrap: wrap; }
+.stepdot { font: 600 11px/1 var(--mono); width: 26px; height: 26px; border-radius: 50%; border: 1px solid var(--line); background: transparent; color: var(--muted); cursor: pointer; padding: 0; }
+.stepdot:hover { border-color: var(--accent); color: var(--ink); } .stepdot.on { background: var(--accent); border-color: var(--accent); color: var(--bg); box-shadow: 0 0 calc(12px * var(--glow)) var(--accent); }
+.narr { font-size: 15px; line-height: 1.55; color: var(--ink); margin: 0 0 12px; }
+.branch { opacity: .07; } .yearband { fill: var(--accent); opacity: .09; stroke: var(--accent); stroke-opacity: .5; stroke-width: 1; }
+.thread { fill: none; stroke: var(--ink-2); stroke-width: 1; opacity: .22; } .thread.cold { opacity: .05; }
+.thread.hot { stroke: var(--accent); stroke-width: 1.7; opacity: .95; stroke-dasharray: 5 6; animation: flow 1.4s linear infinite; }
+.pcard { cursor: pointer; transition: opacity .2s; } .pcard.off { opacity: .16; }
+.cbox { fill: var(--panel-2); stroke-width: 1.2; } .pcard:hover .cbox, .pcard:focus-visible .cbox { stroke-width: 2.4; }
+.pcard.star .cbox { filter: drop-shadow(0 0 calc(5px * var(--glow)) currentColor); } .pcard.sel .cbox { stroke: var(--ink); stroke-width: 2.4; }
+.pcard:focus-visible { outline: none; }
+.cname { font: 600 10.5px var(--display); letter-spacing: .01em; fill: var(--ink); } .cmeta { font: 8.5px var(--mono); fill: var(--muted); } .cmark { font: 8.5px var(--mono); fill: var(--accent); }
+.more { font: 9px var(--mono); fill: var(--muted); cursor: pointer; } .more:hover { fill: var(--accent); }
+.prodname { font: 600 9.5px var(--mono); fill: var(--warn); cursor: pointer; } .prodname:hover { text-decoration: underline; } .prodname.off { opacity: .25; }
+@media (prefers-reduced-motion: reduce) { .thread.hot { animation: none; stroke-dasharray: none; } }
 #tip .tt { display: block; font: 600 13px/1.3 var(--display); margin-bottom: 4px; } #tip .tm { display: block; opacity: .78; } #tip .tk { display: block; font-weight: 600; margin: 3px 0; }
 .kin { fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-dasharray: 5 7; animation: flow 1.4s linear infinite; }
 .kin.far { stroke-width: 1; opacity: .5; }

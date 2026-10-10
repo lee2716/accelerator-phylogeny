@@ -13,6 +13,12 @@ const VALUE_NAME = {
   cim_analog_nvm: "Analog in-memory · non-volatile", cim_analog_sram: "Analog in-memory · SRAM", cim_digital: "Digital in-memory",
   pim_dram_near_memory: "DRAM / near-memory", target_generic: "Tools, no paradigm of their own", not_stated: "Not stated",
   llm_autoregressive: "LLM (autoregressive)", transformer_encoder_vit: "Transformer encoder / ViT", generic_dnn: "Generic DNN",
+  cnn: "CNN", gnn: "GNN", snn: "Spiking networks", rnn_lstm: "RNN / LSTM", non_nn: "Non-neural workloads", training: "Training",
+  rram: "RRAM", sram: "SRAM", pcm: "PCM", fefet: "FeFET", mram: "MRAM", dram: "DRAM", fpga: "FPGA", gpu_simt: "GPU",
+  digital_spatial_asic: "Digital accelerator (ASIC)", systolic_matrix_engine: "Matrix engine", vector_simd_isa_ext: "Vector / ISA extension", cgra_dataflow: "CGRA / dataflow",
+  power_thermal: "power and thermal", memory_hierarchy: "memory hierarchy", nonideality_reliability: "non-ideality and reliability", mapping_dse_compiler: "mapping, DSE and compilers",
+  circuit_macro_design: "circuit and macro design", dataflow_tiling_buffering: "dataflow, tiling and buffering", interconnect_noc_chiplet: "interconnect, NoC and chiplets",
+  precision_format: "precision and number format", programmability_sw_stack: "programmability and software stack", on_device_training: "on-device training", scheduling_control: "scheduling and control",
 };
 const INFLUENCE_MARK = { top_10: "★★★ top 10%", top_25: "★★ top 25%", upper_half: "★ upper half", lower_half: "lower half", too_early: "too recent to rank" };
 const NOVELTY_MARK = { opened_line: "◆ opened a line", early_entrant: "◇ early entrant", singleton: "○ singleton", predates_data: "line predates the data (2018)" };
@@ -38,7 +44,7 @@ const LANE_MIN = 12;         // paradigms with fewer papers share one "other par
 const KIN_DEPTH = 2;         // generations of ancestors and descendants lit on selection
 const YEARS = Object.keys(D.tables.n_per_year).map(Number);
 const LAST_FULL_YEAR = 2025;
-const state = { view: "tree", sel: null, show: "landmarks", colorBy: "A1_paradigm", axis: "A1_paradigm", dir: null, pick: null, line: null, gen: 0 };
+const state = { view: "roadmap", tour: null, sel: null, show: "landmarks", colorBy: "A1_paradigm", axis: "A1_paradigm", dir: null, pick: null, line: null, gen: 0 };
 const paperById = new Map(D.papers.map(p => [p.id, p]));
 const reducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 let firstPaint = !location.search;   // the entrance animation plays once; never when a test or screenshot adds a query
@@ -95,7 +101,7 @@ function marks(p) {
 function paperItem(p, extra) {
   const inSlice = paperById.has(p.id);
   return el("div", { class: "item" },
-    inSlice ? el("button", { class: "link", text: p.t, onclick: () => go({ view: "tree", sel: { type: "paper", id: p.id } }) }) : el("span", { text: p.t }),
+    inSlice ? el("button", { class: "link", text: p.t, onclick: () => go({ view: state.view === "roadmap" && isLandmark(paperById.get(p.id)) ? "roadmap" : "tree", tour: null, sel: { type: "paper", id: p.id } }) }) : el("span", { text: p.t }),
     el("div", {}, marks(p)),
     el("div", { class: "meta" }, `${p.v} ${p.y} · `, doiLink(p.id), inSlice ? "" : " · outside the labelled slice", extra || ""));
 }
@@ -113,7 +119,7 @@ function colorMap(axis) {
 }
 
 // ---------- navigation ----------
-const VIEWS = [["tree", "The tree"], ["directions", "Directions"], ["products", "Industry"], ["sources", "Sources"]];
+const VIEWS = [["roadmap", "Roadmap"], ["tree", "All papers"], ["directions", "Directions"], ["products", "Industry"], ["sources", "Sources"]];
 function go(patch) {
   Object.assign(state, patch);
   try { history.replaceState(null, "", "#" + encodeURIComponent(JSON.stringify(state))); } catch (error) { /* some file:// contexts refuse */ }
@@ -125,7 +131,8 @@ function render() {
   for (const [id, name] of VIEWS) nav.append(el("button", { role: "tab", "aria-selected": String(state.view === id), text: name, onclick: () => go({ view: id }) }));
   const stage = document.getElementById("stage"), side = document.getElementById("side");
   stage.replaceChildren(); side.replaceChildren();
-  ({ tree: viewTree, directions: viewDirections, products: viewProducts, sources: viewSources })[state.view](stage, side);
+  document.body.classList.toggle("presenting", state.view === "roadmap" && state.tour != null);
+  ({ roadmap: viewRoadmap, tree: viewTree, directions: viewDirections, products: viewProducts, sources: viewSources })[state.view](stage, side);
 }
 function countUp(node, target) {       // the final value is in the DOM from the start; the count is decoration
   node.textContent = target.toLocaleString("en-US");
@@ -313,7 +320,7 @@ function viewTree(stage, side) {
   const legend = el("div", { class: "legend" });
   colors.named.forEach(v => legend.append(el("span", {}, el("i", { style: `background:${colors.get(v)}` }), pretty(v))));
   legend.append(el("span", {}, el("i", { style: "background:var(--c0)" }), "other / not stated"));
-  stage.append(legend, el("div", { class: "legend" }, el("span", { text: "Named, ringed lights are landmarks: top 10% of their venue and year, or first of a line that grew (◆), or followed at least 8 times here. The faint small lights are every other paper. A name is the system name before the colon of the title, else its first words; names that would collide are left out, so hover any light. Gold threads lead back to what a paper cites, cyan forward to what cites it. * partial year." })));
+  stage.append(legend, el("div", { class: "legend" }, el("span", { text: "Named, ringed lights are landmarks: top 10% of their venue and year, or in the first year of a combination that reached five papers (◆), or followed at least 8 times here. The faint small lights are every other paper. A name is the system name before the colon of the title, else its first words; names that would collide are left out, so hover any light. Gold threads lead back to what a paper cites, cyan forward to what cites it. * partial year." })));
   if (selPaper) sidePaper(side, selPaper, kin); else if (selYear) sideYear(side, selYear); else if (selLane) sideLane(side, selLane, L); else sideIntro(side);
 }
 function sideIntro(side) {
@@ -381,6 +388,177 @@ function sideLane(side, key, L) {
   side.append(el("h3", { text: "Most followed" }));
   [...lane.papers].sort((a, b) => b.fol.length - a.fol.length).slice(0, 12).forEach(p => side.append(paperItem(p, ` · ${p.fol.length} followers`)));
 }
+
+
+// ---------- view: roadmap (only landmarks, as named cards) and its guided tour ----------
+const CARD_W = 102, CARD_H = 28, CARD_GAP = 5, CARDS_PER_CELL = 4;
+const BIGGEST_LINES = 6;      // the papers that opened the largest lines always get a card
+const STARS = { top_10: "★★★", top_25: "★★", upper_half: "★", lower_half: "", too_early: "new" };
+function layoutRoadmap() {
+  const W = 1180, left = 160, right = 12, top = 38, colW = (W - left - right) / YEARS.length, lanes = lanesOf(), cards = new Map();
+  const firstOfLine = new Map();   // the most followed opener of each of the largest lines always gets a card
+  for (const p of D.papers.filter(q => q.nov.tier === "opened_line").sort((a, b) => b.nov.why.n - a.nov.why.n || b.fol.length - a.fol.length)) {
+    const key = `${p.nov.why.kind}|${p.nov.why.a}|${p.nov.why.b}`; if (!firstOfLine.has(key) && firstOfLine.size < BIGGEST_LINES) firstOfLine.set(key, p.id); }
+  const must = new Set(firstOfLine.values());
+  const rank = p => (must.has(p.id) ? 100 : 0) + landmarkScore(p) + (p.nov.tier === "opened_line" ? 2 : 0);
+  let y = top;
+  for (const lane of lanes) {
+    lane.cells = YEARS.map(year => { const all = lane.papers.filter(p => p.y === year);
+      const shown = all.filter(isLandmark).sort((a, b) => rank(b) - rank(a)).slice(0, CARDS_PER_CELL);
+      return { year, all, shown, more: all.length - shown.length }; });
+    const stack = Math.max(0, ...lane.cells.map(c => c.shown.length));
+    lane.h = Math.max(stack * (CARD_H + CARD_GAP) + 20, 34); lane.top = y; lane.counts = lane.cells.map(c => c.all.length);
+    lane.cells.forEach((cell, i) => cell.shown.forEach((p, k) =>
+      cards.set(p.id, { x: left + colW * i + (colW - CARD_W) / 2, y: y + 5 + k * (CARD_H + CARD_GAP), lane, i })));
+    y += lane.h + 3;
+  }
+  return { W, H: y + 52, left, right, top, colW, lanes, cards };
+}
+function fitText(ruler, text, maxWidth, scale) {      // shorten until the measured width fits the card
+  let out = text; ruler.textContent = out;
+  while (out.length > 3 && ruler.getBoundingClientRect().width * scale > maxWidth) { out = out.slice(0, -2).trimEnd() + "…"; ruler.textContent = out; out = out.slice(0, -1); }
+  return ruler.textContent;
+}
+function topOf(axis, year) {
+  return Object.entries(D.tables.series[axis]).map(([value, points]) => ({ value, now: points.find(q => q.year === year), before: points.find(q => q.year === year - 1) }))
+    .filter(r => r.now && r.now.k && !VAGUE.includes(r.value)).sort((a, b) => b.now.share - a.now.share);
+}
+const points = x => `${x >= 0 ? "+" : "−"}${Math.abs(x * 100).toFixed(0)} points`;
+function buildTour(R) {      // every sentence is assembled from the data; nothing here is an opinion
+  const shownIds = new Set(R.cards.keys()), steps = [];
+  const names = list => list.map(p => shortName(p.t)).join(", ");
+  steps.push({ title: "How to read this roadmap", year: null, focus: shownIds, lines: [
+    `Each branch is a compute paradigm; time runs left to right. Only landmark papers appear, as cards: ${shownIds.size} of ${D.meta.n_in_scope} papers.`,
+    "A landmark is in the top 10% of its venue and year by citations, or was first of a line that later grew, or was followed at least 8 times inside these venues.",
+    "Lines between cards are citations. “+N papers” opens everything else from that year. Step through the years with the arrows, or leave the tour and click any card." ] });
+  for (const year of YEARS) {
+    const n = D.tables.n_per_year[year], here = [...shownIds].map(id => paperById.get(id)).filter(p => p.y === year), lines = [];
+    const paradigm = topOf("A1_paradigm", year)[0], workloads = topOf("A0_workload", year).slice(0, 2), device = topOf("A1_device", year)[0];
+    lines.push(`${n} papers in these venues` + (year > LAST_FULL_YEAR ? " so far — a partial year, two of four venues, so its shares are not comparable." : "."));
+    if (paradigm) lines.push(`Most common paradigm: ${pretty(paradigm.value)}, ${pct(paradigm.now.share)} of the year` + (paradigm.before ? ` (${points(paradigm.now.share - paradigm.before.share)} on ${year - 1}).` : "."));
+    if (workloads.length) lines.push("Workloads: " + workloads.map(w => `${pretty(w.value)} ${pct(w.now.share)}` + (w.before ? ` (${points(w.now.share - w.before.share)})` : "")).join("; ") + ".");
+    if (device) lines.push(`Most named memory device: ${pretty(device.value)}, ${pct(device.now.share)}.`);
+    const openers = D.papers.filter(p => p.y === year && p.nov.tier === "opened_line");
+    const firsts = new Map();
+    for (const p of openers) { const key = `${p.nov.why.a}|${p.nov.why.b}`; if (!firsts.has(key)) firsts.set(key, { why: p.nov.why, papers: [] }); firsts.get(key).papers.push(p); }
+    if (firsts.size) lines.push("Combinations first seen this year that reached five papers or more: " + [...firsts.values()].map(f =>
+      `${pretty(f.why.a)} × ${pretty(f.why.b)} (${f.papers.length >= f.why.n ? `${f.why.n} papers, all this year` : `${names(f.papers.slice(0, 2))}; ${f.why.n} papers by 2025`})`).join("; ") + ".");
+    if (!here.length) lines.push(year >= 2025 ? "No landmark card yet: papers this recent have too few citations to be ranked, so none can be singled out." : "No landmark card this year.");
+    const followed = [...here].sort((a, b) => b.fol.length - a.fol.length)[0];
+    if (followed && followed.fol.length) lines.push(`Most followed paper of the year inside these venues: ${shortName(followed.t)}, ${followed.fol.length} followers.`);
+    const products = D.industry.flatMap(line => line.generations.filter(g => g.year_announced === year).map(g => `${line.vendor} ${g.name}`));
+    lines.push(products.length ? "Industry announced: " + products.join(", ") + "." : "No recorded industry generation was announced this year.");
+    steps.push({ title: String(year), year, focus: new Set(here.map(p => p.id)), lines });
+  }
+  const moved = axis => Object.entries(D.tables.tests[axis]).filter(([v, test]) => test.direction !== "flat_or_noise" && !VAGUE.includes(v))
+    .sort((a, b) => Math.abs(b[1].change_first_to_last) - Math.abs(a[1].change_first_to_last)).map(([v, test]) => `${pretty(v)} ${points(test.change_first_to_last)}`);
+  steps.push({ title: "2018 → 2025: what moved", year: null, focus: shownIds, lines: [
+    "Only changes that pass the pre-registered test are listed (permutation p < 0.05 and at least 3 share points).",
+    "Paradigm: " + (moved("A1_paradigm").join("; ") || "nothing passes") + ".", "Workload: " + (moved("A0_workload").join("; ") || "nothing passes") + ".",
+    "Memory device: " + (moved("A1_device").join("; ") || "nothing passes") + ".", "What the papers act on: " + (moved("lever").join("; ") || "nothing passes") + "." ] });
+  const left_ = [...shownIds].map(id => paperById.get(id)).filter(p => p.cit.status === "FETCHED" && p.cit.outside_n >= 20 && p.fol.length <= 2).sort((a, b) => b.cit.outside_n - a.cit.outside_n).slice(0, 6);
+  const lines_ = new Map();       // one entry per line (a combination and its first year), with the papers that opened it
+  for (const p of D.papers.filter(q => q.nov.tier === "opened_line")) { const w = p.nov.why, key = `${w.kind}|${w.a}|${w.b}`;
+    if (!lines_.has(key)) lines_.set(key, { why: w, openers: [] }); lines_.get(key).openers.push(p); }
+  const biggest = [...lines_.values()].sort((a, b) => b.why.n - a.why.n).slice(0, 5);
+  steps.push({ title: "Where to look next", year: null, focus: new Set([...left_, ...biggest.flatMap(l => l.openers)].map(p => p.id).filter(id => shownIds.has(id))), lines: [
+    "Two kinds of card are worth a closer look. Neither is a conclusion; both are places to start reading.",
+    ...biggest.map(l => l.openers.length >= l.why.n
+      ? `Appeared all at once: ${pretty(l.why.a)} × ${pretty(l.why.b)} — ${l.why.n} papers in ${l.why.first_year} and none before, among them ${names(l.openers.slice(0, 4))}. Too new to say whether it lasts.`
+      : `A line that grew: ${pretty(l.why.a)} × ${pretty(l.why.b)} — first seen in ${l.why.first_year} (${names(l.openers.slice(0, 3))}), ${l.why.n} papers by 2025.`),
+    left_.length ? "Landmarks picked up mostly outside these venues (many citations elsewhere, at most 2 followers here): " + names(left_) + "." : "",
+    "Precedence here is inside four venues, not world priority, and it rests on labels read from abstracts." ].filter(Boolean) });
+  return steps;
+}
+function viewRoadmap(stage, side) {
+  const R = layoutRoadmap(), laneColor = colorMap("A1_paradigm"), steps = buildTour(R);
+  const touring = state.tour != null, step = touring ? steps[Math.max(0, Math.min(steps.length - 1, state.tour))] : null;
+  const selPaper = !touring && state.sel && state.sel.type === "paper" && R.cards.has(state.sel.id) ? paperById.get(state.sel.id) : null;
+  const goStep = k => go({ tour: Math.max(0, Math.min(steps.length - 1, k)), sel: null });
+  viewRoadmap.keys = touring ? { left: () => goStep(state.tour - 1), right: () => goStep(state.tour + 1), escape: () => go({ tour: null }) } : null;
+  stage.append(el("h2", { text: touring ? `Guided tour · ${step.title}` : "The landmarks, branch by branch" }));
+  const bar = el("div", { class: "tourbar" });
+  if (touring) {
+    bar.append(el("button", { class: "chip-btn", id: "prev", text: "◀ Back", disabled: state.tour === 0 ? "" : null, onclick: () => goStep(state.tour - 1) }),
+      el("div", { class: "steps" }, steps.map((st, k) => tip(el("button", { class: "stepdot" + (k === state.tour ? " on" : ""), "aria-label": `Step ${k + 1}: ${st.title}`, text: st.year ? String(st.year).slice(2) : "•", onclick: () => goStep(k) }), st.title))),
+      el("button", { class: "chip-btn", id: "next", text: "Next ▶", disabled: state.tour === steps.length - 1 ? "" : null, onclick: () => goStep(state.tour + 1) }),
+      el("span", { class: "meta", text: `step ${state.tour + 1} of ${steps.length} · ← → keys` }), el("button", { class: "chip-btn", id: "exit", text: "Leave tour", onclick: () => go({ tour: null }) }));
+  } else {
+    bar.append(el("button", { class: "chip-btn primary", id: "start", text: "▶ Start the guided tour", onclick: () => goStep(0) }),
+      el("span", { class: "meta", text: `${R.cards.size} landmarks of ${D.meta.n_in_scope} papers · click a card to trace it` }),
+      selPaper ? el("button", { class: "chip-btn", text: "Clear selection", onclick: () => go({ sel: null }) }) : null);
+  }
+  stage.append(bar);
+  const svg = s("svg", { class: "tree roadmap", viewBox: `0 0 ${R.W} ${R.H}`, role: "img", "aria-label": "Landmark papers by year and compute paradigm, with the citations between them" });
+  stage.append(el("div", { class: "scroll" }, svg));
+  const scale = svg.getBoundingClientRect().width ? R.W / svg.getBoundingClientRect().width : 1;
+  const linked = new Set();
+  if (selPaper) { linked.add(selPaper.id); for (const n of [...selPaper.fol, ...selPaper.refs]) if (R.cards.has(n.id)) linked.add(n.id); }
+  const lit = touring ? (step.year || step.focus.size ? step.focus : null) : selPaper ? linked : null, isLit = id => !lit || lit.has(id);   // a year step dims the other years even when it has no landmark of its own
+  YEARS.forEach((year, i) => {
+    const x = R.left + R.colW * i, on = touring && step.year === year;
+    if (on) svg.append(s("rect", { class: "yearband", x: x + 2, y: R.top - 8, width: R.colW - 4, height: R.H - R.top - 40, rx: 10 }));
+    svg.append(tip(s("text", { class: "year" + (on ? " on" : ""), x: x + R.colW / 2, y: 20, "text-anchor": "middle", tabindex: 0, text: year + (year > LAST_FULL_YEAR ? "*" : ""),
+      onclick: () => goStep(steps.findIndex(st => st.year === year)) }), `${year}: ${D.tables.n_per_year[year]} papers\nclick to open this year in the tour`));
+  });
+  for (const lane of R.lanes) {
+    const c = lane.key === "__other" ? "var(--c0)" : laneColor.get(lane.key), mid = lane.top + lane.h / 2;
+    svg.append(s("rect", { class: "branch", x: R.left - 6, y: lane.top, width: R.W - R.left - R.right + 6, height: lane.h, rx: 12, fill: c }),
+      s("rect", { x: 0, y: lane.top + 6, width: 4, height: lane.h - 12, rx: 2, fill: c }),
+      s("text", { class: "lane-label", x: 12, y: mid - 2, text: lane.name.length > 22 ? lane.name.slice(0, 21) + "…" : lane.name }),
+      s("text", { class: "lane-n", x: 12, y: mid + 13, text: `${lane.papers.length} papers` }));
+    lane.cells.forEach((cell, i) => { if (!cell.more) return;
+      const x = R.left + R.colW * i + R.colW / 2, yy = lane.top + 5 + cell.shown.length * (CARD_H + CARD_GAP) + 9;
+      svg.append(tip(s("text", { class: "more", x, y: yy, "text-anchor": "middle", tabindex: 0, text: `+${cell.more} paper${cell.more > 1 ? "s" : ""}`,
+        onclick: () => go({ view: "tree", tour: null, sel: { type: "year", id: cell.year } }) }), `${cell.more} more ${lane.name} paper(s) in ${cell.year}\nclick to see every paper of ${cell.year}`)); });
+  }
+  const threads = [];
+  for (const [id, at] of R.cards) for (const ref of paperById.get(id).refs) { const from = R.cards.get(ref.id); if (!from) continue;
+    const a = { x: from.x + CARD_W, y: from.y + CARD_H / 2 }, b = { x: at.x, y: at.y + CARD_H / 2 }, hot = lit && lit.has(id) && lit.has(ref.id) && (selPaper ? (id === selPaper.id || ref.id === selPaper.id) : true);
+    const d = a.x <= b.x ? edgePath(a, b) : `M${from.x + CARD_W / 2},${from.y + CARD_H} C${from.x + CARD_W / 2},${from.y + CARD_H + 26} ${at.x + CARD_W / 2},${at.y + CARD_H + 26} ${at.x + CARD_W / 2},${at.y + CARD_H}`;
+    threads.push(s("path", { class: "thread" + (hot ? " hot" : lit ? " cold" : ""), d })); }
+  svg.append(...threads);
+  const ruler = s("text", { class: "cname", visibility: "hidden" }); svg.append(ruler);
+  for (const [id, at] of R.cards) {
+    const p = paperById.get(id), c = at.lane.key === "__other" ? "var(--c0)" : laneColor.get(at.lane.key), on = isLit(id);
+    const marksText = [STARS[p.inf.tier], p.nov.tier === "opened_line" ? "◆" : p.nov.tier === "early_entrant" ? "◇" : ""].filter(Boolean).join(" ");
+    const g = s("g", { class: "pcard" + (on ? "" : " off") + (selPaper && selPaper.id === id ? " sel" : "") + (p.inf.tier === "top_10" ? " star" : ""), tabindex: 0, "data-card": id, style: `color:${c}`,
+      onclick: () => go({ tour: null, sel: { type: "paper", id } }), onkeydown: e => e.key === "Enter" && go({ tour: null, sel: { type: "paper", id } }) },
+      s("rect", { class: "cbox", x: at.x, y: at.y, width: CARD_W, height: CARD_H, rx: 6, stroke: c }), s("rect", { x: at.x, y: at.y + 4, width: 3.5, height: CARD_H - 8, rx: 1.5, fill: c }),
+      s("text", { class: "cname", x: at.x + 9, y: at.y + 12, text: fitText(ruler, shortName(p.t).replace(/…$/, ""), CARD_W - 14, scale) }),
+      s("text", { class: "cmeta", x: at.x + 9, y: at.y + 23, text: `${p.v} ’${String(p.y).slice(2)}` }),
+      s("text", { class: "cmark", x: at.x + CARD_W - 6, y: at.y + 23, "text-anchor": "end", text: marksText }));
+    svg.append(tip(g, () => [el("b", { class: "tt", text: p.t }), el("span", { class: "tm", text: `${p.v} ${p.y}${p.au ? " · " + p.au + " et al." : ""}` }),
+      el("span", { class: "tm", text: `${pretty(p.ax.A1_paradigm)} · ${pretty(p.ax.A0_workload)}` }),
+      el("span", { class: "tk", text: `${INFLUENCE_MARK[p.inf.tier]}${NOVELTY_MARK[p.nov.tier] ? "  ·  " + NOVELTY_MARK[p.nov.tier] : ""}` }),
+      el("span", { class: "tm", text: `${p.fol.length} follower(s) in these venues · cited ${p.inf.cites} in total` })]));
+  }
+  ruler.remove();
+  const trackY = R.H - 26;
+  svg.append(s("text", { class: "lane-label", x: 12, y: trackY + 4, text: "Industry" }));
+  YEARS.forEach((year, i) => { const here = D.industry.flatMap(line => line.generations.map((g, k) => ({ line, g, k }))).filter(x => x.g.year_announced === year);
+    here.forEach((x, k) => { const w = R.colW / Math.max(here.length, 1), cx = R.left + R.colW * i + w * (k + 0.5), label = x.line.vendor.split(/[ (]/)[0].slice(0, Math.max(3, Math.floor(w / 6.4)));
+      svg.append(tip(s("text", { class: "prodname" + (touring && step.year && step.year !== year ? " off" : ""), x: cx, y: trackY + 4, "text-anchor": "middle", tabindex: 0, text: label,
+        onclick: () => go({ view: "products", tour: null, line: x.line.slug, gen: x.k }) }), `${x.line.vendor} — ${x.g.name}\nannounced ${year}\nclick to open`)); }); });
+  stage.append(el("div", { class: "legend" }, el("span", { text: "★ = citation rank inside its own venue and year (★★★ top 10%). ◆ = published in the first year of a combination that reached five papers or more; ◇ = the year after. A line between cards is a citation, not a claim that the idea was inherited. At most four landmarks are shown per branch and year. * partial year." })));
+  if (touring) {
+    side.append(el("h2", { text: step.title }), ...step.lines.map(line => el("p", { class: "narr", text: line })),
+      el("div", { class: "tourbar" }, el("button", { class: "chip-btn", text: "◀ Back", disabled: state.tour === 0 ? "" : null, onclick: () => goStep(state.tour - 1) }),
+        el("button", { class: "chip-btn primary", text: "Next ▶", disabled: state.tour === steps.length - 1 ? "" : null, onclick: () => goStep(state.tour + 1) })));
+    const focus = [...step.focus].map(id => paperById.get(id)).sort((a, b) => landmarkScore(b) - landmarkScore(a));
+    if (step.year || focus.length < R.cards.size) { side.append(el("h3", { text: `Landmarks in this step · ${focus.length}` })); focus.slice(0, 14).forEach(p => side.append(paperItem(p, ` · ${p.fol.length} followers`))); }
+  } else if (selPaper) sidePaper(side, selPaper, null);
+  else {
+    side.append(el("h2", { text: "A field in nine years" }), el("p", { class: "q", text: "Start the tour to walk from 2018 to 2026 one year at a time, or click any card to see what it grew from and what grew out of it." }),
+      el("h3", { text: "Most followed landmarks" }));
+    [...R.cards.keys()].map(id => paperById.get(id)).sort((a, b) => b.fol.length - a.fol.length).slice(0, 8).forEach(p => side.append(paperItem(p, ` · ${p.fol.length} followers`)));
+  }
+}
+document.addEventListener("keydown", event => {
+  const keys = state.view === "roadmap" && viewRoadmap.keys, tagName = (event.target && event.target.tagName) || "";
+  if (!keys || /INPUT|SELECT|TEXTAREA/.test(tagName)) return;
+  if (event.key === "ArrowLeft") { keys.left(); event.preventDefault(); } else if (event.key === "ArrowRight") { keys.right(); event.preventDefault(); } else if (event.key === "Escape") keys.escape();
+});
 
 // ---------- view: directions ----------
 function sparkCard(axis, value, points, test, scale, on) {
@@ -531,7 +709,7 @@ function viewSources(stage, side) {
 
 // ---------- start ----------
 try { Object.assign(state, JSON.parse(decodeURIComponent(location.hash.slice(1)))); } catch (error) { /* no saved state */ }
-if (!VIEWS.some(([id]) => id === state.view)) state.view = "tree";
+if (!VIEWS.some(([id]) => id === state.view)) state.view = "roadmap";
 header(); render();
 // names are placed by measured width, so place them again once the web fonts have replaced the fallback
 if (document.fonts && document.fonts.ready && !document.fonts.check('600 10.5px "Chakra Petch"')) document.fonts.ready.then(() => { firstPaint = false; render(); });
@@ -545,6 +723,13 @@ if (location.search === "?probe") setTimeout(() => {
     const a = dots[i], b = dots[j], dx = (a.left + a.width / 2) - (b.left + b.width / 2), dy = (a.top + a.height / 2) - (b.top + b.height / 2);
     if (Math.hypot(dx, dy) < (Math.min(a.width, a.height) + Math.min(b.width, b.height)) / 2 * 0.75) overlaps++;
   }
+  const cardNodes = [...document.querySelectorAll(".pcard")], cardBoxes = cardNodes.map(n => n.querySelector(".cbox").getBoundingClientRect());
+  let cardOverlaps = 0;
+  for (let i = 0; i < cardBoxes.length; i++) for (let j = i + 1; j < cardBoxes.length; j++) {
+    const p = cardBoxes[i], q = cardBoxes[j]; if (p.left < q.right - 1 && q.left < p.right - 1 && p.top < q.bottom - 1 && q.top < p.bottom - 1) cardOverlaps++; }
+  const namesTooWide = cardNodes.filter((n, i) => n.querySelector(".cname").getBoundingClientRect().right > cardBoxes[i].right - 1).length;
+  const drawing = document.querySelector("svg.tree") ? document.querySelector("svg.tree").getBoundingClientRect() : null;
+  const cardsOutside = drawing ? cardBoxes.filter(b => b.left < drawing.left - 1 || b.right > drawing.right + 1 || b.bottom > drawing.bottom + 1).length : 0;
   const labelBoxes = [...document.querySelectorAll(".plabel")].map(n => n.getBoundingClientRect());
   const landmarks_total = D.papers.filter(isLandmark).length;
   const cross = (a, b) => a.left < b.right - 1 && b.left < a.right - 1 && a.top < b.bottom - 1 && b.top < a.bottom - 1;
@@ -559,10 +744,12 @@ if (location.search === "?probe") setTimeout(() => {
   const report = {
     viewport: [window.innerWidth, window.innerHeight], page_scroll_width: document.documentElement.scrollWidth,
     horizontal_overflow: document.documentElement.scrollWidth > window.innerWidth + 1,
-    h1: box(document.querySelector("h1")), nav: box(document.getElementById("nav")), stage: box(document.getElementById("stage")), side: box(document.getElementById("side")),
+    h1: box(document.querySelector("h1")), nav: box(document.getElementById("nav")), view: state.view, tour: state.tour, stage: box(document.getElementById("stage")), side: box(document.getElementById("side")),
     tree: svg ? box(svg) : null, lights: dots.length, overlapping_light_pairs: overlaps,
     lane_labels_reaching_into_plot: [...document.querySelectorAll(".lane-label")].filter(n => n.getBoundingClientRect().right > plotLeft).length,
     clipped_text_elements: clipped,
+    cards: cardBoxes.length, overlapping_card_pairs: cardOverlaps, card_names_wider_than_card: namesTooWide, cards_outside_drawing: cardsOutside,
+    threads: document.querySelectorAll(".thread").length, hot_threads: document.querySelectorAll(".thread.hot").length, dimmed_cards: document.querySelectorAll(".pcard.off").length,
     names_on_tree: labelBoxes.length, landmarks_total, overlapping_name_pairs: nameOverlaps, names_outside_tree: namesOutside,
     names_over_a_landmark_light: namesOverLights, sample_names: [...document.querySelectorAll(".plabel")].slice(0, 10).map(n => n.textContent),
     fonts_loaded: { display: document.fonts.check('700 30px "Chakra Petch"'), body: document.fonts.check('14px "IBM Plex Sans"'), mono: document.fonts.check('12px "IBM Plex Mono"') },

@@ -23,16 +23,26 @@ An interactive map of how AI accelerators have evolved since 2018, built to answ
 
 Open **`web/index.html`** in a browser. No server, no install.
 
-<p align="center"><img src="docs/img/tree.png" alt="The tree: one river per compute paradigm, one light per paper" width="100%"></p>
+**The roadmap** shows only the landmarks — 46 of 562 papers — as named cards on one branch per compute paradigm. Everything else folds into a “+N papers” tag you can open.
 
-**Click any light and its lineage lights up** — gold threads run back to what the paper grew from, cyan threads forward to what grew out of it.
+<p align="center"><img src="docs/img/roadmap.png" alt="The roadmap: landmark papers as named cards, one branch per compute paradigm" width="100%"></p>
 
-<p align="center"><img src="docs/img/lineage.png" alt="A selected paper with its ancestors and descendants lit on the tree" width="100%"></p>
+**The guided tour** walks from 2018 to 2026 one step at a time. Step forward and back with the buttons or the ← → keys, or jump to any year. Every sentence of the narration is assembled from the data: how many papers, which paradigm led and by how much it moved, which combinations appeared for the first time, what industry announced.
+
+<p align="center"><img src="docs/img/tour.png" alt="The guided tour at 2020: that year's landmarks lit, the rest dimmed, narration on the right" width="100%"></p>
+
+**All papers** keeps the whole population in view: one river per paradigm, one light per paper, landmarks named. Click any light and its lineage lights up — gold threads back to what it grew from, cyan threads forward to what grew out of it.
+
+<p align="center">
+  <img src="docs/img/tree.png" alt="All papers: one river per compute paradigm, one light per paper" width="49%">
+  <img src="docs/img/lineage.png" alt="A selected paper with its ancestors and descendants lit and named" width="49%">
+</p>
 
 ## What you can do with it
 
 | | |
 |---|---|
+| **Take the tour** | Walk the field year by year, forward and back, with narration built from the data. |
 | **Trace a lineage** | Pick a paper. See what it cites inside these venues, who cited it afterwards, and — when the line left these venues — which fields picked it up. |
 | **Cut a cross-section** | Pick a year. See what every paradigm, workload, memory device and lever looked like that year, next to the products industry announced. |
 | **Follow one direction** | Pick a direction such as digital in-memory computing and compare its periods side by side: workload, numerics, scale, evaluation rung. |
