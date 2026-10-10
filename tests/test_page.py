@@ -105,7 +105,7 @@ def tour_step(expect_dimmed):
             problems.append(f"{dimmed} cards dimmed in a step that focuses on everything")
         if dom.count('class="narr"') < 3:
             problems.append("fewer than three lines of narration")
-        if 'class="presenting"' not in dom:
+        if not re.search(r'<body class="[^"]*presenting', dom):
             problems.append("presentation mode is not on during the tour")
         return problems
     return check_dom
@@ -114,10 +114,11 @@ def tour_step(expect_dimmed):
 card_paper = next(p for p in PAPERS if "ReTransformer" in p["t"])
 results = [
     check("roadmap", {"view": "roadmap"}, ["The landmarks, branch by branch", "Start the guided tour", "ReTransformer", "A field in nine years", "Industry"], roadmap_shape),
-    check("roadmap, card selected", {"view": "roadmap", "sel": {"type": "paper", "id": card_paper["id"]}}, ["Grew out of it", "Grew from", "★★★ top 10%"]),
-    check("tour, first step", {"view": "roadmap", "tour": 0}, ["Guided tour", "How to read this roadmap", "Next ▶", "step 1 of 12", "Leave tour"], tour_step(False)),
-    check("tour, a year", {"view": "roadmap", "tour": 3}, ["Guided tour · 2020", "papers in these venues", "Most common paradigm", "Industry announced", "Landmarks in this step"], tour_step(True)),
-    check("tour, partial year", {"view": "roadmap", "tour": 9}, ["Guided tour · 2026", "partial year"], tour_step(True)),
+    check("roadmap, card selected", {"view": "roadmap", "sel": {"type": "paper", "id": card_paper["id"]}}, ["Grew out of it", "Grew from", "★★★ top 10%", "✕ Close"],
+          lambda dom: [] if re.search(r'<body class="[^"]*drawer', dom) else ["the details drawer is not open"]),
+    check("tour, first step", {"view": "roadmap", "tour": 0}, ["How to read this roadmap", "Next ▶", "step 1 of 12", "Leave tour"], tour_step(False)),
+    check("tour, a year", {"view": "roadmap", "tour": 3}, ["2020", "papers in these venues", "Most common paradigm", "Industry announced", "Landmarks of 2020"], tour_step(True)),
+    check("tour, partial year", {"view": "roadmap", "tour": 9}, ["2026", "partial year", "No landmark card yet"], tour_step(True)),
     check("tour, what moved", {"view": "roadmap", "tour": 10}, ["what moved", "pre-registered test", "RRAM", "LLM (autoregressive)"], tour_step(False)),
     check("tour, last step", {"view": "roadmap", "tour": 11}, ["Where to look next", "not world priority", "step 12 of 12"]),
     check("hero and all papers", {"view": "tree"}, ["Accelerator Phylogeny", "papers placed", "lineage threads", "Every paper is a light", "Start anywhere", "Industry products", "Landmarks, named", "ReTransformer"], tree_shape),

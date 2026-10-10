@@ -162,6 +162,64 @@ table { border-collapse: collapse; width: 100%; font-size: 13px; } th, td { text
 th { font: 600 11px var(--display); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); white-space: nowrap; } td.n { font-family: var(--mono); text-align: right; }
 #tip { position: fixed; pointer-events: none; background: var(--ink); color: var(--bg); padding: 7px 10px; border-radius: 8px; font: 12px/1.45 var(--body); max-width: 340px; z-index: 20; white-space: pre-line; box-shadow: 0 6px 24px rgba(0,0,0,.35); }
 footer { color: var(--muted); font-size: 12px; margin-top: 18px; text-align: center; }
+
+/* ---- legibility pass (2026-10-10): drawings are 1:1, no text under 12px on screen, contrast >= 4.5:1.
+   Measured by tests/test_legibility.py; before this pass card names rendered at 7px. ---- */
+:root {
+  --bg: #0a0e17; --bg-2: #101a2e; --panel: #121a2b; --panel-2: #1c2741; --line: #36466a;
+  --ink: #f3f6ff; --ink-2: #ccd6ec; --muted: #a3b1cc; --accent: #6cc8ff; --warn: #ffcf70;
+  --c1: #6aa9ff; --c2: #ff9d5c; --c3: #46d39a; --c4: #ffd166; --c5: #ff85b3; --c6: #7ddc6f; --c7: #b9a6ff; --c8: #ff8a80; --c0: #9aa7c4;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --bg: #f4f6fb; --bg-2: #e8edf8; --panel: #ffffff; --panel-2: #f1f4fb; --line: #c3cde2;
+    --ink: #0a1022; --ink-2: #2f3a55; --muted: #55607c; --accent: #0a66b8; --warn: #7a4d00;
+    --c1: #1f6fd1; --c2: #c9521c; --c3: #0f8a5f; --c4: #9a6a00; --c5: #c2407a; --c6: #1f7a1f; --c7: #5a48c2; --c8: #c7332f; --c0: #5d6884;
+  }
+}
+:root[data-theme="light"] {
+  color-scheme: light; --glow: 0;
+  --bg: #f4f6fb; --bg-2: #e8edf8; --panel: #ffffff; --panel-2: #f1f4fb; --line: #c3cde2;
+  --ink: #0a1022; --ink-2: #2f3a55; --muted: #55607c; --accent: #0a66b8; --warn: #7a4d00;
+  --c1: #1f6fd1; --c2: #c9521c; --c3: #0f8a5f; --c4: #9a6a00; --c5: #c2407a; --c6: #1f7a1f; --c7: #5a48c2; --c8: #c7332f; --c0: #5d6884;
+}
+:root[data-theme="dark"] {
+  color-scheme: dark; --glow: 1;
+  --bg: #0a0e17; --bg-2: #101a2e; --panel: #121a2b; --panel-2: #1c2741; --line: #36466a;
+  --ink: #f3f6ff; --ink-2: #ccd6ec; --muted: #a3b1cc; --accent: #6cc8ff; --warn: #ffcf70;
+  --c1: #6aa9ff; --c2: #ff9d5c; --c3: #46d39a; --c4: #ffd166; --c5: #ff85b3; --c6: #7ddc6f; --c7: #b9a6ff; --c8: #ff8a80; --c0: #9aa7c4;
+}
+body { font-size: 15px; }
+h2 { font-size: 18px; } h3 { font-size: 12.5px; color: var(--ink-2); letter-spacing: .1em; }
+.eyebrow { font-size: 12.5px; } .sub { font-size: 15px; } .stat span { font-size: 12px; }
+nav button, .chip-btn { font-size: 12.5px; padding: 10px 15px; color: var(--ink-2); }
+nav button.theme { border-style: dashed; }
+.controls label { font-size: 12px; color: var(--ink-2); } select, input[type=search] { font-size: 14px; }
+.meta { font-size: 12.5px; color: var(--muted); } .legend { font-size: 13px; color: var(--ink-2); } .num { font-size: 12.5px; }
+.tag { font-size: 12.5px; color: var(--ink-2); } .tag.tier { font-size: 12px; } .trend { font-size: 12px; }
+th { font-size: 12px; color: var(--ink-2); } table { font-size: 14px; } .thead { font-size: 12px; color: var(--ink-2); } .gen { font-size: 12px; } .plabel-html { font-size: 12.5px; }
+.card h4 { font-size: 12.5px; } .plabel { font-size: 12.5px; } .lane-label { font-size: 13px; fill: var(--ink); } .lane-n { font-size: 12px; fill: var(--muted); } .year { font-size: 14px; fill: var(--ink-2); }
+#tip { font-size: 13.5px; } #tip .tt { font-size: 14.5px; }
+.tree, .roadmap { min-width: 0; width: auto; height: auto; max-width: none; display: block; }
+.dot.minor { opacity: .55; } .dot.dim { opacity: .2; } .web { stroke-opacity: .1; }
+/* roadmap */
+body.wide main { grid-template-columns: minmax(0, 1fr); }
+body.wide .side { position: static; max-height: none; }
+body.wide.drawer .side { position: fixed; top: 12px; right: 12px; bottom: 12px; width: min(440px, calc(100vw - 24px)); max-height: none; z-index: 30;
+  background: var(--panel); border-color: var(--accent); box-shadow: -24px 0 60px rgba(0, 0, 0, .5); }
+.yearcol { fill: var(--ink); opacity: 0; } .yearcol.alt { opacity: .03; } .yearcol.on { fill: var(--accent); opacity: .13; }
+.branchline { stroke: var(--line); stroke-width: 1; }
+.thread { stroke: var(--ink-2); stroke-width: 1.3; opacity: .5; } .thread.cold { opacity: .14; } .thread.hot { stroke: var(--accent); stroke-width: 2.2; opacity: 1; }
+.pcard.off { opacity: .42; } .cbox { fill: var(--panel-2); stroke-width: 1.5; } .pcard.sel .cbox { stroke: var(--ink); stroke-width: 3; }
+.cname { font: 600 13.5px var(--display); fill: var(--ink); letter-spacing: 0; } .cmeta { font: 12px var(--mono); fill: var(--ink-2); } .cmark { font: 12px var(--mono); fill: var(--accent); }
+.more { font: 12px var(--mono); fill: var(--muted); } .prodname { font: 600 12px var(--mono); fill: var(--warn); } .prodname.off { opacity: .45; }
+.narration { background: var(--panel-2); border: 1px solid var(--line); border-radius: 14px; padding: 12px 18px 10px; margin-bottom: 12px; }
+.narr-title { font: 700 26px/1.1 var(--display); margin: 6px 0 8px; color: var(--ink); }
+.narr-list { columns: 2 440px; column-gap: 34px; margin: 0; padding-left: 20px; } .narr-list .narr { font-size: 15.5px; line-height: 1.5; margin: 0 0 7px; break-inside: avoid; color: var(--ink); }
+body.wide .sub { display: none; } body.wide header { padding-block: 14px 8px; } body.wide h1 { font-size: clamp(26px, 3vw, 38px); }
+body.wide .stat b { font-size: 20px; } body.wide .limits { margin-bottom: 8px; }
+.narration { position: sticky; top: 0; z-index: 12; box-shadow: 0 10px 24px rgba(0, 0, 0, .35); }
+.stepdot { width: 34px; height: 30px; border-radius: 15px; font-size: 12px; color: var(--ink-2); }
 </style>
 </head>
 <body>

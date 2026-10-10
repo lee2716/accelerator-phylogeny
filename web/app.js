@@ -129,9 +129,14 @@ function render() {
   tipBox.hidden = true;
   const nav = document.getElementById("nav"); nav.replaceChildren();
   for (const [id, name] of VIEWS) nav.append(el("button", { role: "tab", "aria-selected": String(state.view === id), text: name, onclick: () => go({ view: id }) }));
+  const dark = getComputedStyle(document.documentElement).colorScheme.includes("dark");
+  nav.append(el("button", { class: "theme", id: "theme", "aria-label": "Switch between dark and light", text: dark ? "☀ Light" : "☾ Dark", onclick: () => {
+    document.documentElement.dataset.theme = dark ? "light" : "dark"; try { localStorage.setItem("phylogeny-theme", document.documentElement.dataset.theme); } catch (error) { /* storage may be blocked */ } render(); } }));
   const stage = document.getElementById("stage"), side = document.getElementById("side");
   stage.replaceChildren(); side.replaceChildren();
   document.body.classList.toggle("presenting", state.view === "roadmap" && state.tour != null);
+  document.body.classList.toggle("wide", state.view === "roadmap");
+  if (state.view !== "roadmap") document.body.classList.remove("drawer");
   ({ roadmap: viewRoadmap, tree: viewTree, directions: viewDirections, products: viewProducts, sources: viewSources })[state.view](stage, side);
 }
 function countUp(node, target) {       // the final value is in the DOM from the start; the count is decoration
@@ -168,8 +173,8 @@ function lanesOf() {
   if (other.papers.length) lanes.push(other);
   return lanes;
 }
-function layoutTree() {
-  const W = 1180, left = 206, right = 16, top = 40, gap = 12, colW = (W - left - right) / YEARS.length, perRow = Math.floor((colW - 14) / gap);
+function layoutTree(W) {
+  const left = 214, right = 16, top = 40, gap = 12, colW = (W - left - right) / YEARS.length, perRow = Math.floor((colW - 14) / gap);
   const tierOrder = ["top_10", "top_25", "upper_half", "too_early", "lower_half"], pos = new Map(), lanes = lanesOf();
   const rowsOf = n => Math.max(1, Math.ceil(n / perRow));
   let y = top;
@@ -211,7 +216,7 @@ function kinOf(id) {       // ancestors and descendants inside the slice, KIN_DE
   return { up: walk("refs"), down: walk("fol") };
 }
 function viewTree(stage, side) {
-  const L = layoutTree(), colors = colorMap(state.colorBy), laneColor = colorMap("A1_paradigm");
+  const L = layoutTree(drawingWidth(stage, 1000)), colors = colorMap(state.colorBy), laneColor = colorMap("A1_paradigm");
   const selPaper = state.sel && state.sel.type === "paper" ? paperById.get(state.sel.id) : null;
   const selYear = state.sel && state.sel.type === "year" ? state.sel.id : null, selLane = state.sel && state.sel.type === "lane" ? state.sel.id : null;
   const pickYear = year => go({ sel: { type: "year", id: year } }), pickLane = key => go({ sel: { type: "lane", id: key } }), pickPaper = id => go({ sel: { type: "paper", id } });
@@ -225,7 +230,7 @@ function viewTree(stage, side) {
         onchange: e => { const q = e.target.value.toLowerCase(), hit = q.length > 2 && D.papers.find(p => p.t.toLowerCase().includes(q)); if (hit) pickPaper(hit.id); } })),
       state.sel ? el("button", { class: "chip-btn", id: "clear", text: "Clear selection", onclick: () => go({ sel: null }) }) : null,
       el("span", { class: "meta", text: kappaNote(state.colorBy) })));
-  const svg = s("svg", { class: "tree" + (firstPaint && !state.sel ? " intro" : ""), viewBox: `0 0 ${L.W} ${L.H}`, role: "img", "aria-label": "Papers by year and compute paradigm, with citation threads" });
+  const svg = s("svg", { class: "tree" + (firstPaint && !state.sel ? " intro" : ""), viewBox: `0 0 ${L.W} ${L.H}`, width: L.W, height: L.H, role: "img", "aria-label": "Papers by year and compute paradigm, with citation threads" });
   stage.append(el("div", { class: "scroll" }, svg));      // in the document now: name widths are measured, not estimated
   YEARS.forEach((year, i) => {
     const x = L.left + L.colW * (i + 0.5), on = year === selYear || (selPaper && selPaper.y === year);
@@ -271,7 +276,7 @@ function viewTree(stage, side) {
     const common = { class: cls, fill: c, color: c, stroke: hollow && lifted ? c : null, style: `--i:${at.i}`, tabindex: lifted ? 0 : -1, "data-id": p.id,
       onclick: () => pickPaper(p.id), onkeydown: e => e.key === "Enter" && pickPaper(p.id) };
     const shape = p.nov.tier === "opened_line"
-      ? s("rect", { ...common, x: at.x - r * 0.78, y: at.y - r * 0.78, width: 1.56 * r, height: 1.56 * r, transform: `rotate(45 ${at.x} ${at.y})` })   // a diamond's corners reach r·1.1, inside the grid cell
+      ? s("rect", { ...common, x: at.x - r * 0.72, y: at.y - r * 0.72, width: 1.44 * r, height: 1.44 * r, transform: `rotate(45 ${at.x} ${at.y})` })   // a diamond's corners reach r·1.1, inside the grid cell
       : s("circle", { ...common, cx: at.x, cy: at.y, r, opacity: p.gate === "borderline" && !dim && lifted ? 0.7 : null });
     svg.append(tip(shape, () => card(p)));
     drawn.set(p.id, { at, r, dim });
@@ -391,28 +396,34 @@ function sideLane(side, key, L) {
 
 
 // ---------- view: roadmap (only landmarks, as named cards) and its guided tour ----------
-const CARD_W = 102, CARD_H = 28, CARD_GAP = 5, CARDS_PER_CELL = 4;
+const CARD_H = 38, CARD_GAP = 5, CARDS_PER_CELL = 3;
 const BIGGEST_LINES = 6;      // the papers that opened the largest lines always get a card
+const ROADMAP_MIN_W = 1120;   // below this the roadmap scrolls sideways instead of shrinking its text
+const BRANCH_MIN_LANDMARKS = 4;   // a paradigm with fewer landmarks joins "Other branches"
 const STARS = { top_10: "★★★", top_25: "★★", upper_half: "★", lower_half: "", too_early: "new" };
-function layoutRoadmap() {
-  const W = 1180, left = 160, right = 12, top = 38, colW = (W - left - right) / YEARS.length, lanes = lanesOf(), cards = new Map();
+function drawingWidth(stage, floor) { return Math.max(floor, Math.floor(stage.clientWidth - 30)); }
+function layoutRoadmap(W) {
+  const left = 184, right = 8, top = 38, colW = (W - left - right) / YEARS.length, cardW = Math.floor(colW - 10), cards = new Map();
   const firstOfLine = new Map();   // the most followed opener of each of the largest lines always gets a card
   for (const p of D.papers.filter(q => q.nov.tier === "opened_line").sort((a, b) => b.nov.why.n - a.nov.why.n || b.fol.length - a.fol.length)) {
     const key = `${p.nov.why.kind}|${p.nov.why.a}|${p.nov.why.b}`; if (!firstOfLine.has(key) && firstOfLine.size < BIGGEST_LINES) firstOfLine.set(key, p.id); }
   const must = new Set(firstOfLine.values());
   const rank = p => (must.has(p.id) ? 100 : 0) + landmarkScore(p) + (p.nov.tier === "opened_line" ? 2 : 0);
+  const major = lanesOf().filter(l => l.key !== "__other" && l.papers.filter(isLandmark).length >= BRANCH_MIN_LANDMARKS);
+  const majorKeys = new Set(major.map(l => l.key)), rest = D.papers.filter(p => !majorKeys.has(p.ax.A1_paradigm));
+  const lanes = [...major, ...(rest.length ? [{ key: "__other", name: "Other branches", papers: rest }] : [])];
   let y = top;
   for (const lane of lanes) {
     lane.cells = YEARS.map(year => { const all = lane.papers.filter(p => p.y === year);
       const shown = all.filter(isLandmark).sort((a, b) => rank(b) - rank(a)).slice(0, CARDS_PER_CELL);
       return { year, all, shown, more: all.length - shown.length }; });
     const stack = Math.max(0, ...lane.cells.map(c => c.shown.length));
-    lane.h = Math.max(stack * (CARD_H + CARD_GAP) + 20, 34); lane.top = y; lane.counts = lane.cells.map(c => c.all.length);
+    lane.h = Math.max(stack * (CARD_H + CARD_GAP) + 20, 46); lane.top = y; lane.counts = lane.cells.map(c => c.all.length);
     lane.cells.forEach((cell, i) => cell.shown.forEach((p, k) =>
-      cards.set(p.id, { x: left + colW * i + (colW - CARD_W) / 2, y: y + 5 + k * (CARD_H + CARD_GAP), lane, i })));
-    y += lane.h + 3;
+      cards.set(p.id, { x: Math.round(left + colW * i + (colW - cardW) / 2), y: y + 4 + k * (CARD_H + CARD_GAP), lane, i })));
+    y += lane.h + 4;
   }
-  return { W, H: y + 52, left, right, top, colW, lanes, cards };
+  return { W, H: y + 30, left, right, top, colW, cardW, lanes, cards };
 }
 function fitText(ruler, text, maxWidth, scale) {      // shorten until the measured width fits the card
   let out = text; ruler.textContent = out;
@@ -471,83 +482,85 @@ function buildTour(R) {      // every sentence is assembled from the data; nothi
   return steps;
 }
 function viewRoadmap(stage, side) {
-  const R = layoutRoadmap(), laneColor = colorMap("A1_paradigm"), steps = buildTour(R);
+  const R = layoutRoadmap(drawingWidth(stage, ROADMAP_MIN_W)), laneColor = colorMap("A1_paradigm"), steps = buildTour(R);
   const touring = state.tour != null, step = touring ? steps[Math.max(0, Math.min(steps.length - 1, state.tour))] : null;
   const selPaper = !touring && state.sel && state.sel.type === "paper" && R.cards.has(state.sel.id) ? paperById.get(state.sel.id) : null;
   const goStep = k => go({ tour: Math.max(0, Math.min(steps.length - 1, k)), sel: null });
-  viewRoadmap.keys = touring ? { left: () => goStep(state.tour - 1), right: () => goStep(state.tour + 1), escape: () => go({ tour: null }) } : null;
-  stage.append(el("h2", { text: touring ? `Guided tour · ${step.title}` : "The landmarks, branch by branch" }));
-  const bar = el("div", { class: "tourbar" });
+  viewRoadmap.keys = touring ? { left: () => goStep(state.tour - 1), right: () => goStep(state.tour + 1), escape: () => go({ tour: null }) }
+    : selPaper ? { left: () => {}, right: () => {}, escape: () => go({ sel: null }) } : null;
+  document.body.classList.toggle("drawer", !!selPaper);
   if (touring) {
-    bar.append(el("button", { class: "chip-btn", id: "prev", text: "◀ Back", disabled: state.tour === 0 ? "" : null, onclick: () => goStep(state.tour - 1) }),
-      el("div", { class: "steps" }, steps.map((st, k) => tip(el("button", { class: "stepdot" + (k === state.tour ? " on" : ""), "aria-label": `Step ${k + 1}: ${st.title}`, text: st.year ? String(st.year).slice(2) : "•", onclick: () => goStep(k) }), st.title))),
-      el("button", { class: "chip-btn", id: "next", text: "Next ▶", disabled: state.tour === steps.length - 1 ? "" : null, onclick: () => goStep(state.tour + 1) }),
-      el("span", { class: "meta", text: `step ${state.tour + 1} of ${steps.length} · ← → keys` }), el("button", { class: "chip-btn", id: "exit", text: "Leave tour", onclick: () => go({ tour: null }) }));
+    stage.append(el("div", { class: "narration" },
+      el("div", { class: "tourbar" }, el("button", { class: "chip-btn", id: "prev", text: "◀ Back", disabled: state.tour === 0 ? "" : null, onclick: () => goStep(state.tour - 1) }),
+        el("div", { class: "steps" }, steps.map((st, k) => tip(el("button", { class: "stepdot" + (k === state.tour ? " on" : ""), "aria-label": `Step ${k + 1}: ${st.title}`, text: st.year ? "’" + String(st.year).slice(2) : k === 0 ? "?" : "Σ", onclick: () => goStep(k) }), st.title))),
+        el("button", { class: "chip-btn primary", id: "next", text: "Next ▶", disabled: state.tour === steps.length - 1 ? "" : null, onclick: () => goStep(state.tour + 1) }),
+        el("span", { class: "meta", text: `step ${state.tour + 1} of ${steps.length} · ← → keys · Esc leaves` }), el("button", { class: "chip-btn", id: "exit", text: "Leave tour", onclick: () => go({ tour: null }) })),
+      el("h2", { class: "narr-title", text: step.title }), el("ul", { class: "narr-list" }, step.lines.map(line => el("li", { class: "narr", text: line })))));
   } else {
-    bar.append(el("button", { class: "chip-btn primary", id: "start", text: "▶ Start the guided tour", onclick: () => goStep(0) }),
-      el("span", { class: "meta", text: `${R.cards.size} landmarks of ${D.meta.n_in_scope} papers · click a card to trace it` }),
-      selPaper ? el("button", { class: "chip-btn", text: "Clear selection", onclick: () => go({ sel: null }) }) : null);
+    stage.append(el("h2", { text: "The landmarks, branch by branch" }),
+      el("div", { class: "tourbar" }, el("button", { class: "chip-btn primary", id: "start", text: "▶ Start the guided tour", onclick: () => goStep(0) }),
+        el("span", { class: "meta", text: `${R.cards.size} landmark cards of ${D.meta.n_in_scope} papers · click a card to trace it · “+N papers” opens the rest` })));
   }
-  stage.append(bar);
-  const svg = s("svg", { class: "tree roadmap", viewBox: `0 0 ${R.W} ${R.H}`, role: "img", "aria-label": "Landmark papers by year and compute paradigm, with the citations between them" });
+  const svg = s("svg", { class: "roadmap", viewBox: `0 0 ${R.W} ${R.H}`, width: R.W, height: R.H, role: "img", "aria-label": "Landmark papers by year and compute paradigm, with the citations between them" });
   stage.append(el("div", { class: "scroll" }, svg));
-  const scale = svg.getBoundingClientRect().width ? R.W / svg.getBoundingClientRect().width : 1;
   const linked = new Set();
   if (selPaper) { linked.add(selPaper.id); for (const n of [...selPaper.fol, ...selPaper.refs]) if (R.cards.has(n.id)) linked.add(n.id); }
   const lit = touring ? (step.year || step.focus.size ? step.focus : null) : selPaper ? linked : null, isLit = id => !lit || lit.has(id);   // a year step dims the other years even when it has no landmark of its own
   YEARS.forEach((year, i) => {
     const x = R.left + R.colW * i, on = touring && step.year === year;
-    if (on) svg.append(s("rect", { class: "yearband", x: x + 2, y: R.top - 8, width: R.colW - 4, height: R.H - R.top - 40, rx: 10 }));
-    svg.append(tip(s("text", { class: "year" + (on ? " on" : ""), x: x + R.colW / 2, y: 20, "text-anchor": "middle", tabindex: 0, text: year + (year > LAST_FULL_YEAR ? "*" : ""),
+    svg.append(s("rect", { class: "yearcol" + (i % 2 ? " alt" : "") + (on ? " on" : ""), x, y: R.top - 12, width: R.colW, height: R.H - R.top - 24 }));
+    svg.append(tip(s("text", { class: "year" + (on ? " on" : ""), x: x + R.colW / 2, y: 22, "text-anchor": "middle", tabindex: 0, text: year + (year > LAST_FULL_YEAR ? "*" : ""),
       onclick: () => goStep(steps.findIndex(st => st.year === year)) }), `${year}: ${D.tables.n_per_year[year]} papers\nclick to open this year in the tour`));
   });
   for (const lane of R.lanes) {
     const c = lane.key === "__other" ? "var(--c0)" : laneColor.get(lane.key), mid = lane.top + lane.h / 2;
-    svg.append(s("rect", { class: "branch", x: R.left - 6, y: lane.top, width: R.W - R.left - R.right + 6, height: lane.h, rx: 12, fill: c }),
-      s("rect", { x: 0, y: lane.top + 6, width: 4, height: lane.h - 12, rx: 2, fill: c }),
-      s("text", { class: "lane-label", x: 12, y: mid - 2, text: lane.name.length > 22 ? lane.name.slice(0, 21) + "…" : lane.name }),
-      s("text", { class: "lane-n", x: 12, y: mid + 13, text: `${lane.papers.length} papers` }));
+    svg.append(s("line", { class: "branchline", x1: R.left, x2: R.W - R.right, y1: lane.top + lane.h + 3, y2: lane.top + lane.h + 3 }),
+      s("rect", { x: 0, y: lane.top + 4, width: 5, height: lane.h - 8, rx: 2.5, fill: c }));
+    const words = lane.name.split(" · "), nameY = words.length > 1 ? mid - 10 : mid - 2;
+    words.forEach((w, k) => svg.append(s("text", { class: "lane-label", x: 14, y: nameY + k * 16, text: w })));
+    svg.append(s("text", { class: "lane-n", x: 14, y: nameY + words.length * 16 + 1, text: `${lane.papers.length} papers` }));
     lane.cells.forEach((cell, i) => { if (!cell.more) return;
-      const x = R.left + R.colW * i + R.colW / 2, yy = lane.top + 5 + cell.shown.length * (CARD_H + CARD_GAP) + 9;
+      const x = R.left + R.colW * i + R.colW / 2, yy = lane.top + 4 + cell.shown.length * (CARD_H + CARD_GAP) + 11;
       svg.append(tip(s("text", { class: "more", x, y: yy, "text-anchor": "middle", tabindex: 0, text: `+${cell.more} paper${cell.more > 1 ? "s" : ""}`,
         onclick: () => go({ view: "tree", tour: null, sel: { type: "year", id: cell.year } }) }), `${cell.more} more ${lane.name} paper(s) in ${cell.year}\nclick to see every paper of ${cell.year}`)); });
   }
   const threads = [];
   for (const [id, at] of R.cards) for (const ref of paperById.get(id).refs) { const from = R.cards.get(ref.id); if (!from) continue;
-    const a = { x: from.x + CARD_W, y: from.y + CARD_H / 2 }, b = { x: at.x, y: at.y + CARD_H / 2 }, hot = lit && lit.has(id) && lit.has(ref.id) && (selPaper ? (id === selPaper.id || ref.id === selPaper.id) : true);
-    const d = a.x <= b.x ? edgePath(a, b) : `M${from.x + CARD_W / 2},${from.y + CARD_H} C${from.x + CARD_W / 2},${from.y + CARD_H + 26} ${at.x + CARD_W / 2},${at.y + CARD_H + 26} ${at.x + CARD_W / 2},${at.y + CARD_H}`;
+    const a = { x: from.x + R.cardW, y: from.y + CARD_H / 2 }, b = { x: at.x, y: at.y + CARD_H / 2 }, hot = lit && lit.has(id) && lit.has(ref.id) && (selPaper ? (id === selPaper.id || ref.id === selPaper.id) : true);
+    const d = a.x <= b.x ? edgePath(a, b) : `M${from.x + R.cardW / 2},${from.y + CARD_H} C${from.x + R.cardW / 2},${from.y + CARD_H + 30} ${at.x + R.cardW / 2},${at.y + CARD_H + 30} ${at.x + R.cardW / 2},${at.y + CARD_H}`;
     threads.push(s("path", { class: "thread" + (hot ? " hot" : lit ? " cold" : ""), d })); }
   svg.append(...threads);
   const ruler = s("text", { class: "cname", visibility: "hidden" }); svg.append(ruler);
   for (const [id, at] of R.cards) {
-    const p = paperById.get(id), c = at.lane.key === "__other" ? "var(--c0)" : laneColor.get(at.lane.key), on = isLit(id);
+    const p = paperById.get(id), c = at.lane.key === "__other" ? colorMap("A1_paradigm").get(p.ax.A1_paradigm) : laneColor.get(at.lane.key), on = isLit(id);
     const marksText = [STARS[p.inf.tier], p.nov.tier === "opened_line" ? "◆" : p.nov.tier === "early_entrant" ? "◇" : ""].filter(Boolean).join(" ");
+    const pick = () => go({ tour: null, sel: { type: "paper", id } });
     const g = s("g", { class: "pcard" + (on ? "" : " off") + (selPaper && selPaper.id === id ? " sel" : "") + (p.inf.tier === "top_10" ? " star" : ""), tabindex: 0, "data-card": id, style: `color:${c}`,
-      onclick: () => go({ tour: null, sel: { type: "paper", id } }), onkeydown: e => e.key === "Enter" && go({ tour: null, sel: { type: "paper", id } }) },
-      s("rect", { class: "cbox", x: at.x, y: at.y, width: CARD_W, height: CARD_H, rx: 6, stroke: c }), s("rect", { x: at.x, y: at.y + 4, width: 3.5, height: CARD_H - 8, rx: 1.5, fill: c }),
-      s("text", { class: "cname", x: at.x + 9, y: at.y + 12, text: fitText(ruler, shortName(p.t).replace(/…$/, ""), CARD_W - 14, scale) }),
-      s("text", { class: "cmeta", x: at.x + 9, y: at.y + 23, text: `${p.v} ’${String(p.y).slice(2)}` }),
-      s("text", { class: "cmark", x: at.x + CARD_W - 6, y: at.y + 23, "text-anchor": "end", text: marksText }));
+      onclick: pick, onkeydown: e => e.key === "Enter" && pick() },
+      s("rect", { class: "cbox", x: at.x, y: at.y, width: R.cardW, height: CARD_H, rx: 8, stroke: c }), s("rect", { x: at.x, y: at.y, width: 6, height: CARD_H, rx: 3, fill: c }),
+      s("text", { class: "cname", x: at.x + 13, y: at.y + 16, text: fitText(ruler, shortName(p.t).replace(/…$/, ""), R.cardW - 20, 1) }),
+      s("text", { class: "cmeta", x: at.x + 13, y: at.y + 31, text: `${p.v} ’${String(p.y).slice(2)}` }),
+      s("text", { class: "cmark", x: at.x + R.cardW - 8, y: at.y + 31, "text-anchor": "end", text: marksText }));
     svg.append(tip(g, () => [el("b", { class: "tt", text: p.t }), el("span", { class: "tm", text: `${p.v} ${p.y}${p.au ? " · " + p.au + " et al." : ""}` }),
       el("span", { class: "tm", text: `${pretty(p.ax.A1_paradigm)} · ${pretty(p.ax.A0_workload)}` }),
       el("span", { class: "tk", text: `${INFLUENCE_MARK[p.inf.tier]}${NOVELTY_MARK[p.nov.tier] ? "  ·  " + NOVELTY_MARK[p.nov.tier] : ""}` }),
       el("span", { class: "tm", text: `${p.fol.length} follower(s) in these venues · cited ${p.inf.cites} in total` })]));
   }
   ruler.remove();
-  const trackY = R.H - 26;
-  svg.append(s("text", { class: "lane-label", x: 12, y: trackY + 4, text: "Industry" }));
+  const trackY = R.H - 14;
+  svg.append(s("text", { class: "lane-label", x: 14, y: trackY, text: "Industry" }));
   YEARS.forEach((year, i) => { const here = D.industry.flatMap(line => line.generations.map((g, k) => ({ line, g, k }))).filter(x => x.g.year_announced === year);
-    here.forEach((x, k) => { const w = R.colW / Math.max(here.length, 1), cx = R.left + R.colW * i + w * (k + 0.5), label = x.line.vendor.split(/[ (]/)[0].slice(0, Math.max(3, Math.floor(w / 6.4)));
-      svg.append(tip(s("text", { class: "prodname" + (touring && step.year && step.year !== year ? " off" : ""), x: cx, y: trackY + 4, "text-anchor": "middle", tabindex: 0, text: label,
+    here.forEach((x, k) => { const w = R.colW / Math.max(here.length, 1), cx = R.left + R.colW * i + w * (k + 0.5), label = x.line.vendor.split(/[ (]/)[0].slice(0, Math.max(3, Math.floor(w / 7.6)));
+      svg.append(tip(s("text", { class: "prodname" + (touring && step.year && step.year !== year ? " off" : ""), x: cx, y: trackY, "text-anchor": "middle", tabindex: 0, text: label,
         onclick: () => go({ view: "products", tour: null, line: x.line.slug, gen: x.k }) }), `${x.line.vendor} — ${x.g.name}\nannounced ${year}\nclick to open`)); }); });
-  stage.append(el("div", { class: "legend" }, el("span", { text: "★ = citation rank inside its own venue and year (★★★ top 10%). ◆ = published in the first year of a combination that reached five papers or more; ◇ = the year after. A line between cards is a citation, not a claim that the idea was inherited. At most four landmarks are shown per branch and year. * partial year." })));
+  const legend = el("div", { class: "legend" });
+  R.lanes.filter(l => l.key !== "__other").forEach(l => legend.append(el("span", {}, el("i", { style: `background:${laneColor.get(l.key)}` }), l.name)));
+  stage.append(legend, el("div", { class: "legend" }, el("span", { text: `★ = citation rank inside its own venue and year (★★★ top 10%). ◆ = published in the first year of a combination that reached five papers or more; ◇ = the year after. A line between cards is a citation, not a claim that the idea was inherited. At most ${CARDS_PER_CELL} landmarks are shown per branch and year. * partial year.` })));
   if (touring) {
-    side.append(el("h2", { text: step.title }), ...step.lines.map(line => el("p", { class: "narr", text: line })),
-      el("div", { class: "tourbar" }, el("button", { class: "chip-btn", text: "◀ Back", disabled: state.tour === 0 ? "" : null, onclick: () => goStep(state.tour - 1) }),
-        el("button", { class: "chip-btn primary", text: "Next ▶", disabled: state.tour === steps.length - 1 ? "" : null, onclick: () => goStep(state.tour + 1) })));
     const focus = [...step.focus].map(id => paperById.get(id)).sort((a, b) => landmarkScore(b) - landmarkScore(a));
-    if (step.year || focus.length < R.cards.size) { side.append(el("h3", { text: `Landmarks in this step · ${focus.length}` })); focus.slice(0, 14).forEach(p => side.append(paperItem(p, ` · ${p.fol.length} followers`))); }
-  } else if (selPaper) sidePaper(side, selPaper, null);
+    side.append(el("h2", { text: step.year ? `Landmarks of ${step.year} · ${focus.length}` : `Landmarks in this step · ${focus.length}` }));
+    if (focus.length) focus.slice(0, 12).forEach(p => side.append(paperItem(p, ` · ${p.fol.length} followers`))); else side.append(el("p", { class: "empty", text: "None in this step." }));
+  } else if (selPaper) { side.append(el("button", { class: "chip-btn", id: "close-drawer", text: "✕ Close", onclick: () => go({ sel: null }) })); sidePaper(side, selPaper, null); }
   else {
     side.append(el("h2", { text: "A field in nine years" }), el("p", { class: "q", text: "Start the tour to walk from 2018 to 2026 one year at a time, or click any card to see what it grew from and what grew out of it." }),
       el("h3", { text: "Most followed landmarks" }));
@@ -709,6 +722,9 @@ function viewSources(stage, side) {
 
 // ---------- start ----------
 try { Object.assign(state, JSON.parse(decodeURIComponent(location.hash.slice(1)))); } catch (error) { /* no saved state */ }
+try { const saved = localStorage.getItem("phylogeny-theme"); if (saved === "light" || saved === "dark") document.documentElement.dataset.theme = saved; } catch (error) { /* storage may be blocked */ }
+let resizeTimer = null;      // drawings are laid out at the real width, so they are laid out again when it changes
+window.addEventListener("resize", () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(render, 150); });
 if (!VIEWS.some(([id]) => id === state.view)) state.view = "roadmap";
 header(); render();
 // names are placed by measured width, so place them again once the web fonts have replaced the fallback
@@ -728,7 +744,7 @@ if (location.search === "?probe") setTimeout(() => {
   for (let i = 0; i < cardBoxes.length; i++) for (let j = i + 1; j < cardBoxes.length; j++) {
     const p = cardBoxes[i], q = cardBoxes[j]; if (p.left < q.right - 1 && q.left < p.right - 1 && p.top < q.bottom - 1 && q.top < p.bottom - 1) cardOverlaps++; }
   const namesTooWide = cardNodes.filter((n, i) => n.querySelector(".cname").getBoundingClientRect().right > cardBoxes[i].right - 1).length;
-  const drawing = document.querySelector("svg.tree") ? document.querySelector("svg.tree").getBoundingClientRect() : null;
+  const drawing = document.querySelector("svg.tree, svg.roadmap") ? document.querySelector("svg.tree, svg.roadmap").getBoundingClientRect() : null;
   const cardsOutside = drawing ? cardBoxes.filter(b => b.left < drawing.left - 1 || b.right > drawing.right + 1 || b.bottom > drawing.bottom + 1).length : 0;
   const labelBoxes = [...document.querySelectorAll(".plabel")].map(n => n.getBoundingClientRect());
   const landmarks_total = D.papers.filter(isLandmark).length;
@@ -737,9 +753,9 @@ if (location.search === "?probe") setTimeout(() => {
   for (let i = 0; i < labelBoxes.length; i++) for (let j = i + 1; j < labelBoxes.length; j++) if (cross(labelBoxes[i], labelBoxes[j])) nameOverlaps++;
   const halos = [...document.querySelectorAll(".halo")].map(n => n.getBoundingClientRect());
   for (const lb of labelBoxes) for (const h of halos) { const cx = h.left + h.width / 2, cy = h.top + h.height / 2; if (cx > lb.left && cx < lb.right && cy > lb.top && cy < lb.bottom) namesOverLights++; }
-  const treeBox = document.querySelector("svg.tree") ? document.querySelector("svg.tree").getBoundingClientRect() : null;
+  const treeBox = document.querySelector("svg.tree, svg.roadmap") ? document.querySelector("svg.tree, svg.roadmap").getBoundingClientRect() : null;
   const namesOutside = treeBox ? labelBoxes.filter(b => b.left < treeBox.left - 1 || b.right > treeBox.right + 1).length : 0;
-  const svg = document.querySelector("svg.tree"), plotLeft = svg ? svg.getBoundingClientRect().left + svg.getBoundingClientRect().width * 206 / 1180 : 0;
+  const svg = document.querySelector("svg.tree, svg.roadmap"), plotLeft = svg ? svg.getBoundingClientRect().left + 210 : 0;
   const clipped = [...document.querySelectorAll(".card h4, .gen, .tname, nav button, .stat b")].filter(n => n.scrollWidth > n.clientWidth + 1).length;
   const report = {
     viewport: [window.innerWidth, window.innerHeight], page_scroll_width: document.documentElement.scrollWidth,
